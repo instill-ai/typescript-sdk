@@ -1,0 +1,71 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: google-github-actions/release-please-action@v3
+        id: release
+        with:
+          token: ${{ secrets.botGitHubToken }}
+          release-type: node
+          command: manifest
+          config-file: release-please/config.json
+          manifest-file: release-please/manifest.json
+
+      - name: Checkout
+        if: ${{ steps.release.outputs.releases_created }}
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js 16.x
+        if: ${{ steps.release.outputs.releases_created }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+
+      - uses: pnpm/action-setup@v2.0.1
+        if: ${{ steps.release.outputs.releases_created }}
+        name: Install pnpm
+        id: pnpm-install
+        with:
+          version: 8
+          run_install: false
+
+      - name: Get pnpm store directory
+        if: ${{ steps.release.outputs.releases_created }}
+        id: pnpm-cache
+        run: |
+          echo "::set-output name=pnpm_cache_dir::$(pnpm store path)"
+
+      - uses: actions/cache@v3
+        if: ${{ steps.release.outputs.releases_created }}
+        name: Setup pnpm cache
+        with:
+          path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Setup npmrc
+        if: ${{ steps.release.outputs.releases_created }}
+        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPMTOKEN }}" > .npmrc
+
+      - name: Install dependencies
+        if: ${{ steps.release.outputs.releases_created }}
+        run: rm -rf node_modules && pnpm i --frozen-lockfile
+
+      - name: Build packages
+        if: ${{ steps.release.outputs.releases_created }}
+        run: pnpm build
+
+      - name: Publish packages
+        if: ${{ steps.release.outputs.releases_created }}
+        run: pnpm -r publish --no-git-checks
