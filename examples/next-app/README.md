@@ -14,7 +14,7 @@ pnpm add @instill-ai/typescript-sdk
 
 ### config
 
-- make sure you have vdp up running, to run vdp check this [!repository][]
+- make sure you have vdp up running, to run vdp check this [vdp](https://github.com/instill-ai/vdp)
 - verify `.env`
 - see the changes done in `_document.tsx` and `next.env.mjs`
 

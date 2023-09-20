@@ -1,4 +1,18 @@
+### installation
+
+```
+npm i @instill-ai/typescript-sdk
+```
+```
+yarn add @instill-ai/typescript-sdk
+```
+```
+pnpm add @instill-ai/typescript-sdk
+```
+
 ## Usage Examples:
+
+
 
 Gives real-life examples showing how to utilise the SDK.
 
