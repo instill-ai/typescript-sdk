@@ -1,6 +1,6 @@
 {
   "name": "@instill-ai/typescript-sdk",
-  "version": "0.0.1",
+  "version": "1.0.3",
   "description": "Instill AI's Typescript SDK",
   "repository": "https://github.com/instill-ai/design-system.git",
   "bugs": "https://github.com/instill-ai/design-system/issues",
