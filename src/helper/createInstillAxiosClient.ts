@@ -18,6 +18,11 @@ export function createInstillAxiosClient(
       }
     : {};
 
+
+    console.log("process.env",process.env.API_GATEWAY_URL);
+    
+
+
   if (
     !process.env.NEXT_SERVER_API_GATEWAY_URL &&
     !env("NEXT_PUBLIC_API_GATEWAY_URL")
