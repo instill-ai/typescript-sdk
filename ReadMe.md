@@ -26,90 +26,90 @@ import { Pipeline, listPipelinesQuery } from "@instill-ai/typescript-sdk";
 
 ### Pipelines
 
-| function                                  | params                                                        | response                |
-| :-------------------                      | :---------------------------------------:                     | ----------------------: |
-| listPipelinesQuery                        | pageSize, nextPageToken, accessToken                          |                         |
-| listUserPipelinesQuery                    | pageSize, nextPageToken, accessToken, userName                |                         |
-| getUserPipelineQuery                      | pipelineName, accessToken                                     |                         |
-| ListUserPipelineReleasesQuery             | userName, pipelineName, pageSize, nextPageToken, accessToken  |                         |
-| getUserPipelineReleaseQuery               | pipelineReleaseName, accessToken                              |                         |
-| watchUserPipelineReleaseQuery             | pipelineReleaseName, accessToken                              |                         | 
-| createUserPipelineMutation                | userName, payload, accessToken                                |                         |
-| updateUserPipelineMutation                | payload, accessToken                                          |                         |
-| deleteUserPipelineMutation                | pipelineName, accessToken                                     |                         |
-| renameUserPipelineMutation                | payload, accessToken                                          |                         |
-| createUserPipelineReleaseMutation         | pipelineName, payload, accessToken                            |                         |
-| updateUserPipelineReleaseMutation         | pipelineReleaseName, payload, accessToken                     |                         |
-| deleteUserPipelineReleaseMutation         | pipelineReleaseName, accessToken                              |                         |
-| triggerUserPipelineAction                 | pipelineName, payload, accessToken, returnTraces              |                         |
-| triggerAsyncUserPipelineAction            | pipelineName, payload, accessToken, returnTraces              |                         |
-| setDefaultUserPipelineReleaseMutation     | pipelineReleaseName, accessToken                              |                         |
-| restoreUserPipelineReleaseMutation        | pipelineReleaseName, accessToken                              |                         |
-| triggerUserPipelineReleaseAction          | pipelineReleaseName, payload, accessToken, returnTraces       |                         |
-| triggerAsyncUserPipelineReleaseAction     | pipelineReleaseName, payload, accessToken, returnTraces       |                         |
+| function                                  | params                                                        | 
+| :-------------------                      | :---------------------------------------:                     | 
+| listPipelinesQuery                        | pageSize, nextPageToken, accessToken                          | 
+| listUserPipelinesQuery                    | pageSize, nextPageToken, accessToken, userName                | 
+| getUserPipelineQuery                      | pipelineName, accessToken                                     | 
+| ListUserPipelineReleasesQuery             | userName, pipelineName, pageSize, nextPageToken, accessToken  | 
+| getUserPipelineReleaseQuery               | pipelineReleaseName, accessToken                              | 
+| watchUserPipelineReleaseQuery             | pipelineReleaseName, accessToken                              |  
+| createUserPipelineMutation                | userName, payload, accessToken                                | 
+| updateUserPipelineMutation                | payload, accessToken                                          | 
+| deleteUserPipelineMutation                | pipelineName, accessToken                                     | 
+| renameUserPipelineMutation                | payload, accessToken                                          | 
+| createUserPipelineReleaseMutation         | pipelineName, payload, accessToken                            | 
+| updateUserPipelineReleaseMutation         | pipelineReleaseName, payload, accessToken                     | 
+| deleteUserPipelineReleaseMutation         | pipelineReleaseName, accessToken                              | 
+| triggerUserPipelineAction                 | pipelineName, payload, accessToken, returnTraces              | 
+| triggerAsyncUserPipelineAction            | pipelineName, payload, accessToken, returnTraces              | 
+| setDefaultUserPipelineReleaseMutation     | pipelineReleaseName, accessToken                              | 
+| restoreUserPipelineReleaseMutation        | pipelineReleaseName, accessToken                              | 
+| triggerUserPipelineReleaseAction          | pipelineReleaseName, payload, accessToken, returnTraces       | 
+| triggerAsyncUserPipelineReleaseAction     | pipelineReleaseName, payload, accessToken, returnTraces       | 
 
 ### Connector
 
-| function                                  | params                                                        | response                 |
-| :-------------------                      | :-----------------------------------------------------------: | -----------------:       |
-| listConnectorResourcesQuery               | userName, pageSize, nextPageToken, accessToken, filter        |                          |
-| listUserConnectorResourcesQuery           | pageSize, nextPageToken, accessToken, filter                  |                          |
-| listConnectorDefinitionsQuery             | connectorDefinitionName, accessToken                          |                          |
-| getConnectorDefinitionQuery               | connectorDefinitionName, accessToken                          |                          |
-| getUserConnectorResourceQuery             | connectorDefinitionName, accessToken                          |                          |
-| watchUserConnectorResource                | userName, payload, accessToken                                |                          |
-| createUserConnectorResourceMutation       | connectorDefinitionName, accessToken                          |                          |
-| deleteUserConnectorResourceMutation       | payload, accessToken                                          |                          |
-| updateUserConnectorResourceMutation       | payload, accessToken                                          |                          |
-| renameUserConnectorResource               | payload, accessToken                                          |                          |
-| testUserConnectorResourceConnectionAction | connectorDefinitionName, accessToken                          |                          |
-| connectUserConnectorResourceAction        | connectorDefinitionName, accessToken                          |                          |
-| disconnectUserConnectorResourceAction     | connectorDefinitionName, accessToken                          |                          |
+| function                                  | params                                                        | 
+| :-------------------                      | :-----------------------------------------------------------: | 
+| listConnectorResourcesQuery               | userName, pageSize, nextPageToken, accessToken, filter        | 
+| listUserConnectorResourcesQuery           | pageSize, nextPageToken, accessToken, filter                  | 
+| listConnectorDefinitionsQuery             | connectorDefinitionName, accessToken                          | 
+| getConnectorDefinitionQuery               | connectorDefinitionName, accessToken                          | 
+| getUserConnectorResourceQuery             | connectorDefinitionName, accessToken                          | 
+| watchUserConnectorResource                | userName, payload, accessToken                                | 
+| createUserConnectorResourceMutation       | connectorDefinitionName, accessToken                          | 
+| deleteUserConnectorResourceMutation       | payload, accessToken                                          | 
+| updateUserConnectorResourceMutation       | payload, accessToken                                          | 
+| renameUserConnectorResource               | payload, accessToken                                          | 
+| testUserConnectorResourceConnectionAction | connectorDefinitionName, accessToken                          | 
+| connectUserConnectorResourceAction        | connectorDefinitionName, accessToken                          | 
+| disconnectUserConnectorResourceAction     | connectorDefinitionName, accessToken                          | 
 
 ### Metric
 
-| function                                  | params                                                        | response                 |
-| :-------------------                      | :------------------:                                          | -----------------:       |
-| listPipelineTriggerRecordsQuery           | pageSize, nextPageToken, accessToken, filter                  |                          |
-| listTriggeredPipelineQuery                | pageSize, nextPageToken, accessToken, filter                  |                          |
-| listTriggeredPipelineChartQuery           | pageSize, nextPageToken, accessToken, filter                  |                          |
+| function                                  | params                                                        | 
+| :-------------------                      | :------------------:                                          | 
+| listPipelineTriggerRecordsQuery           | pageSize, nextPageToken, accessToken, filter                  | 
+| listTriggeredPipelineQuery                | pageSize, nextPageToken, accessToken, filter                  | 
+| listTriggeredPipelineChartQuery           | pageSize, nextPageToken, accessToken, filter                  | 
 
 modelDefinitionName, accessToken,
 ### Model
 
-| function                                  | params                                                        | response                 |
-| :-------------------                      | :------------------:                                          | -----------------:       |
-| getModelDefinitionQuery                   | modelDefinitionName, accessToken                              |                          |
-| listModelDefinitionsQuery                 | pageSize, nextPageToken, accessToken                          |                          |
-| getUserModelQuery                         | modelName, accessToken                                        |                          |
-| listModelsQuery                           | pageSize, nextPageToken, accessToken                          |                          |
-| listUserModelsQuery                       | userName, pageSize, nextPageToken, accessToken                |                          |
-| getUserModelReadmeQuery                   | modelName, accessToken                                        |                          |
-| watchUserModel                            | modelName, accessToken                                        |                          |
-| createUserModelMutation                   | userName, payload, accessToken                                |                          |
-| updateModelMutation                       | payload, accessToken                                          |                          |
-| deleteUserModelMutation                   | modelName, accessToken                                        |                          |
-| deployUserModelAction                     | modelName, accessToken                                        |                          |
-| undeployUserModeleAction                  | modelName, accessToken                                        |                          |
+| function                                  | params                                                        | 
+| :-------------------                      | :------------------:                                          | 
+| getModelDefinitionQuery                   | modelDefinitionName, accessToken                              | 
+| listModelDefinitionsQuery                 | pageSize, nextPageToken, accessToken                          | 
+| getUserModelQuery                         | modelName, accessToken                                        | 
+| listModelsQuery                           | pageSize, nextPageToken, accessToken                          | 
+| listUserModelsQuery                       | userName, pageSize, nextPageToken, accessToken                | 
+| getUserModelReadmeQuery                   | modelName, accessToken                                        | 
+| watchUserModel                            | modelName, accessToken                                        | 
+| createUserModelMutation                   | userName, payload, accessToken                                | 
+| updateModelMutation                       | payload, accessToken                                          | 
+| deleteUserModelMutation                   | modelName, accessToken                                        | 
+| deployUserModelAction                     | modelName, accessToken                                        | 
+| undeployUserModeleAction                  | modelName, accessToken                                        | 
 
 ### Operation
 
-| function                                  | params                                                        | response                 |
-| :-------------------                      | :-----------------------------------------------------------: | -----------------:       |
-| getOperationQuery                         | operationName, accessToken                                    |                          |
-| checkUntilOperationIsDoen                 | operationName, accessToken                                    |                          |
+| function                                  | params                                                        | 
+| :-------------------                      | :-----------------------------------------------------------: | 
+| getOperationQuery                         | operationName, accessToken                                    | 
+| checkUntilOperationIsDoen                 | operationName, accessToken                                    | 
 
 ### Mgmt
 
-| function                                  | params                                                        | response                 |
-| :-------------------                      | :------------------:                                          | -----------------:       |
-| getUserQuery                              | accessToken                                                   |                          |
-| checkUserIdExist                          | id, accessToken                                               |                          |
-| getApiTokenQuery                          | tokenName, accessToken                                        |                          |
-| listApiTokensQuery                        | pageSize, nextPageToken, accessToken                          |                          |
-| updateUserMutation                        | payload, accessToken                                          |                          |
-| createApiTokenMutation                    | payload, accessToken                                          |                          |
-| deleteApiTokenMutation                    | tokenName, accessToken                                        |                          |
+| function                                  | params                                                        | 
+| :-------------------                      | :------------------:                                          | 
+| getUserQuery                              | accessToken                                                   | 
+| checkUserIdExist                          | id, accessToken                                               | 
+| getApiTokenQuery                          | tokenName, accessToken                                        | 
+| listApiTokensQuery                        | pageSize, nextPageToken, accessToken                          | 
+| updateUserMutation                        | payload, accessToken                                          | 
+| createApiTokenMutation                    | payload, accessToken                                          | 
+| deleteApiTokenMutation                    | tokenName, accessToken                                        | 
 
 ## Error Handling:
 
@@ -129,6 +129,11 @@ Please refer to the [Contributing Guidelines](./.github/CONTRIBUTING.md) for mor
 
 ## Release Notes:
 [Release](./CHANGELOG.md)
+
+## Genrate proto-ts
+
+- run `./generate_proto.sh`
+- it will genrate protobuf into `dist/protogen-ts`
 
 ## Support:
 
