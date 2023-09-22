@@ -123,9 +123,9 @@ Explains common errors and ways to resolve them.
 
 Guidance on how to incorporate the SDK into other applications.
 
-## Guidelines:
+## Contribution Guidelines:
 
-Recommendations for best practices while using the SDK.
+Please refer to the [Contributing Guidelines](./.github/CONTRIBUTING.md) for more details.
 
 ## Release Notes:
 [Release](./CHANGELOG.md)
