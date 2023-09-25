@@ -3,6 +3,11 @@
   "compilerOptions": {
     "outDir": "dist"
   },
-  "include": ["**/*.ts", "**/*.tsx", "examples/node-app/main.js"],
-  "exclude": ["./setupTests.ts", "vitest.config.ts", "tsup.config.ts"]
+  "include": ["**/*.ts", "**/*.tsx", "**/*.d.ts"],
+  "exclude": [
+    "./setupTests.ts",
+    "vitest.config.ts",
+    "tsup.config.ts",
+    "examples"
+  ]
 }

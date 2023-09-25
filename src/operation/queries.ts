@@ -1,5 +1,5 @@
 import { Operation } from "./types";
-import { createInstillAxiosClient } from "../helper";
+import { createClient } from "../helper";
 import { Nullable } from "../types";
 
 export type GetModelOperationResponse = {
@@ -14,7 +14,7 @@ export async function getOperationQuery({
   accessToken: Nullable<string>;
 }) {
   try {
-    const client = createInstillAxiosClient(accessToken, "model");
+    const client = createClient(accessToken, "model");
 
     const { data } = await client.get<GetModelOperationResponse>(
       `/${operationName}`

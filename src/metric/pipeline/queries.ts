@@ -1,5 +1,5 @@
 import { Nullable } from "../../types";
-import { createInstillAxiosClient, getQueryString } from "../../helper";
+import { createClient, getQueryString } from "../../helper";
 import {
   PipelineTriggerRecord,
   PipelinesChart,
@@ -34,7 +34,7 @@ export async function listPipelineTriggerRecordsQuery({
   filter: Nullable<string>;
 }) {
   try {
-    const client = createInstillAxiosClient(accessToken, "base");
+    const client = createClient(accessToken, "base");
     const triggers: PipelineTriggerRecord[] = [];
 
     const queryString = getQueryString({
@@ -78,7 +78,7 @@ export async function listTriggeredPipelineQuery({
   filter: Nullable<string>;
 }) {
   try {
-    const client = createInstillAxiosClient(accessToken, "base");
+    const client = createClient(accessToken, "base");
     const pipelines: TriggeredPipeline[] = [];
 
     const queryString = getQueryString({
@@ -122,7 +122,7 @@ export async function listTriggeredPipelineChartQuery({
   filter: Nullable<string>;
 }) {
   try {
-    const client = createInstillAxiosClient(accessToken, "base");
+    const client = createClient(accessToken, "base");
     const pipelinesChart: PipelinesChart[] = [];
 
     const queryString = getQueryString({

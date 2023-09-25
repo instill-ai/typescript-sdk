@@ -1,5 +1,5 @@
 import { Nullable } from "../types";
-import { createInstillAxiosClient } from "../helper";
+import { createClient } from "../helper";
 import { ApiToken, User } from "./types";
 
 export type UpdateUserResponse = {
@@ -14,7 +14,7 @@ export async function updateUserMutation({
   accessToken: Nullable<string>;
 }) {
   try {
-    const client = createInstillAxiosClient(accessToken, "base");
+    const client = createClient(accessToken, "base");
 
     const { data } = await client.patch<UpdateUserResponse>(
       "/users/me",
@@ -44,7 +44,7 @@ export async function createApiTokenMutation({
   accessToken: Nullable<string>;
 }) {
   try {
-    const client = createInstillAxiosClient(accessToken, "base");
+    const client = createClient(accessToken, "base");
 
     const { data } = await client.post<CreateApiTokenResponse>(
       "/tokens",
@@ -65,9 +65,34 @@ export async function deleteApiTokenMutation({
   accessToken: Nullable<string>;
 }) {
   try {
-    const client = createInstillAxiosClient(accessToken, "base");
+    const client = createClient(accessToken, "base");
 
     await client.delete(`/${tokenName}`);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+}
+
+/* -------------------------------------------------------------------------
+ * Auth
+ * -----------------------------------------------------------------------*/
+
+export type ChangePasswordPayload = {
+  old_password: string;
+  new_password: string;
+};
+
+export async function changePasswordMutation({
+  payload,
+  accessToken,
+}: {
+  payload: ChangePasswordPayload;
+  accessToken: Nullable<string>;
+}) {
+  try {
+    const client = createClient(accessToken, "base");
+
+    await client.post("/auth/change_password", payload);
   } catch (err) {
     return Promise.reject(err);
   }

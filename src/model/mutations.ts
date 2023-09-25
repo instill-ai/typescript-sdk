@@ -1,5 +1,5 @@
 import { Nullable } from "../types";
-import { createInstillAxiosClient } from "../helper";
+import { createClient } from "../helper";
 import { Operation } from "../operation";
 import { Model } from "./types";
 
@@ -73,7 +73,7 @@ export async function createUserModelMutation({
   payload: CreateUserModelPayload;
   accessToken: Nullable<string>;
 }) {
-  const client = createInstillAxiosClient(accessToken, "model");
+  const client = createClient(accessToken, "model");
   if (payload.type === "Local") {
     try {
       const formData = new FormData();
@@ -166,7 +166,7 @@ export async function updateModelMutation({
   accessToken: Nullable<string>;
 }) {
   try {
-    const client = createInstillAxiosClient(accessToken, "model");
+    const client = createClient(accessToken, "model");
 
     const { data } = await client.patch<UpdateUserModelResponse>(
       `/${payload.name}`,
@@ -186,7 +186,7 @@ export async function deleteUserModelMutation({
   accessToken: Nullable<string>;
 }) {
   try {
-    const client = createInstillAxiosClient(accessToken, "model");
+    const client = createClient(accessToken, "model");
 
     await client.delete(`/${modelName}`);
   } catch (err) {

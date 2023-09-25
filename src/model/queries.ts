@@ -1,4 +1,4 @@
-import { createInstillAxiosClient, getQueryString } from "../helper";
+import { createClient, getQueryString } from "../helper";
 import type {
   Model,
   ModelReadme,
@@ -23,7 +23,7 @@ export async function getModelDefinitionQuery({
   accessToken: Nullable<string>;
 }) {
   try {
-    const client = createInstillAxiosClient(accessToken, "model");
+    const client = createClient(accessToken, "model");
 
     const { data } = await client.get<GetModelDefinitionResponse>(
       `/${modelDefinitionName}`
@@ -51,7 +51,7 @@ export async function listModelDefinitionsQuery({
   accessToken: Nullable<string>;
 }) {
   try {
-    const client = createInstillAxiosClient(accessToken, "model");
+    const client = createClient(accessToken, "model");
 
     const modelDefinitions: ModelDefinition[] = [];
 
@@ -99,7 +99,7 @@ export async function getUserModelQuery({
   accessToken: Nullable<string>;
 }) {
   try {
-    const client = createInstillAxiosClient(accessToken, "model");
+    const client = createClient(accessToken, "model");
 
     const { data } = await client.get<GetUserModelResponse>(
       `/${modelName}?view=VIEW_FULL`
@@ -126,7 +126,7 @@ export async function listModelsQuery({
   accessToken: Nullable<string>;
 }) {
   try {
-    const client = createInstillAxiosClient(accessToken, "model");
+    const client = createClient(accessToken, "model");
 
     const models: Model[] = [];
 
@@ -175,7 +175,7 @@ export async function listUserModelsQuery({
   accessToken: Nullable<string>;
 }) {
   try {
-    const client = createInstillAxiosClient(accessToken, "model");
+    const client = createClient(accessToken, "model");
 
     const models: Model[] = [];
 
@@ -219,7 +219,7 @@ export async function getUserModelReadmeQuery({
   accessToken: Nullable<string>;
 }) {
   try {
-    const client = createInstillAxiosClient(accessToken, "model");
+    const client = createClient(accessToken, "model");
 
     const { data } = await client.get<GetUserModelReadmeQueryResponse>(
       `/${modelName}/readme`
@@ -242,7 +242,7 @@ export async function watchUserModel({
   accessToken: Nullable<string>;
 }) {
   try {
-    const client = createInstillAxiosClient(accessToken, "model");
+    const client = createClient(accessToken, "model");
     const { data } = await client.get<ModelWatchState>(`/${modelName}/watch`);
     return Promise.resolve(data);
   } catch (err) {

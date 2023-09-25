@@ -1,6 +1,6 @@
 import { AirbyteFieldValues } from "@instill-ai/toolkit";
 import { Nullable } from "../types";
-import { createInstillAxiosClient } from "../helper";
+import { createClient } from "../helper";
 import { ConnectorResource } from "./types";
 
 export type CreateUserConnectorResourcePayload = {
@@ -24,7 +24,7 @@ export async function createUserConnectorResourceMutation({
   accessToken: Nullable<string>;
 }) {
   try {
-    const client = createInstillAxiosClient(accessToken, "vdp");
+    const client = createClient(accessToken, "vdp");
 
     const res = await client.post<CreateUserConnectorResourceResponse>(
       `${userName}/connector-resources`,
@@ -44,7 +44,7 @@ export async function deleteUserConnectorResourceMutation({
   accessToken: Nullable<string>;
 }) {
   try {
-    const client = createInstillAxiosClient(accessToken, "vdp");
+    const client = createClient(accessToken, "vdp");
 
     await client.delete(`/${connectorResourceName}`);
   } catch (err) {
@@ -71,7 +71,7 @@ export async function updateUserConnectorResourceMutation({
   accessToken: Nullable<string>;
 }) {
   try {
-    const client = createInstillAxiosClient(accessToken, "vdp");
+    const client = createClient(accessToken, "vdp");
 
     const res = await client.patch<UpdateUserConnectorResourceResponse>(
       `/${payload.connectorResourceName}`,
@@ -103,7 +103,7 @@ export async function renameUserConnectorResource({
   accessToken: Nullable<string>;
 }) {
   try {
-    const client = createInstillAxiosClient(accessToken, "vdp");
+    const client = createClient(accessToken, "vdp");
 
     const { data } = await client.post<RenameUserConnectorResourceResponse>(
       `/${payload.name}/rename`,

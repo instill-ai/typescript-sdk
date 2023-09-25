@@ -1,4 +1,4 @@
-import { createInstillAxiosClient } from "../helper";
+import { createClient } from "../helper";
 import { Nullable } from "../types";
 
 export type DeployUserModelResponse = {
@@ -13,7 +13,7 @@ export async function deployUserModelAction({
   accessToken: Nullable<string>;
 }) {
   try {
-    const client = createInstillAxiosClient(accessToken, "model");
+    const client = createClient(accessToken, "model");
 
     const { data } = await client.post<DeployUserModelResponse>(
       `/${modelName}/deploy`
@@ -36,7 +36,7 @@ export async function undeployUserModeleAction({
   accessToken: Nullable<string>;
 }) {
   try {
-    const client = createInstillAxiosClient(accessToken, "model");
+    const client = createClient(accessToken, "model");
 
     const { data } = await client.post<UndeployUserModelResponse>(
       `/${modelName}/undeploy`

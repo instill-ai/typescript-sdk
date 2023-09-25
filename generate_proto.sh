@@ -12,6 +12,7 @@ cp ../buf.gen.yaml ./
 
 buf generate --template buf.gen.yaml
 
+cd ..
 rm -rf protobufs
 
 echo "TypeScript code generation completed!"

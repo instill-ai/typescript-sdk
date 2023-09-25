@@ -1,5 +1,5 @@
 import { Nullable } from "../types";
-import { createInstillAxiosClient } from "../helper";
+import { createClient } from "../helper";
 import { ConnectorResource, ConnectorResourceState } from "./types";
 
 export type TestUserConnectorResourceConnectionResponse = {
@@ -14,7 +14,7 @@ export async function testUserConnectorResourceConnectionAction({
   accessToken: Nullable<string>;
 }) {
   try {
-    const client = createInstillAxiosClient(accessToken, "vdp");
+    const client = createClient(accessToken, "vdp");
     const { data } =
       await client.post<TestUserConnectorResourceConnectionResponse>(
         `/${connectorResourceName}/testConnection`
@@ -37,7 +37,7 @@ export async function connectUserConnectorResourceAction({
   accessToken: Nullable<string>;
 }) {
   try {
-    const client = createInstillAxiosClient(accessToken, "vdp");
+    const client = createClient(accessToken, "vdp");
     const { data } = await client.post<ConnectUserConnectorResourceResponse>(
       `/${connectorResourceName}/connect`
     );
@@ -59,7 +59,7 @@ export async function disconnectUserConnectorResourceAction({
   accessToken: Nullable<string>;
 }) {
   try {
-    const client = createInstillAxiosClient(accessToken, "vdp");
+    const client = createClient(accessToken, "vdp");
     const { data } = await client.post<DisconnectUserConnectorResourceResponse>(
       `/${connectorResourceName}/disconnect`
     );
