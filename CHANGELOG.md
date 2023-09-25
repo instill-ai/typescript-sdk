@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.4](https://github.com/instill-ai/typescript-sdk/compare/@instill-ai/typescript-sdk-v0.0.3...@instill-ai/typescript-sdk-v0.0.4) (2023-09-25)
+
+
+### Miscellaneous
+
+* add .npmignore ([#8](https://github.com/instill-ai/typescript-sdk/issues/8)) ([f015420](https://github.com/instill-ai/typescript-sdk/commit/f015420ad4b824e039107224d42db7a7baa82fa8))
+
 ## [0.0.3](https://github.com/instill-ai/typescript-sdk/compare/@instill-ai/typescript-sdk-v0.0.2...@instill-ai/typescript-sdk-v0.0.3) (2023-09-25)
 
 
