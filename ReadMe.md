@@ -21,6 +21,28 @@ import { Pipeline, listPipelinesQuery } from "@instill-ai/typescript-sdk";
 
 ```
 
+### config
+
+- `.env`
+```
+API_VERSION=v1alpha
+INSTILL_AI_USER_COOKIE_NAME=instill-ai-user
+APP_EDITION=local-ce:dev
+API_GATEWAY_URL=http://localhost:8080
+SELF_SIGNED_CERTIFICATION=false
+DISABLE_CREATE_UPDATE_DELETE_RESOURCE=false
+LIST_PAGE_SIZE=6
+USAGE_COLLECTION_ENABLED=true
+SET_SECURE_COOKIE=false
+AMPLITUDE_KEY=9823fa6e3ff904bec67a8fc90db82fb9
+APP_BASE_URL=http://localhost:3000
+MGMT_BACKEND_BASE_URL=http://localhost:8084
+PIPELINE_BACKEND_BASE_URL=http://localhost:8081
+CONNECTOR_BACKEND_BASE_URL=http://localhost:8082
+MODEL_BACKEND_BASE_URL=http://localhost:8083
+```
+
+
 
 ## API Reference
 
