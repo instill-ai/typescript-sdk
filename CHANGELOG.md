@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.5](https://github.com/instill-ai/typescript-sdk/compare/@instill-ai/typescript-sdk-v0.0.4...@instill-ai/typescript-sdk-v0.0.5) (2023-09-25)
+
+
+### Miscellaneous
+
+* publish config changes ([#10](https://github.com/instill-ai/typescript-sdk/issues/10)) ([e112705](https://github.com/instill-ai/typescript-sdk/commit/e112705aef6a768460e3b4dfe710ccbb7ef7db1d))
+
 ## [0.0.4](https://github.com/instill-ai/typescript-sdk/compare/@instill-ai/typescript-sdk-v0.0.3...@instill-ai/typescript-sdk-v0.0.4) (2023-09-25)
 
 
