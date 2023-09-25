@@ -39,7 +39,3 @@ yarn-error.log*
 # Deployment platforms
 
 .vercel
-
-# Storybook
-storybook-static
-packages/design-system/public/tailwind.css
