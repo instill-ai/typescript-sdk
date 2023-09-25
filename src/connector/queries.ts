@@ -1,5 +1,5 @@
 import { Nullable } from "../types";
-import { createInstillAxiosClient, getQueryString } from "../helper";
+import { createClient, getQueryString } from "../helper";
 import {
   ConnectorDefinition,
   ConnectorResourceWatchState,
@@ -24,7 +24,7 @@ export async function listConnectorResourcesQuery({
   filter: Nullable<string>;
 }) {
   try {
-    const client = createInstillAxiosClient(accessToken, "vdp");
+    const client = createClient(accessToken, "vdp");
     const connectors: ConnectorResourceWithDefinition[] = [];
 
     const queryString = getQueryString({
@@ -76,7 +76,7 @@ export async function listUserConnectorResourcesQuery({
   filter: Nullable<string>;
 }) {
   try {
-    const client = createInstillAxiosClient(accessToken, "vdp");
+    const client = createClient(accessToken, "vdp");
     const connectors: ConnectorResourceWithDefinition[] = [];
 
     const queryString = getQueryString({
@@ -127,7 +127,7 @@ export async function listConnectorDefinitionsQuery({
   filter: Nullable<string>;
 }) {
   try {
-    const client = createInstillAxiosClient(accessToken, "vdp");
+    const client = createClient(accessToken, "vdp");
     const connectorDefinitions: ConnectorDefinition[] = [];
 
     const queryString = getQueryString({
@@ -171,7 +171,7 @@ export async function getConnectorDefinitionQuery({
   accessToken: Nullable<string>;
 }) {
   try {
-    const client = createInstillAxiosClient(accessToken, "vdp");
+    const client = createClient(accessToken, "vdp");
 
     const { data } = await client.get<GetConnectorDefinitionResponse>(
       `/${connectorDefinitionName}?view=VIEW_FULL`
@@ -195,7 +195,7 @@ export async function getUserConnectorResourceQuery({
   accessToken: Nullable<string>;
 }) {
   try {
-    const client = createInstillAxiosClient(accessToken, "vdp");
+    const client = createClient(accessToken, "vdp");
 
     const { data } = await client.get<GetUserConnectorResourceResponse>(
       `/${connectorResourceName}?view=VIEW_FULL`
@@ -215,7 +215,7 @@ export async function watchUserConnectorResource({
   accessToken: Nullable<string>;
 }) {
   try {
-    const client = createInstillAxiosClient(accessToken, "vdp");
+    const client = createClient(accessToken, "vdp");
     const { data } = await client.get<ConnectorResourceWatchState>(
       `/${connectorResourceName}/watch`
     );

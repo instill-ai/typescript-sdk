@@ -1,5 +1,5 @@
 import { Nullable } from "../types";
-import { createInstillAxiosClient } from "../helper";
+import { createClient } from "../helper";
 
 export async function authLogoutAction({
   accessToken,
@@ -7,7 +7,7 @@ export async function authLogoutAction({
   accessToken: Nullable<string>;
 }) {
   try {
-    const client = createInstillAxiosClient(accessToken, "base");
+    const client = createClient(accessToken, "base");
 
     await client.post("/auth/logout");
   } catch (err) {
@@ -30,7 +30,7 @@ export async function authLoginAction({
   payload: AuthLoginActionPayload;
 }) {
   try {
-    const client = createInstillAxiosClient(null, "base");
+    const client = createClient(null, "base");
 
     const { data } = await client.post<AuthLoginActionResponse>(
       "/auth/login",
@@ -49,7 +49,7 @@ export async function authValidateTokenAction({
   accessToken: Nullable<string>;
 }) {
   try {
-    const client = createInstillAxiosClient(accessToken, "base");
+    const client = createClient(accessToken, "base");
     await client.post("/auth/validate_access_token");
   } catch (err) {
     return Promise.reject(err);

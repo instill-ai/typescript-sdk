@@ -1,5 +1,5 @@
 import { Nullable } from "../types";
-import { createInstillAxiosClient, getQueryString } from "../helper";
+import { createClient, getQueryString } from "../helper";
 import { Pipeline, PipelineRelease, PipelineReleaseWatchState } from "./types";
 
 export type ListPipelinesResponse = {
@@ -18,7 +18,7 @@ export async function listPipelinesQuery({
   accessToken: Nullable<string>;
 }) {
   try {
-    const client = createInstillAxiosClient(accessToken, "vdp");
+    const client = createClient(accessToken, "vdp");
     const pipelines: Pipeline[] = [];
 
     const queryString = getQueryString({
@@ -66,7 +66,7 @@ export async function listUserPipelinesQuery({
   accessToken: Nullable<string>;
 }) {
   try {
-    const client = createInstillAxiosClient(accessToken, "vdp");
+    const client = createClient(accessToken, "vdp");
     const pipelines: Pipeline[] = [];
 
     const queryString = getQueryString({
@@ -109,7 +109,7 @@ export async function getUserPipelineQuery({
   accessToken: Nullable<string>;
 }) {
   try {
-    const client = createInstillAxiosClient(accessToken, "vdp");
+    const client = createClient(accessToken, "vdp");
 
     const { data } = await client.get<GetUserPipelineResponse>(
       `/${pipelineName}?view=VIEW_FULL`
@@ -143,7 +143,7 @@ export async function ListUserPipelineReleasesQuery({
   accessToken: Nullable<string>;
 }) {
   try {
-    const client = createInstillAxiosClient(accessToken, "vdp");
+    const client = createClient(accessToken, "vdp");
     const releases: PipelineRelease[] = [];
 
     const queryString = getQueryString({
@@ -187,7 +187,7 @@ export async function getUserPipelineReleaseQuery({
   accessToken: Nullable<string>;
 }) {
   try {
-    const client = createInstillAxiosClient(accessToken, "vdp");
+    const client = createClient(accessToken, "vdp");
 
     const { data } = await client.get<GetUserPipelineReleaseResponse>(
       `/${pipelineReleaseName}?view=VIEW_FULL`
@@ -211,7 +211,7 @@ export async function watchUserPipelineReleaseQuery({
   accessToken: Nullable<string>;
 }) {
   try {
-    const client = createInstillAxiosClient(accessToken, "vdp");
+    const client = createClient(accessToken, "vdp");
     const { data } = await client.get<WatchUserPipelineReleaseResponse>(
       `/${pipelineReleaseName}/watch`
     );

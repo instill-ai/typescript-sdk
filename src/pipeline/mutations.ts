@@ -1,5 +1,5 @@
 import { Nullable } from "../types";
-import { createInstillAxiosClient } from "../helper";
+import { createClient } from "../helper";
 import { Pipeline, RawPipelineRecipe, PipelineRelease } from "./types";
 
 export type CreateUserPipelinePayload = {
@@ -22,7 +22,7 @@ export async function createUserPipelineMutation({
   accessToken: Nullable<string>;
 }) {
   try {
-    const client = createInstillAxiosClient(accessToken, "vdp");
+    const client = createClient(accessToken, "vdp");
 
     const { data } = await client.post<CreatePipelineResponse>(
       `${userName}/pipelines`,
@@ -52,7 +52,7 @@ export async function updateUserPipelineMutation({
   accessToken: Nullable<string>;
 }) {
   try {
-    const client = createInstillAxiosClient(accessToken, "vdp");
+    const client = createClient(accessToken, "vdp");
 
     const { data } = await client.patch<UpdateUserPipelineResponse>(
       `/${payload.name}`,
@@ -72,7 +72,7 @@ export async function deleteUserPipelineMutation({
   accessToken: Nullable<string>;
 }) {
   try {
-    const client = createInstillAxiosClient(accessToken, "vdp");
+    const client = createClient(accessToken, "vdp");
 
     await client.delete(`/${pipelineName}`);
   } catch (err) {
@@ -97,7 +97,7 @@ export async function renameUserPipelineMutation({
   accessToken: Nullable<string>;
 }) {
   try {
-    const client = createInstillAxiosClient(accessToken, "vdp");
+    const client = createClient(accessToken, "vdp");
 
     const { data } = await client.post<RenameUserPipelineResponse>(
       `/${payload.name}/rename`,
@@ -134,7 +134,7 @@ export async function createUserPipelineReleaseMutation({
   accessToken: Nullable<string>;
 }) {
   try {
-    const client = createInstillAxiosClient(accessToken, "vdp");
+    const client = createClient(accessToken, "vdp");
 
     const { data } = await client.post<CreateUserPipelineReleaseResponse>(
       `${pipelineName}/releases`,
@@ -166,7 +166,7 @@ export async function updateUserPipelineReleaseMutation({
   accessToken: Nullable<string>;
 }) {
   try {
-    const client = createInstillAxiosClient(accessToken, "vdp");
+    const client = createClient(accessToken, "vdp");
 
     const { data } = await client.patch<UpdateUserPipelineReleaseResponse>(
       `/${pipelineReleaseName}`,
@@ -186,7 +186,7 @@ export async function deleteUserPipelineReleaseMutation({
   accessToken: Nullable<string>;
 }) {
   try {
-    const client = createInstillAxiosClient(accessToken, "vdp");
+    const client = createClient(accessToken, "vdp");
 
     await client.delete(`/${pipelineReleaseName}`);
   } catch (err) {

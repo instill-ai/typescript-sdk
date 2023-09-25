@@ -2,7 +2,7 @@ import axios from "axios";
 import { env } from "./config";
 import { Nullable } from "../types";
 
-export function createInstillAxiosClient(
+export function createClient(
   accessToken: Nullable<string>,
   product: "base" | "model" | "vdp"
 ) {
@@ -18,24 +18,19 @@ export function createInstillAxiosClient(
       }
     : {};
 
-
-    console.log("process.env",process.env.API_GATEWAY_URL);
-    
-
-
   if (
-    !process.env.NEXT_SERVER_API_GATEWAY_URL &&
-    !env("NEXT_PUBLIC_API_GATEWAY_URL")
+    !process.env.API_GATEWAY_URL &&
+    !env("API_GATEWAY_URL")
   ) {
     throw new Error(
-      "NEXT_SERVER_API_GATEWAY_URL or NEXT_PUBLIC_API_GATEWAY_URL is not defined"
+      "API_GATEWAY_URL or API_GATEWAY_URL is not defined"
     );
   }
 
   let baseURL: Nullable<string> = `${
-    process.env.NEXT_SERVER_API_GATEWAY_URL ??
-    env("NEXT_PUBLIC_API_GATEWAY_URL")
-  }/${product}/${env("NEXT_PUBLIC_API_VERSION")}`;
+    process.env.API_GATEWAY_URL ??
+    env("API_GATEWAY_URL")
+  }/${product}/${env("API_VERSION")}`;
 
   return axios.create({
     baseURL,

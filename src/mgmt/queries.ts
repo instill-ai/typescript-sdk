@@ -1,5 +1,5 @@
 import { Nullable } from "../types";
-import { createInstillAxiosClient, getQueryString } from "../helper";
+import { createClient, getQueryString } from "../helper";
 import { ApiToken, User } from "./types";
 
 export type GetUserResponse = {
@@ -12,7 +12,7 @@ export async function getUserQuery({
   accessToken: Nullable<string>;
 }) {
   try {
-    const client = createInstillAxiosClient(accessToken, "base");
+    const client = createClient(accessToken, "base");
 
     const { data } = await client.get<GetUserResponse>("/users/me");
 
@@ -34,7 +34,7 @@ export async function checkUserIdExist({
   accessToken: Nullable<string>;
 }) {
   try {
-    const client = createInstillAxiosClient(accessToken, "base");
+    const client = createClient(accessToken, "base");
     const { data } = await client.get<CheckUserIdExistResponse>(
       `/users/${id}/exist`
     );
@@ -56,7 +56,7 @@ export async function getApiTokenQuery({
   accessToken: Nullable<string>;
 }) {
   try {
-    const client = createInstillAxiosClient(accessToken, "base");
+    const client = createClient(accessToken, "base");
 
     const { data } = await client.get<GetApiTokenResponse>(`/${tokenName}`);
 
@@ -82,7 +82,7 @@ export async function listApiTokensQuery({
   accessToken: Nullable<string>;
 }) {
   try {
-    const client = createInstillAxiosClient(accessToken, "base");
+    const client = createClient(accessToken, "base");
     const tokens: ApiToken[] = [];
 
     const queryString = getQueryString({

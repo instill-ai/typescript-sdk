@@ -1,5 +1,5 @@
 import { Nullable } from "../types";
-import { createInstillAxiosClient } from "../helper";
+import { createClient } from "../helper";
 import { Operation } from "../operation";
 import { PipelineRelease, PipelineTriggerMetadata } from "./types";
 
@@ -24,7 +24,7 @@ export async function triggerUserPipelineAction({
   returnTraces?: boolean;
 }) {
   try {
-    const client = createInstillAxiosClient(accessToken, "vdp");
+    const client = createClient(accessToken, "vdp");
 
     const { data } = await client.post<TriggerUserPipelineResponse>(
       `/${pipelineName}/trigger`,
@@ -63,7 +63,7 @@ export async function triggerAsyncUserPipelineAction({
   returnTraces?: boolean;
 }) {
   try {
-    const client = createInstillAxiosClient(accessToken, "vdp");
+    const client = createClient(accessToken, "vdp");
 
     const { data } = await client.post<TriggerAsyncUserPipelineResponse>(
       `/${pipelineName}/triggerAsync`,
@@ -98,7 +98,7 @@ export async function setDefaultUserPipelineReleaseMutation({
   accessToken: Nullable<string>;
 }) {
   try {
-    const client = createInstillAxiosClient(accessToken, "vdp");
+    const client = createClient(accessToken, "vdp");
 
     const { data } = await client.post<SetDefaultUserPipelineReleaseResponse>(
       `/${pipelineReleaseName}/setDefault`
@@ -121,7 +121,7 @@ export async function restoreUserPipelineReleaseMutation({
   accessToken: Nullable<string>;
 }) {
   try {
-    const client = createInstillAxiosClient(accessToken, "vdp");
+    const client = createClient(accessToken, "vdp");
 
     const { data } = await client.post<RestoreUserPipelineReleaseResponse>(
       `/${pipelineReleaseName}/restore`
@@ -153,7 +153,7 @@ export async function triggerUserPipelineReleaseAction({
   returnTraces?: boolean;
 }) {
   try {
-    const client = createInstillAxiosClient(accessToken, "vdp");
+    const client = createClient(accessToken, "vdp");
 
     const { data } = await client.post<TriggerUserPipelineResponse>(
       `/${pipelineReleaseName}/trigger`,
@@ -192,7 +192,7 @@ export async function triggerAsyncUserPipelineReleaseAction({
   returnTraces?: boolean;
 }) {
   try {
-    const client = createInstillAxiosClient(accessToken, "vdp");
+    const client = createClient(accessToken, "vdp");
 
     const { data } = await client.post<TriggerAsyncUserPipelineReleaseResponse>(
       `/${pipelineReleaseName}/triggerAsync`,
