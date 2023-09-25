@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.3](https://github.com/instill-ai/typescript-sdk/compare/@instill-ai/typescript-sdk-v0.0.2...@instill-ai/typescript-sdk-v0.0.3) (2023-09-25)
+
+
+### Miscellaneous
+
+* Namananand/ins 1898 make changes to use sdk independently ([#6](https://github.com/instill-ai/typescript-sdk/issues/6)) ([fbcda4f](https://github.com/instill-ai/typescript-sdk/commit/fbcda4fc9205f189999342194334e86c7747d2ab))
+
 ## [0.0.2](https://github.com/instill-ai/typescript-sdk/compare/@instill-ai/typescript-sdk-v0.0.1...@instill-ai/typescript-sdk-v0.0.2) (2023-09-22)
 
 
