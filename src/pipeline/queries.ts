@@ -1,6 +1,7 @@
 import { Nullable } from "../types";
 import { createClient, getQueryString } from "../helper";
-import { Pipeline, PipelineRelease, PipelineReleaseWatchState } from "./types";
+import {  PipelineReleaseWatchState } from "./types";
+import { Pipeline, PipelineRelease, } from "../../dist/protogen-ts/vdp/pipeline/v1alpha/pipeline";
 
 export type ListPipelinesResponse = {
   pipelines: Pipeline[];
@@ -153,8 +154,9 @@ export async function ListUserPipelineReleasesQuery({
       filter: null,
     });
 
-    const { data } =
-      await client.get<ListPipelineReleasesResponse>(queryString);
+    const { data } = await client.get<ListPipelineReleasesResponse>(
+      queryString
+    );
 
     releases.push(...data.releases);
 

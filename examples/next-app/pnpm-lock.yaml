@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@instill-ai/typescript-sdk':
-    specifier: ^0.0.3-rc.0
-    version: 0.0.3-rc.0(@instill-ai/design-system@0.49.1)(@instill-ai/design-tokens@0.3.2)(@types/react-dom@18.2.7)(@types/react@18.2.22)(next@13.5.1)(react-dom@18.2.0)(react@18.2.0)
+    specifier: ^0.0.6
+    version: 0.0.6(@instill-ai/design-system@0.49.1)(@instill-ai/design-tokens@0.3.2)(@types/react-dom@18.2.7)(@types/react@18.2.22)(next@13.5.1)(react-dom@18.2.0)(react@18.2.0)
   '@types/node':
     specifier: 20.6.2
     version: 20.6.2
@@ -336,8 +336,8 @@ packages:
       - react-native
     dev: false
 
-  /@instill-ai/typescript-sdk@0.0.3-rc.0(@instill-ai/design-system@0.49.1)(@instill-ai/design-tokens@0.3.2)(@types/react-dom@18.2.7)(@types/react@18.2.22)(next@13.5.1)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-akmm0FUSctNIQCxGx5xEfMOXbtrBjKGJz4Gf6RyYBMdGJmRP0Ka8SAOrKjmwRT8BCgtneeFm16GPdk7XiYP3kw==}
+  /@instill-ai/typescript-sdk@0.0.6(@instill-ai/design-system@0.49.1)(@instill-ai/design-tokens@0.3.2)(@types/react-dom@18.2.7)(@types/react@18.2.22)(next@13.5.1)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-eCn39Zh2VHXYibPpwd2Xtozs17qKjPKQrWPxKroSw4GBgmZ0Nb77hPQQeox2iAz/2nG2YuVQSmaXnry6KRd+fQ==}
     dependencies:
       '@instill-ai/toolkit': 0.68.0-rc.23(@instill-ai/design-system@0.49.1)(@instill-ai/design-tokens@0.3.2)(@types/react-dom@18.2.7)(@types/react@18.2.22)(next@13.5.1)(react-dom@18.2.0)(react@18.2.0)
       '@types/json-schema': 7.0.13
