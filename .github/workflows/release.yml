@@ -68,4 +68,4 @@ jobs:
 
       - name: Publish packages
         if: ${{ steps.release.outputs.releases_created }}
-        run: pnpm -r publish --no-git-checks
+        run: pnpm -r publish @instill-ai/typescript-sdk/package.json --no-git-checks
