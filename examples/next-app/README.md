@@ -16,6 +16,27 @@ pnpm add @instill-ai/typescript-sdk
 
 - make sure you have vdp up running, to run vdp check this [vdp](https://github.com/instill-ai/vdp)
 - verify `.env`
+
+```
+API_VERSION=v1alpha
+INSTILL_AI_USER_COOKIE_NAME=instill-ai-user
+APP_EDITION=local-ce:dev
+API_GATEWAY_URL=http://localhost:8080
+SELF_SIGNED_CERTIFICATION=false
+DISABLE_CREATE_UPDATE_DELETE_RESOURCE=false
+LIST_PAGE_SIZE=6
+USAGE_COLLECTION_ENABLED=true
+SET_SECURE_COOKIE=false
+AMPLITUDE_KEY=9823fa6e3ff904bec67a8fc90db82fb9
+APP_BASE_URL=http://localhost:3000
+MGMT_BACKEND_BASE_URL=http://localhost:8084
+PIPELINE_BACKEND_BASE_URL=http://localhost:8081
+CONNECTOR_BACKEND_BASE_URL=http://localhost:8082
+MODEL_BACKEND_BASE_URL=http://localhost:8083
+```
+
+
+
 - see the changes done in `_document.tsx` and `next.env.mjs`
 
 ### Now You are ready.
