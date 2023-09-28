@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.0.7](https://github.com/instill-ai/typescript-sdk/compare/@instill-ai/typescript-sdk-v0.0.6...@instill-ai/typescript-sdk-v0.0.7) (2023-09-28)
+
+
+### Miscellaneous
+
+* add custom header for createClient ([#16](https://github.com/instill-ai/typescript-sdk/issues/16)) ([3db690c](https://github.com/instill-ai/typescript-sdk/commit/3db690c39a21e985e90ff5feaf4c17351c461ae4))
+* docs update ([#14](https://github.com/instill-ai/typescript-sdk/issues/14)) ([dd13735](https://github.com/instill-ai/typescript-sdk/commit/dd13735e4ca101f708c06a8a54d26552f67061fa))
+* Namananand/ins 2172 update typescript sdk docs  ([#18](https://github.com/instill-ai/typescript-sdk/issues/18)) ([d72a505](https://github.com/instill-ai/typescript-sdk/commit/d72a5055c2d187cf8bc6313377a129c9f509ddc2))
+* Namananand/ins 2172 update typescript sdk docs ([#19](https://github.com/instill-ai/typescript-sdk/issues/19)) ([d0478ef](https://github.com/instill-ai/typescript-sdk/commit/d0478ef430b370c3a59afd368a647a7e3c4db5a6))
+* Namananand/ins 2172 update typescript sdk docs similar to the format python sdk ([#17](https://github.com/instill-ai/typescript-sdk/issues/17)) ([bcef664](https://github.com/instill-ai/typescript-sdk/commit/bcef664c074b14a14ef62fd8644544033a6a1089))
+
 ## [0.0.6](https://github.com/instill-ai/typescript-sdk/compare/@instill-ai/typescript-sdk-v0.0.5...@instill-ai/typescript-sdk-v0.0.6) (2023-09-25)
 
 
