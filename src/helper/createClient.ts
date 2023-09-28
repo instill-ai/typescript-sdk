@@ -5,7 +5,7 @@ import { Nullable } from "../types";
 export function createClient(
   accessToken: Nullable<string>,
   product: "base" | "model" | "vdp",
-  headers: AxiosHeaders
+  headers?: AxiosHeaders
 ) {
   let clientHeaders = {};
 
