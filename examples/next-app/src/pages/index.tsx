@@ -21,5 +21,5 @@ export default function TypescriptSdkDemo() {
       });
   }, []);
 
-  return <div>{JSON.stringify(pipelines)}</div>;
+  return <div>{JSON.stringify(pipelines, null, 4)}</div>;
 }

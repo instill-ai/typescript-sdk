@@ -1,15 +1,20 @@
 ## Config and installation
 
-### installation
+make sure you are on `/typescript-sdk/examples/node-app` folder
 
 ```
-npm i @instill-ai/typescript-sdk
+pnpm install
 ```
+or
+
 ```
-yarn add @instill-ai/typescript-sdk
+npm install
 ```
+
+or
+
 ```
-pnpm add @instill-ai/typescript-sdk
+yarn install
 ```
 
 ### config
@@ -36,6 +41,12 @@ MODEL_BACKEND_BASE_URL=http://localhost:8083
 ```
 
 ### Now You are ready.
+
+```
+pnpm run dev
+```
+
+check http://localhost:5000/list-pipelines
 
 ```
 // setup express project
