@@ -2,15 +2,23 @@
 
 ### installation
 
+make sure you are on `/typescript-sdk/examples/next-app` folder
+
 ```
-npm i @instill-ai/typescript-sdk
+pnpm install
 ```
+or
+
 ```
-yarn add @instill-ai/typescript-sdk
+npm install
 ```
+
+or
+
 ```
-pnpm add @instill-ai/typescript-sdk
+yarn install
 ```
+
 
 ### config
 
@@ -35,11 +43,15 @@ CONNECTOR_BACKEND_BASE_URL=http://localhost:8082
 MODEL_BACKEND_BASE_URL=http://localhost:8083
 ```
 
-
-
 - see the changes done in `_document.tsx` and `next.env.mjs`
 
 ### Now You are ready.
+
+```
+pnpm run dev
+```
+
+check http://localhost:3000/
 
 ```
 import { Pipeline, listPipelinesQuery } from "@instill-ai/typescript-sdk";
