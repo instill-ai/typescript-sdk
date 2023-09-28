@@ -45,11 +45,6 @@ const instillAI = require("@instill-ai/typescript-sdk");
 import { Pipeline, listPipelinesQuery } from "@instill-ai/typescript-sdk";
 
 ```
-
-### Create client
-
-... will add here not done yet
-
 ### config
 
 - `.env`
