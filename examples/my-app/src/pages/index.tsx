@@ -4,7 +4,6 @@ import InstillClient, {
   Pipeline,
   User,
 } from "@instill-ai/typescript-sdk";
-// import { Pipeline } from "@instill-ai/toolkit";
 
 export default function TypescriptSdkDemo() {
   const [pipelines, setPipelines] = useState<Pipeline[]>([]);
