@@ -85,7 +85,7 @@ MODEL_BACKEND_BASE_URL=http://localhost:8083
 | function                              |                            params                            |
 | :------------------------------------ | :----------------------------------------------------------: |
 | listPipelinesQuery                    |             pageSize, nextPageToken, accessToken             |
-| listUserPipelinesQuery                |        pageSize, nextPageToken, accessToken, userName        |
+| listUserPipelinesQuery                |        pageSize, nextPageToken,  userName        |
 | getUserPipelineQuery                  |                  pipelineName, accessToken                   |
 | ListUserPipelineReleasesQuery         | userName, pipelineName, pageSize, nextPageToken, accessToken |
 | getUserPipelineReleaseQuery           |               pipelineReleaseName, accessToken               |
@@ -97,19 +97,19 @@ MODEL_BACKEND_BASE_URL=http://localhost:8083
 | createUserPipelineReleaseMutation     |              pipelineName, payload, accessToken              |
 | updateUserPipelineReleaseMutation     |          pipelineReleaseName, payload, accessToken           |
 | deleteUserPipelineReleaseMutation     |               pipelineReleaseName, accessToken               |
-| triggerUserPipelineAction             |       pipelineName, payload, accessToken, returnTraces       |
-| triggerAsyncUserPipelineAction        |       pipelineName, payload, accessToken, returnTraces       |
+| triggerUserPipelineAction             |       pipelineName, payload,  returnTraces       |
+| triggerAsyncUserPipelineAction        |       pipelineName, payload,  returnTraces       |
 | setDefaultUserPipelineReleaseMutation |               pipelineReleaseName, accessToken               |
 | restoreUserPipelineReleaseMutation    |               pipelineReleaseName, accessToken               |
-| triggerUserPipelineReleaseAction      |   pipelineReleaseName, payload, accessToken, returnTraces    |
-| triggerAsyncUserPipelineReleaseAction |   pipelineReleaseName, payload, accessToken, returnTraces    |
+| triggerUserPipelineReleaseAction      |   pipelineReleaseName, payload,  returnTraces    |
+| triggerAsyncUserPipelineReleaseAction |   pipelineReleaseName, payload,  returnTraces    |
 
 ### Connector
 
 | function                                  |                         params                         |
 | :---------------------------------------- | :----------------------------------------------------: |
-| listConnectorResourcesQuery               | userName, pageSize, nextPageToken, accessToken, filter |
-| listUserConnectorResourcesQuery           |      pageSize, nextPageToken, accessToken, filter      |
+| listConnectorResourcesQuery               | userName, pageSize, nextPageToken,  filter |
+| listUserConnectorResourcesQuery           |      pageSize, nextPageToken,  filter      |
 | listConnectorDefinitionsQuery             |          connectorDefinitionName, accessToken          |
 | getConnectorDefinitionQuery               |          connectorDefinitionName, accessToken          |
 | getUserConnectorResourceQuery             |          connectorDefinitionName, accessToken          |
@@ -126,11 +126,11 @@ MODEL_BACKEND_BASE_URL=http://localhost:8083
 
 | function                        |                    params                    |
 | :------------------------------ | :------------------------------------------: |
-| listPipelineTriggerRecordsQuery | pageSize, nextPageToken, accessToken, filter |
-| listTriggeredPipelineQuery      | pageSize, nextPageToken, accessToken, filter |
-| listTriggeredPipelineChartQuery | pageSize, nextPageToken, accessToken, filter |
+| listPipelineTriggerRecordsQuery | pageSize, nextPageToken,  filter |
+| listTriggeredPipelineQuery      | pageSize, nextPageToken,  filter |
+| listTriggeredPipelineChartQuery | pageSize, nextPageToken,  filter |
 
-modelDefinitionName, accessToken,
+modelDefinitionName, 
 
 ### Model
 
