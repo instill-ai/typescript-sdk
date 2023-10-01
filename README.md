@@ -13,9 +13,6 @@ Typescript SDK for Instill AI products
 
 ## Setup
 
-> [!NOTE]  
-> For setting up development environment, please refer to [Contributing](#contributing)
-
 ### Requirements
 
 - Node 16+
@@ -39,7 +36,7 @@ pnpm add @instill-ai/typescript-sdk
 
 ```
 // node.js
-const InstillClient = require("@instill-ai/typescript-sdk");
+const InstillClient = require("@instill-ai/typescript-sdk").default;
 
 // next.js
 import InstillClient from "@instill-ai/typescript-sdk";
@@ -268,13 +265,6 @@ modelDefinitionName,
 | createApiTokenMutation |         payload         |
 | deleteApiTokenMutation |        tokenName        |
 
-## Error Handling:
-
-Explains common errors and ways to resolve them.
-
-## Integration Guide:
-
-Guidance on how to incorporate the SDK into other applications.
 
 ## Contribution Guidelines:
 
