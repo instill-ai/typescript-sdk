@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.0.8](https://github.com/instill-ai/typescript-sdk/compare/@instill-ai/typescript-sdk-v0.0.7...@instill-ai/typescript-sdk-v0.0.8) (2023-10-01)
+
+
+### Miscellaneous
+
+* Namananand/ins 2172 update typescript sdk docs ([#20](https://github.com/instill-ai/typescript-sdk/issues/20)) ([4961eaa](https://github.com/instill-ai/typescript-sdk/commit/4961eaa4303c39c4f915713582a460952788adec))
+* Namananand/ins 2235 update sdk docs for new refactor ([#24](https://github.com/instill-ai/typescript-sdk/issues/24)) ([5143759](https://github.com/instill-ai/typescript-sdk/commit/51437597201ec6de3cebd2cb6670c26802d8fbfd))
+* refactor docs and remove unused files ([#23](https://github.com/instill-ai/typescript-sdk/issues/23)) ([5a080e1](https://github.com/instill-ai/typescript-sdk/commit/5a080e140e7c280d3bb5989425a2e421ce0b0682))
+* update client instance refactor ([#22](https://github.com/instill-ai/typescript-sdk/issues/22)) ([d8aa4b7](https://github.com/instill-ai/typescript-sdk/commit/d8aa4b71c144425be88bcf1ee6b552a249b52050))
+
 ## [0.0.7](https://github.com/instill-ai/typescript-sdk/compare/@instill-ai/typescript-sdk-v0.0.6...@instill-ai/typescript-sdk-v0.0.7) (2023-09-28)
 
 
