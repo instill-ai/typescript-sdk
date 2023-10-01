@@ -1,25 +1,23 @@
 import axios, { AxiosInstance } from "axios";
 import { Nullable } from "../types";
 import {
+  Model,
+  ModelDefinition,
+  ModelWatchState,
   GetModelDefinitionResponse,
   GetUserModelReadmeQueryResponse,
   GetUserModelResponse,
   ListModelDefinitionsResponse,
   ListModelsResponse,
   ListUserModelsResponse,
-  listModelsQuery,
-  listUserModelsQuery,
-} from "./queries";
-import { Model, ModelDefinition, ModelWatchState } from "./types";
-import { getQueryString } from "../helper";
-import {
   CreateUserModelPayload,
   CreateUserModelResponse,
   UpdateUserModelPayload,
   UpdateUserModelResponse,
-} from "./mutations";
-import { DeployUserModelResponse, UndeployUserModelResponse } from "./actions";
-
+  DeployUserModelResponse,
+  UndeployUserModelResponse,
+} from "./types";
+import { getQueryString } from "../helper";
 class ModelClient {
   private axiosInstance: AxiosInstance;
 
@@ -44,10 +42,8 @@ class ModelClient {
 
   async getModelDefinitionQuery({
     modelDefinitionName,
-    
   }: {
     modelDefinitionName: string;
-    
   }) {
     try {
       const { data } = await this.axiosInstance.get<GetModelDefinitionResponse>(
@@ -63,11 +59,9 @@ class ModelClient {
   async listModelDefinitionsQuery({
     pageSize,
     nextPageToken,
-    
   }: {
     pageSize: Nullable<number>;
     nextPageToken: Nullable<string>;
-    
   }) {
     try {
       const modelDefinitions: ModelDefinition[] = [];
@@ -88,7 +82,7 @@ class ModelClient {
         modelDefinitions.push(
           ...(await this.listModelDefinitionsQuery({
             pageSize,
-            
+
             nextPageToken: data.next_page_token,
           }))
         );
@@ -104,13 +98,7 @@ class ModelClient {
    * Model
    * -----------------------------------------------------------------------*/
 
-  async getUserModelQuery({
-    modelName,
-    
-  }: {
-    modelName: string;
-    
-  }) {
+  async getUserModelQuery({ modelName }: { modelName: string }) {
     try {
       const { data } = await this.axiosInstance.get<GetUserModelResponse>(
         `/${modelName}?view=VIEW_FULL`
@@ -124,11 +112,9 @@ class ModelClient {
   async listModelsQuery({
     pageSize,
     nextPageToken,
-    
   }: {
     pageSize: Nullable<number>;
     nextPageToken: Nullable<string>;
-    
   }) {
     try {
       const models: Model[] = [];
@@ -150,7 +136,7 @@ class ModelClient {
         models.push(
           ...(await this.listModelsQuery({
             pageSize,
-            
+
             nextPageToken: data.next_page_token,
           }))
         );
@@ -166,12 +152,10 @@ class ModelClient {
     userName,
     pageSize,
     nextPageToken,
-    
   }: {
     userName: string;
     pageSize: Nullable<number>;
     nextPageToken: Nullable<string>;
-    
   }) {
     try {
       const models: Model[] = [];
@@ -194,7 +178,7 @@ class ModelClient {
           ...(await this.listUserModelsQuery({
             userName,
             pageSize,
-            
+
             nextPageToken: data.next_page_token,
           }))
         );
@@ -206,13 +190,7 @@ class ModelClient {
     }
   }
 
-  async getUserModelReadmeQuery({
-    modelName,
-    
-  }: {
-    modelName: string;
-    
-  }) {
+  async getUserModelReadmeQuery({ modelName }: { modelName: string }) {
     try {
       const { data } =
         await this.axiosInstance.get<GetUserModelReadmeQueryResponse>(
@@ -228,13 +206,7 @@ class ModelClient {
    * Watch Model State
    * -----------------------------------------------------------------------*/
 
-  async watchUserModel({
-    modelName,
-    
-  }: {
-    modelName: string;
-    
-  }) {
+  async watchUserModel({ modelName }: { modelName: string }) {
     try {
       const { data } = await this.axiosInstance.get<ModelWatchState>(
         `/${modelName}/watch`
@@ -252,11 +224,9 @@ class ModelClient {
   async createUserModelMutation({
     userName,
     payload,
-    
   }: {
     userName: string;
     payload: CreateUserModelPayload;
-    
   }) {
     if (payload.type === "Local") {
       try {
@@ -332,13 +302,7 @@ class ModelClient {
     }
   }
 
-  async updateModelMutation({
-    payload,
-    
-  }: {
-    payload: UpdateUserModelPayload;
-    
-  }) {
+  async updateModelMutation({ payload }: { payload: UpdateUserModelPayload }) {
     try {
       const { data } = await this.axiosInstance.patch<UpdateUserModelResponse>(
         `/${payload.name}`,
@@ -350,13 +314,7 @@ class ModelClient {
     }
   }
 
-  async deleteUserModelMutation({
-    modelName,
-    
-  }: {
-    modelName: string;
-    
-  }) {
+  async deleteUserModelMutation({ modelName }: { modelName: string }) {
     try {
       await this.axiosInstance.delete(`/${modelName}`);
     } catch (err) {
@@ -368,13 +326,7 @@ class ModelClient {
    * Model Action
    * -----------------------------------------------------------------------*/
 
-  async deployUserModelAction({
-    modelName,
-    
-  }: {
-    modelName: string;
-    
-  }) {
+  async deployUserModelAction({ modelName }: { modelName: string }) {
     try {
       const { data } = await this.axiosInstance.post<DeployUserModelResponse>(
         `/${modelName}/deploy`
@@ -385,13 +337,7 @@ class ModelClient {
     }
   }
 
-  async undeployUserModeleAction({
-    modelName,
-    
-  }: {
-    modelName: string;
-    
-  }) {
+  async undeployUserModeleAction({ modelName }: { modelName: string }) {
     try {
       const { data } = await this.axiosInstance.post<UndeployUserModelResponse>(
         `/${modelName}/undeploy`

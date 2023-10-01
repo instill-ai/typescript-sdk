@@ -1,8 +1,9 @@
 import axios, { AxiosInstance } from "axios";
 import { getQueryString } from "../helper";
 import { Nullable } from "../types";
-import { Pipeline, PipelineRelease } from "./types";
 import {
+  Pipeline,
+  PipelineRelease,
   RestoreUserPipelineReleaseResponse,
   SetDefaultUserPipelineReleaseResponse,
   TriggerAsyncUserPipelinePayload,
@@ -10,16 +11,12 @@ import {
   TriggerAsyncUserPipelineResponse,
   TriggerUserPipelinePayload,
   TriggerUserPipelineResponse,
-} from "./actions";
-import {
   GetUserPipelineReleaseResponse,
   GetUserPipelineResponse,
   ListPipelineReleasesResponse,
   ListPipelinesResponse,
   ListUserPipelinesResponse,
   WatchUserPipelineReleaseResponse,
-} from "./queries";
-import {
   CreatePipelineResponse,
   CreateUserPipelinePayload,
   CreateUserPipelineReleasePayload,
@@ -30,7 +27,7 @@ import {
   UpdateUserPipelineReleasePayload,
   UpdateUserPipelineReleaseResponse,
   UpdateUserPipelineResponse,
-} from "./mutations";
+} from "./types";
 
 class PipelineClient {
   // Define your specific API methods here
@@ -57,11 +54,9 @@ class PipelineClient {
   async listPipelinesQuery({
     pageSize,
     nextPageToken,
-    
   }: {
     pageSize: Nullable<number>;
     nextPageToken: Nullable<string>;
-    
   }) {
     try {
       const pipelines: Pipeline[] = [];
@@ -84,7 +79,6 @@ class PipelineClient {
           ...(await this.listPipelinesQuery({
             pageSize,
             nextPageToken: data.next_page_token,
-            
           }))
         );
       }
@@ -99,12 +93,10 @@ class PipelineClient {
     pageSize,
     nextPageToken,
     userName,
-    
   }: {
     pageSize: Nullable<number>;
     nextPageToken: Nullable<string>;
     userName: string;
-    
   }) {
     try {
       const pipelines: Pipeline[] = [];
@@ -127,7 +119,7 @@ class PipelineClient {
           ...(await this.listUserPipelinesQuery({
             pageSize,
             nextPageToken: data.next_page_token,
-            
+
             userName,
           }))
         );
@@ -139,13 +131,7 @@ class PipelineClient {
     }
   }
 
-  async getUserPipelineQuery({
-    pipelineName,
-    
-  }: {
-    pipelineName: string;
-    
-  }) {
+  async getUserPipelineQuery({ pipelineName }: { pipelineName: string }) {
     try {
       const { data } = await this.axiosInstance.get<GetUserPipelineResponse>(
         `/${pipelineName}?view=VIEW_FULL`
@@ -165,12 +151,10 @@ class PipelineClient {
     pipelineName,
     pageSize,
     nextPageToken,
-    
   }: {
     pipelineName: string;
     pageSize: Nullable<number>;
     nextPageToken: Nullable<string>;
-    
   }) {
     try {
       const releases: PipelineRelease[] = [];
@@ -193,7 +177,6 @@ class PipelineClient {
             pipelineName,
             pageSize,
             nextPageToken: data.next_page_token,
-            
           }))
         );
       }
@@ -206,10 +189,8 @@ class PipelineClient {
 
   async getUserPipelineReleaseQuery({
     pipelineReleaseName,
-    
   }: {
     pipelineReleaseName: string;
-    
   }) {
     try {
       const { data } =
@@ -225,10 +206,8 @@ class PipelineClient {
 
   async watchUserPipelineReleaseQuery({
     pipelineReleaseName,
-    
   }: {
     pipelineReleaseName: string;
-    
   }) {
     try {
       const { data } =
@@ -246,11 +225,9 @@ class PipelineClient {
   async createUserPipelineMutation({
     userName,
     payload,
-    
   }: {
     userName: string;
     payload: CreateUserPipelinePayload;
-    
   }) {
     try {
       const { data } = await this.axiosInstance.post<CreatePipelineResponse>(
@@ -265,10 +242,8 @@ class PipelineClient {
 
   async updateUserPipelineMutation({
     payload,
-    
   }: {
     payload: UpdateUserPipelinePayload;
-    
   }) {
     try {
       const { data } =
@@ -282,13 +257,7 @@ class PipelineClient {
     }
   }
 
-  async deleteUserPipelineMutation({
-    pipelineName,
-    
-  }: {
-    pipelineName: string;
-    
-  }) {
+  async deleteUserPipelineMutation({ pipelineName }: { pipelineName: string }) {
     try {
       await this.axiosInstance.delete(`/${pipelineName}`);
     } catch (err) {
@@ -298,10 +267,8 @@ class PipelineClient {
 
   async renameUserPipelineMutation({
     payload,
-    
   }: {
     payload: RenameUserPipelinePayload;
-    
   }) {
     try {
       const { data } =
@@ -323,11 +290,9 @@ class PipelineClient {
   async createUserPipelineReleaseMutation({
     pipelineName,
     payload,
-    
   }: {
     pipelineName: string;
     payload: CreateUserPipelineReleasePayload;
-    
   }) {
     try {
       const { data } =
@@ -345,11 +310,9 @@ class PipelineClient {
   async updateUserPipelineReleaseMutation({
     payload,
     pipelineReleaseName,
-    
   }: {
     payload: UpdateUserPipelineReleasePayload;
     pipelineReleaseName: string;
-    
   }) {
     try {
       const { data } =
@@ -365,10 +328,8 @@ class PipelineClient {
 
   async deleteUserPipelineReleaseMutation({
     pipelineReleaseName,
-    
   }: {
     pipelineReleaseName: string;
-    
   }) {
     try {
       await this.axiosInstance.delete(`/${pipelineReleaseName}`);
@@ -382,12 +343,12 @@ class PipelineClient {
   async triggerUserPipelineAction({
     pipelineName,
     payload,
-    
+
     returnTraces,
   }: {
     pipelineName: string;
     payload: TriggerUserPipelinePayload;
-    
+
     returnTraces?: boolean;
   }) {
     try {
@@ -412,12 +373,12 @@ class PipelineClient {
   async triggerAsyncUserPipelineAction({
     pipelineName,
     payload,
-    
+
     returnTraces,
   }: {
     pipelineName: string;
     payload: TriggerAsyncUserPipelinePayload;
-    
+
     returnTraces?: boolean;
   }) {
     try {
@@ -445,10 +406,8 @@ class PipelineClient {
 
   async setDefaultUserPipelineReleaseMutation({
     pipelineReleaseName,
-    
   }: {
     pipelineReleaseName: string;
-    
   }) {
     try {
       const { data } =
@@ -463,10 +422,8 @@ class PipelineClient {
 
   async restoreUserPipelineReleaseMutation({
     pipelineReleaseName,
-    
   }: {
     pipelineReleaseName: string;
-    
   }) {
     try {
       const { data } =
@@ -482,12 +439,12 @@ class PipelineClient {
   async triggerUserPipelineReleaseAction({
     pipelineReleaseName,
     payload,
-    
+
     returnTraces,
   }: {
     pipelineReleaseName: string;
     payload: TriggerUserPipelinePayload;
-    
+
     returnTraces?: boolean;
   }) {
     try {
@@ -512,12 +469,12 @@ class PipelineClient {
   async triggerAsyncUserPipelineReleaseAction({
     pipelineReleaseName,
     payload,
-    
+
     returnTraces,
   }: {
     pipelineReleaseName: string;
     payload: TriggerAsyncUserPipelinePayload;
-    
+
     returnTraces?: boolean;
   }) {
     try {

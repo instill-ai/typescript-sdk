@@ -2,6 +2,7 @@ import { OpenAPIV3 } from "openapi-types";
 import { ConnectorDefinition, ConnectorResource } from "../connector";
 import { Spec, Visibility } from "../types";
 import { Nullable } from "../types";
+import { Operation } from "../operation";
 
 export type PipelineMode = "MODE_UNSPECIFIED" | "MODE_SYNC" | "MODE_ASYNC";
 
@@ -158,3 +159,123 @@ export type StartOperatorInputArrayType =
   | "boolean_array"
   | "audio_array"
   | "image_array";
+
+export type TriggerUserPipelinePayload = {
+  inputs: Record<string, any>[];
+};
+
+export type TriggerUserPipelineResponse = {
+  outputs: Record<string, any>[];
+  metadata: PipelineTriggerMetadata;
+};
+
+export type TriggerAsyncUserPipelinePayload = {
+  inputs: Record<string, any>[];
+};
+
+export type TriggerAsyncUserPipelineResponse = {
+  operation: Operation;
+};
+
+export type SetDefaultUserPipelineReleaseResponse = {
+  release: PipelineRelease;
+};
+
+export type RestoreUserPipelineReleaseResponse = {
+  release: PipelineRelease;
+};
+
+export type TriggerUserPipelineReleasePayload = {
+  inputs: Record<string, any>[];
+};
+
+export type TriggerUserPipelineReleaseResponse = {
+  outputs: Record<string, any>[];
+  metadata: PipelineTriggerMetadata;
+};
+
+export type TriggerAsyncUserPipelineReleasePayload = {
+  inputs: Record<string, any>[];
+};
+
+export type TriggerAsyncUserPipelineReleaseResponse = {
+  operation: Operation;
+};
+
+export type CreateUserPipelinePayload = {
+  id: string;
+  description?: string;
+  recipe: RawPipelineRecipe;
+};
+
+export type CreatePipelineResponse = {
+  pipeline: Pipeline;
+};
+
+export type UpdateUserPipelinePayload = {
+  name: string;
+  description?: string;
+  recipe: RawPipelineRecipe;
+};
+
+export type UpdateUserPipelineResponse = {
+  pipeline: Pipeline;
+};
+
+export type RenameUserPipelinePayload = {
+  name: string;
+  new_pipeline_id: string;
+};
+
+export type RenameUserPipelineResponse = {
+  pipeline: Pipeline;
+};
+
+export type CreateUserPipelineReleasePayload = {
+  id: string;
+  description?: string;
+  recipe: RawPipelineRecipe;
+};
+
+export type CreateUserPipelineReleaseResponse = {
+  release: PipelineRelease;
+};
+
+export type UpdateUserPipelineReleasePayload = {
+  description?: string;
+  recipe: RawPipelineRecipe;
+};
+
+export type UpdateUserPipelineReleaseResponse = {
+  release: PipelineRelease;
+};
+
+export type ListPipelinesResponse = {
+  pipelines: Pipeline[];
+  next_page_token: string;
+  total_size: number;
+};
+
+export type ListUserPipelinesResponse = {
+  pipelines: Pipeline[];
+  next_page_token: string;
+  total_size: number;
+};
+
+export type GetUserPipelineResponse = {
+  pipeline: Pipeline;
+};
+
+export type ListPipelineReleasesResponse = {
+  releases: PipelineRelease[];
+  next_page_token: string;
+  total_size: number;
+};
+
+export type GetUserPipelineReleaseResponse = {
+  release: PipelineRelease;
+};
+
+export type WatchUserPipelineReleaseResponse = {
+  state: PipelineReleaseWatchState;
+};

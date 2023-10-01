@@ -1,18 +1,19 @@
 const express = require("express");
-const instillAI = require("@instill-ai/typescript-sdk");
-require("dotenv").config(); // Load environment variables from .env file
+const InstillClient = require("@instill-ai/typescript-sdk").default; // If CommonJS style
 
 const app = express();
-const port = process.env.PORT || 5000;
+const port = 5000;
+
+const client = new InstillClient(
+  "https://api.instill.tech",
+  "v1alpha",
+  "instill_sk_8uAG5VaqLDqtXEk3mFEBmMJXQSnTxmkz" // console API token
+);
 
 // Define a route for listing pipelines using the SDK
-app.get("/list-pipelines", async (req, res) => {
+app.get("/", async (req, res) => {
   try {
-    const data = await instillAI.listPipelinesQuery({
-      pageSize: 6,
-      nextPageToken: null,
-      accessToken: null, // Use the environment variable
-    });
+    const data = await client.Auth.getUserQuery();
     res.json(data);
   } catch (error) {
     console.error("Error:", error);

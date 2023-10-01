@@ -59,3 +59,19 @@ export type PipelineTriggersStatusSummary = {
   completed: PipelineTriggersStatusSummaryItem;
   errored: PipelineTriggersStatusSummaryItem;
 };
+
+export type ListPipelineTriggerRecordsResponse = {
+  pipeline_trigger_records: PipelineTriggerRecord[];
+  next_page_token: string;
+  total_size: number;
+};
+
+export type ListTriggeredPipelinesResponse = {
+  pipeline_trigger_table_records: TriggeredPipeline[];
+  next_page_token: string;
+  total_size: number;
+};
+
+export type ListPipelinesChartResponse = {
+  pipeline_trigger_chart_records: PipelinesChart[];
+};

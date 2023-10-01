@@ -1,20 +1,20 @@
 import axios, { AxiosInstance } from "axios";
 import { Nullable } from "../types";
 import {
+  ApiToken,
+  User,
   CheckUserIdExistResponse,
   GetApiTokenResponse,
   GetUserResponse,
   ListApiTokensResponse,
-} from "./queries";
-import { ApiToken, User } from "./types";
-import { getQueryString } from "../helper";
-import {
   ChangePasswordPayload,
   CreateApiTokenPayload,
   CreateApiTokenResponse,
   UpdateUserResponse,
-} from "./mutations";
-import { AuthLoginActionPayload, AuthLoginActionResponse } from "./actions";
+  AuthLoginActionPayload,
+  AuthLoginActionResponse,
+} from "./types";
+import { getQueryString } from "../helper";
 
 class AuthClient {
   private axiosInstance: AxiosInstance;

@@ -1,6 +1,6 @@
 import axios, { AxiosInstance } from "axios";
 import { Nullable } from "../types";
-import { GetModelOperationResponse, getOperationQuery } from "./queries";
+import { GetModelOperationResponse } from "./types";
 
 class OperationClient {
   private axiosInstance: AxiosInstance;
@@ -20,13 +20,7 @@ class OperationClient {
     });
   }
 
-  async getOperationQuery({
-    operationName,
-    
-  }: {
-    operationName: string;
-    
-  }) {
+  async getOperationQuery({ operationName }: { operationName: string }) {
     try {
       const { data } = await this.axiosInstance.get<GetModelOperationResponse>(
         `/${operationName}`
@@ -39,15 +33,12 @@ class OperationClient {
 
   async checkUntilOperationIsDoen({
     operationName,
-    
   }: {
     operationName: string;
-    
   }): Promise<boolean> {
     try {
       const operation = await this.getOperationQuery({
         operationName,
-        
       });
 
       if (operation.done) {
@@ -56,7 +47,6 @@ class OperationClient {
         await new Promise((resolve) => setTimeout(resolve, 1000));
         const result = await this.checkUntilOperationIsDoen({
           operationName,
-          
         });
         return Promise.resolve(result);
       }

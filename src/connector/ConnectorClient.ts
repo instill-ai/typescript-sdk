@@ -4,27 +4,21 @@ import {
   ConnectorDefinition,
   ConnectorResourceWatchState,
   ConnectorResourceWithDefinition,
-} from "./types";
-import { getQueryString } from "../helper";
-import {
-  GetConnectorDefinitionResponse,
-  GetUserConnectorResourceResponse,
-  ListConnectorDefinitionsResponse,
-  ListConnectorResourcesResponse,
-} from "./queries";
-import {
   CreateUserConnectorResourcePayload,
   CreateUserConnectorResourceResponse,
   RenameUserConnectorResourcePayload,
   RenameUserConnectorResourceResponse,
   UpdateUserConnectorResourcePayload,
   UpdateUserConnectorResourceResponse,
-} from "./mutations";
-import {
+  GetConnectorDefinitionResponse,
+  GetUserConnectorResourceResponse,
+  ListConnectorDefinitionsResponse,
+  ListConnectorResourcesResponse,
   ConnectUserConnectorResourceResponse,
   DisconnectUserConnectorResourceResponse,
   TestUserConnectorResourceConnectionResponse,
-} from "./actions";
+} from "./types";
+import { getQueryString } from "../helper";
 
 class ConnectorClient {
   private axiosInstance: AxiosInstance;
@@ -51,12 +45,12 @@ class ConnectorClient {
   async listConnectorResourcesQuery({
     pageSize,
     nextPageToken,
-    
+
     filter,
   }: {
     pageSize: Nullable<number>;
     nextPageToken: Nullable<string>;
-    
+
     filter: Nullable<string>;
   }) {
     try {
@@ -80,7 +74,7 @@ class ConnectorClient {
         connectors.push(
           ...(await this.listConnectorResourcesQuery({
             pageSize,
-            
+
             nextPageToken: data.next_page_token,
             filter,
           }))
@@ -97,13 +91,13 @@ class ConnectorClient {
     userName,
     pageSize,
     nextPageToken,
-    
+
     filter,
   }: {
     userName: string;
     pageSize: Nullable<number>;
     nextPageToken: Nullable<string>;
-    
+
     filter: Nullable<string>;
   }) {
     try {
@@ -128,7 +122,7 @@ class ConnectorClient {
           ...(await this.listUserConnectorResourcesQuery({
             userName,
             pageSize,
-            
+
             nextPageToken: data.next_page_token,
             filter,
           }))
@@ -144,12 +138,12 @@ class ConnectorClient {
   async listConnectorDefinitionsQuery({
     pageSize,
     nextPageToken,
-    
+
     filter,
   }: {
     pageSize: Nullable<number>;
     nextPageToken: Nullable<string>;
-    
+
     filter: Nullable<string>;
   }) {
     try {
@@ -173,7 +167,7 @@ class ConnectorClient {
         connectorDefinitions.push(
           ...(await this.listConnectorDefinitionsQuery({
             pageSize,
-            
+
             nextPageToken: data.next_page_token,
             filter,
           }))
@@ -188,10 +182,8 @@ class ConnectorClient {
 
   async getConnectorDefinitionQuery({
     connectorDefinitionName,
-    
   }: {
     connectorDefinitionName: string;
-    
   }) {
     try {
       const { data } =
@@ -207,10 +199,8 @@ class ConnectorClient {
 
   async getUserConnectorResourceQuery({
     connectorResourceName,
-    
   }: {
     connectorResourceName: string;
-    
   }) {
     try {
       const { data } =
@@ -226,10 +216,8 @@ class ConnectorClient {
 
   async watchUserConnectorResource({
     connectorResourceName,
-    
   }: {
     connectorResourceName: string;
-    
   }) {
     try {
       const { data } =
@@ -249,11 +237,9 @@ class ConnectorClient {
   async createUserConnectorResourceMutation({
     userName,
     payload,
-    
   }: {
     userName: string;
     payload: CreateUserConnectorResourcePayload;
-    
   }) {
     try {
       const res =
@@ -269,10 +255,8 @@ class ConnectorClient {
 
   async deleteUserConnectorResourceMutation({
     connectorResourceName,
-    
   }: {
     connectorResourceName: string;
-    
   }) {
     try {
       await this.axiosInstance.delete(`/${connectorResourceName}`);
@@ -283,10 +267,8 @@ class ConnectorClient {
 
   async updateUserConnectorResourceMutation({
     payload,
-    
   }: {
     payload: UpdateUserConnectorResourcePayload;
-    
   }) {
     try {
       const res =
@@ -305,10 +287,8 @@ class ConnectorClient {
 
   async renameUserConnectorResource({
     payload,
-    
   }: {
     payload: RenameUserConnectorResourcePayload;
-    
   }) {
     try {
       const { data } =
@@ -329,10 +309,8 @@ class ConnectorClient {
 
   async testUserConnectorResourceConnectionAction({
     connectorResourceName,
-    
   }: {
     connectorResourceName: string;
-    
   }) {
     try {
       const { data } =
@@ -347,10 +325,8 @@ class ConnectorClient {
 
   async connectUserConnectorResourceAction({
     connectorResourceName,
-    
   }: {
     connectorResourceName: string;
-    
   }) {
     try {
       const { data } =
@@ -365,10 +341,8 @@ class ConnectorClient {
 
   async disconnectUserConnectorResourceAction({
     connectorResourceName,
-    
   }: {
     connectorResourceName: string;
-    
   }) {
     try {
       const { data } =
