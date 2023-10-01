@@ -1,40 +1,90 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Config and installation
 
-## Getting Started
+### installation
 
-First, run the development server:
+make sure you are on `/typescript-sdk/examples/next-app` folder
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```
+pnpm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+or
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+```
+npm install
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+or
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+```
+yarn install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### config
 
-## Learn More
+- make sure you have vdp up running, to run vdp check this [vdp](https://github.com/instill-ai/vdp)
 
-To learn more about Next.js, take a look at the following resources:
+### Now You are ready.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+pnpm run dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+check http://localhost:3000/
 
-## Deploy on Vercel
+```
+import { useEffect, useState } from "react";
+import InstillClient, {
+  Nullable,
+  Pipeline,
+  User,
+} from "@instill-ai/typescript-sdk";
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+export default function TypescriptSdkDemo() {
+  const [pipelines, setPipelines] = useState<Pipeline[]>([]);
+  const [user, setUser] = useState<User[]>([]);
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+  const client = new InstillClient(
+    "https://api.instill.tech",
+    "v1alpha",
+    "" // console API token
+  );
+
+  useEffect(() => {
+    client.Auth.getUserQuery()
+      .then((data: any) => {
+        console.log("data", data);
+        setUser(data);
+      })
+      .catch((error: any) => {
+        console.log("error", error);
+      });
+
+    client.Pipeline.listPipelinesQuery({
+      pageSize: null,
+      nextPageToken: null,
+    })
+      .then((data: any) => {
+        console.log("data", data);
+        setPipelines(data);
+      })
+      .catch((error: any) => {
+        console.log("error", error);
+      });
+  }, []);
+
+  return (
+    <>
+      <h1>User Data</h1>
+      <pre style={{ backgroundColor: "white" }}>
+        {JSON.stringify(user, null, 4)}
+      </pre>
+
+      <h1>Pipelines List</h1>
+      <pre style={{ backgroundColor: "white" }}>
+        {JSON.stringify(pipelines, null, 4)}
+      </pre>
+    </>
+  );
+}
+```

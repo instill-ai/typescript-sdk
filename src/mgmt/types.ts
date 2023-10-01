@@ -31,3 +31,48 @@ export type ApiTokenState =
   | "STATE_INACTIVE"
   | "STATE_ACTIVE"
   | "STATE_EXPIRED";
+
+export type AuthLoginActionPayload = {
+  username: string;
+  password: string;
+};
+
+export type AuthLoginActionResponse = {
+  access_token: string;
+};
+
+export type UpdateUserResponse = {
+  user: User;
+};
+
+export type CreateApiTokenPayload = {
+  id: string;
+  ttl: number;
+};
+
+export type CreateApiTokenResponse = {
+  token: ApiToken;
+};
+
+export type ChangePasswordPayload = {
+  old_password: string;
+  new_password: string;
+};
+
+export type GetUserResponse = {
+  user: User;
+};
+
+export type CheckUserIdExistResponse = {
+  exists: boolean;
+};
+
+export type GetApiTokenResponse = {
+  token: ApiToken;
+};
+
+export type ListApiTokensResponse = {
+  tokens: ApiToken[];
+  next_page_token: string;
+  total_size: string;
+};

@@ -4,3 +4,7 @@ export type Operation = {
   metadata: any;
   done: boolean;
 };
+
+export type GetModelOperationResponse = {
+  operation: Operation;
+};
