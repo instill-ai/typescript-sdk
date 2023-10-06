@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@instill-ai/typescript-sdk':
-    specifier: 0.0.8-rc.12
-    version: 0.0.8-rc.12(@instill-ai/design-system@0.49.1)(@instill-ai/design-tokens@0.3.2)(next@13.5.3)(react-dom@18.2.0)(react@18.2.0)
+    specifier: 0.0.10
+    version: 0.0.10(@instill-ai/design-system@0.49.1)(@instill-ai/design-tokens@0.3.2)(next@13.5.3)(react-dom@18.2.0)(react@18.2.0)
   express:
     specifier: ^4.18.2
     version: 4.18.2
@@ -241,8 +241,8 @@ packages:
       - react-native
     dev: false
 
-  /@instill-ai/typescript-sdk@0.0.8-rc.12(@instill-ai/design-system@0.49.1)(@instill-ai/design-tokens@0.3.2)(next@13.5.3)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-IrvOa6sEce/hHLF+DZwKBEfy9GE5LAmfLjlp4i9Xujcli78N6UwxbhDSYY/gDqXzG0u57iPfkoCds3isTMD9Tw==}
+  /@instill-ai/typescript-sdk@0.0.10(@instill-ai/design-system@0.49.1)(@instill-ai/design-tokens@0.3.2)(next@13.5.3)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-vS6KRCFbIh1uQPO+IYl8t5KZgXVvtfJF9gdHZtsUBXyBOOexittX6HKKF+E+4rbBLlaaTRQVCQhxBBKdFpYh5A==}
     dependencies:
       '@instill-ai/toolkit': 0.68.0-rc.23(@instill-ai/design-system@0.49.1)(@instill-ai/design-tokens@0.3.2)(next@13.5.3)(react-dom@18.2.0)(react@18.2.0)
       '@types/json-schema': 7.0.13
