@@ -43,13 +43,19 @@ import InstillClient from "@instill-ai/typescript-sdk";
 
 ```
 
-### config
+## Configuration
 
-```
-baseUrl: string
-appVersion: string
-apiToken: string
-```
+- baseUrl: `string`
+  - local: `http://localhost:8080`
+  - production: `https://api.instill.tech`
+- appVersion: `string`
+  - `v1alpha`
+- apiToken: `string`
+  - local
+    - username: `admin`
+    - password: `password` // This is the initial password, once they login for the first time, they will need to change it to other password
+  - production
+    - go the setting page and create a api token. `https://console.instill.tech/settings`
 
 ## Example app templetes
 
