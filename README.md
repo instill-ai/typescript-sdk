@@ -74,7 +74,7 @@ export default function TypescriptSdkDemo() {
   const client = new InstillClient(
     "http://localhost:8080",
     "v1alpha",
-    "" // get console API token from `http://localhost:3000/settings`
+    "<your_api_token>" // get console API token from `http://localhost:3000/settings`
   );
 
   useEffect(() => {
@@ -116,7 +116,7 @@ export default function TypescriptSdkDemo() {
   const client = new InstillClient(
     "https://api.instill.tech",
     "v1alpha",
-    "" // console API token
+    "<your_api_token>" // console API token
   );
 
   useEffect(() => {
