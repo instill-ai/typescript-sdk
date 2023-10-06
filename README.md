@@ -48,7 +48,7 @@ import InstillClient from "@instill-ai/typescript-sdk";
 ```
 baseUrl: string
 appVersion: string
-apiToken: Nullable<string>
+apiToken: string
 ```
 
 ## Example app templetes

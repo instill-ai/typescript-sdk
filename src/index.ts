@@ -17,7 +17,7 @@ class InstillClient {
   constructor(
     baseUrl: string,
     appVersion: string,
-    apiToken: Nullable<string>
+    apiToken: string
   ) {
     this.Pipeline = new PipelineClient(baseUrl, appVersion, apiToken);
     this.Auth = new AuthClient(baseUrl, appVersion, apiToken);
