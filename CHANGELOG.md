@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.10](https://github.com/instill-ai/typescript-sdk/compare/@instill-ai/typescript-sdk-v0.0.9...@instill-ai/typescript-sdk-v0.0.10) (2023-10-06)
+
+
+### Miscellaneous
+
+* update apiToken data type ([#35](https://github.com/instill-ai/typescript-sdk/issues/35)) ([729d9a4](https://github.com/instill-ai/typescript-sdk/commit/729d9a48f9b3d97a531fb7113761eb56e87740b5))
+
 ## [0.0.9](https://github.com/instill-ai/typescript-sdk/compare/@instill-ai/typescript-sdk-v0.0.8...@instill-ai/typescript-sdk-v0.0.9) (2023-10-06)
 
 
