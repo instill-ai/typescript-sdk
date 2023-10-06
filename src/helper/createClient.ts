@@ -3,7 +3,7 @@ import { env } from "./config";
 import { Nullable } from "../types";
 
 export function createClient(
-  accessToken: Nullable<string>,
+  apiToken: Nullable<string>,
   product: "base" | "model" | "vdp",
   headers?: AxiosHeaders
 ) {
@@ -12,9 +12,9 @@ export function createClient(
   if (headers) {
     clientHeaders = headers;
   } else {
-    if (accessToken) {
+    if (apiToken) {
       clientHeaders = {
-        Authorization: `Bearer ${accessToken}`,
+        Authorization: `Bearer ${apiToken}`,
         "CF-Access-Client-Id": env("CF_ACCESS_CLIENT_ID")
           ? env("CF_ACCESS_CLIENT_ID")
           : undefined,
