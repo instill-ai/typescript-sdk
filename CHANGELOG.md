@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.0.9](https://github.com/instill-ai/typescript-sdk/compare/@instill-ai/typescript-sdk-v0.0.8...@instill-ai/typescript-sdk-v0.0.9) (2023-10-06)
+
+
+### Miscellaneous
+
+* folder rename example app ([#25](https://github.com/instill-ai/typescript-sdk/issues/25)) ([d80a1b7](https://github.com/instill-ai/typescript-sdk/commit/d80a1b75fe4b69f58047169884732956d6874c22))
+* Namananand/ins 2271 update sdk params ([#28](https://github.com/instill-ai/typescript-sdk/issues/28)) ([2079be3](https://github.com/instill-ai/typescript-sdk/commit/2079be38c2df29da8b4130f6039d311826dd4027))
+* Namananand/ins 2271 update sdk params ([#29](https://github.com/instill-ai/typescript-sdk/issues/29)) ([c21a9ef](https://github.com/instill-ai/typescript-sdk/commit/c21a9ef52c7608d31ff3b2bdc58be8a8655e648e))
+* update params name accessToken --&gt; apiToken ([#27](https://github.com/instill-ai/typescript-sdk/issues/27)) ([046c5c0](https://github.com/instill-ai/typescript-sdk/commit/046c5c06b28c1c01d395fc1b792349c43ff93043))
+
 ## [0.0.8](https://github.com/instill-ai/typescript-sdk/compare/@instill-ai/typescript-sdk-v0.0.7...@instill-ai/typescript-sdk-v0.0.8) (2023-10-01)
 
 
