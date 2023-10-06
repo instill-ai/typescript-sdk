@@ -17,14 +17,14 @@ class InstillClient {
   constructor(
     baseUrl: string,
     appVersion: string,
-    accessToken: Nullable<string>
+    apiToken: Nullable<string>
   ) {
-    this.Pipeline = new PipelineClient(baseUrl, appVersion, accessToken);
-    this.Auth = new AuthClient(baseUrl, appVersion, accessToken);
-    this.Connector = new ConnectorClient(baseUrl, appVersion, accessToken);
-    this.Metric = new MetricClient(baseUrl, appVersion, accessToken);
-    this.Model = new ModelClient(baseUrl, appVersion, accessToken);
-    this.Operation = new OperationClient(baseUrl, appVersion, accessToken);
+    this.Pipeline = new PipelineClient(baseUrl, appVersion, apiToken);
+    this.Auth = new AuthClient(baseUrl, appVersion, apiToken);
+    this.Connector = new ConnectorClient(baseUrl, appVersion, apiToken);
+    this.Metric = new MetricClient(baseUrl, appVersion, apiToken);
+    this.Model = new ModelClient(baseUrl, appVersion, apiToken);
+    this.Operation = new OperationClient(baseUrl, appVersion, apiToken);
   }
 }
 

@@ -26,14 +26,14 @@ class ConnectorClient {
   constructor(
     baseUrl: string,
     appVersion: string,
-    accessToken: Nullable<string>
+    apiToken: Nullable<string>
   ) {
     let URL: Nullable<string> = `${baseUrl}/vdp/${appVersion}`;
 
     this.axiosInstance = axios.create({
       baseURL: URL,
       headers: {
-        Authorization: `Bearer ${accessToken}`,
+        Authorization: `Bearer ${apiToken}`,
       },
     });
   }

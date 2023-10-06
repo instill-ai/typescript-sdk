@@ -48,7 +48,7 @@ import InstillClient from "@instill-ai/typescript-sdk";
 ```
 baseUrl: string
 appVersion: string
-accessToken: Nullable<string>
+apiToken: Nullable<string>
 ```
 
 ## Example app templetes
@@ -257,7 +257,7 @@ modelDefinitionName,
 
 | function               |                params                |
 | :--------------------- | :----------------------------------: |
-| getUserQuery           |             accessToken              |
+| getUserQuery           |             apiToken              |
 | checkUserIdExist       |           id            |
 | getApiTokenQuery       |        tokenName        |
 | listApiTokensQuery     | pageSize, nextPageToken |
