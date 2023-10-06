@@ -37,7 +37,7 @@ class PipelineClient {
   constructor(
     baseUrl: string,
     appVersion: string,
-    apiToken: Nullable<string>
+    apiToken: string
   ) {
     let URL: Nullable<string> = `${baseUrl}/vdp/${appVersion}`;
 

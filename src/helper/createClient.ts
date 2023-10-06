@@ -3,7 +3,7 @@ import { env } from "./config";
 import { Nullable } from "../types";
 
 export function createClient(
-  apiToken: Nullable<string>,
+  apiToken: string,
   product: "base" | "model" | "vdp",
   headers?: AxiosHeaders
 ) {

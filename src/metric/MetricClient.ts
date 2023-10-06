@@ -16,7 +16,7 @@ class MetricClient {
   constructor(
     baseUrl: string,
     appVersion: string,
-    apiToken: Nullable<string>
+    apiToken: string
   ) {
     let URL: Nullable<string> = `${baseUrl}/base/${appVersion}`;
 
