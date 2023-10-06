@@ -64,37 +64,23 @@ import InstillClient, {
 
 export default function TypescriptSdkDemo() {
   const [user, setUser] = useState<User[]>([]);
-  const [token, setToken] = useState<Nullable<string>>(null);
 
-  const client = new InstillClient("http://localhost:8080", "v1alpha", token);
-
-  const login = async () => {
-    const userToken = await client.Auth.authLoginAction({
-      payload: {
-        username: "admin",
-        password: "password",
-      },
-    });
-
-    setToken(userToken);
-  };
+  const client = new InstillClient(
+    "http://localhost:8080",
+    "v1alpha",
+    "" // get console API token from `http://localhost:3000/settings`
+  );
 
   useEffect(() => {
-    login();
+    client.Auth.getUserQuery()
+      .then((data: any) => {
+        console.log("data", data);
+        setUser(data);
+      })
+      .catch((error: any) => {
+        console.log("error", error);
+      });
   }, []);
-
-  useEffect(() => {
-    if (token) {
-      client.Auth.getUserQuery()
-        .then((data: any) => {
-          console.log("data", data);
-          setUser(data);
-        })
-        .catch((error: any) => {
-          console.log("error", error);
-        });
-    }
-  }, [token]);
 
   return (
     <>
@@ -166,7 +152,6 @@ export default function TypescriptSdkDemo() {
 }
 ```
 
-
 ### Next APP
 
 - [next-app](./examples/next-app/)
@@ -179,10 +164,10 @@ export default function TypescriptSdkDemo() {
 
 ### Pipelines
 
-| function                              |                            params                            |
-| :------------------------------------ | :----------------------------------------------------------: |
+| function                              |                     params                      |
+| :------------------------------------ | :---------------------------------------------: |
 | listPipelinesQuery                    |             pageSize, nextPageToken             |
-| listUserPipelinesQuery                |              pageSize, nextPageToken, userName               |
+| listUserPipelinesQuery                |        pageSize, nextPageToken, userName        |
 | getUserPipelineQuery                  |                  pipelineName                   |
 | ListUserPipelineReleasesQuery         | userName, pipelineName, pageSize, nextPageToken |
 | getUserPipelineReleaseQuery           |               pipelineReleaseName               |
@@ -194,12 +179,12 @@ export default function TypescriptSdkDemo() {
 | createUserPipelineReleaseMutation     |              pipelineName, payload              |
 | updateUserPipelineReleaseMutation     |          pipelineReleaseName, payload           |
 | deleteUserPipelineReleaseMutation     |               pipelineReleaseName               |
-| triggerUserPipelineAction             |             pipelineName, payload, returnTraces              |
-| triggerAsyncUserPipelineAction        |             pipelineName, payload, returnTraces              |
+| triggerUserPipelineAction             |       pipelineName, payload, returnTraces       |
+| triggerAsyncUserPipelineAction        |       pipelineName, payload, returnTraces       |
 | setDefaultUserPipelineReleaseMutation |               pipelineReleaseName               |
 | restoreUserPipelineReleaseMutation    |               pipelineReleaseName               |
-| triggerUserPipelineReleaseAction      |          pipelineReleaseName, payload, returnTraces          |
-| triggerAsyncUserPipelineReleaseAction |          pipelineReleaseName, payload, returnTraces          |
+| triggerUserPipelineReleaseAction      |   pipelineReleaseName, payload, returnTraces    |
+| triggerAsyncUserPipelineReleaseAction |   pipelineReleaseName, payload, returnTraces    |
 
 ### Connector
 
@@ -207,17 +192,17 @@ export default function TypescriptSdkDemo() {
 | :---------------------------------------- | :---------------------------------------: |
 | listConnectorResourcesQuery               | userName, pageSize, nextPageToken, filter |
 | listUserConnectorResourcesQuery           |      pageSize, nextPageToken, filter      |
-| listConnectorDefinitionsQuery             |   connectorDefinitionName    |
-| getConnectorDefinitionQuery               |   connectorDefinitionName    |
-| getUserConnectorResourceQuery             |   connectorDefinitionName    |
-| watchUserConnectorResource                |      userName, payload       |
-| createUserConnectorResourceMutation       |   connectorDefinitionName    |
-| deleteUserConnectorResourceMutation       |           payload            |
-| updateUserConnectorResourceMutation       |           payload            |
-| renameUserConnectorResource               |           payload            |
-| testUserConnectorResourceConnectionAction |   connectorDefinitionName    |
-| connectUserConnectorResourceAction        |   connectorDefinitionName    |
-| disconnectUserConnectorResourceAction     |   connectorDefinitionName    |
+| listConnectorDefinitionsQuery             |          connectorDefinitionName          |
+| getConnectorDefinitionQuery               |          connectorDefinitionName          |
+| getUserConnectorResourceQuery             |          connectorDefinitionName          |
+| watchUserConnectorResource                |             userName, payload             |
+| createUserConnectorResourceMutation       |          connectorDefinitionName          |
+| deleteUserConnectorResourceMutation       |                  payload                  |
+| updateUserConnectorResourceMutation       |                  payload                  |
+| renameUserConnectorResource               |                  payload                  |
+| testUserConnectorResourceConnectionAction |          connectorDefinitionName          |
+| connectUserConnectorResourceAction        |          connectorDefinitionName          |
+| disconnectUserConnectorResourceAction     |          connectorDefinitionName          |
 
 ### Metric
 
@@ -231,8 +216,8 @@ modelDefinitionName,
 
 ### Model
 
-| function                  |                     params                     |
-| :------------------------ | :--------------------------------------------: |
+| function                  |              params               |
+| :------------------------ | :-------------------------------: |
 | getModelDefinitionQuery   |        modelDefinitionName        |
 | listModelDefinitionsQuery |      pageSize, nextPageToken      |
 | getUserModelQuery         |             modelName             |
@@ -248,23 +233,22 @@ modelDefinitionName,
 
 ### Operation
 
-| function                  |           params           |
-| :------------------------ | :------------------------: |
+| function                  |    params     |
+| :------------------------ | :-----------: |
 | getOperationQuery         | operationName |
 | checkUntilOperationIsDoen | operationName |
 
 ### Mgmt
 
-| function               |                params                |
-| :--------------------- | :----------------------------------: |
-| getUserQuery           |             apiToken              |
+| function               |         params          |
+| :--------------------- | :---------------------: |
+| getUserQuery           |                 |
 | checkUserIdExist       |           id            |
 | getApiTokenQuery       |        tokenName        |
 | listApiTokensQuery     | pageSize, nextPageToken |
 | updateUserMutation     |         payload         |
 | createApiTokenMutation |         payload         |
 | deleteApiTokenMutation |        tokenName        |
-
 
 ## Contribution Guidelines:
 
