@@ -242,7 +242,7 @@ modelDefinitionName,
 
 | function               |         params          |
 | :--------------------- | :---------------------: |
-| getUserQuery           |                 |
+| getUserQuery           |                         |
 | checkUserIdExist       |           id            |
 | getApiTokenQuery       |        tokenName        |
 | listApiTokensQuery     | pageSize, nextPageToken |
