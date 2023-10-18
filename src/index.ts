@@ -4,7 +4,6 @@ import AuthClient from "./mgmt/AuthClient";
 import ModelClient from "./model/ModelClient";
 import OperationClient from "./operation/OperationClient";
 import PipelineClient from "./pipeline/PipelineClient";
-import { Nullable } from "./types";
 
 class InstillClient {
   public Pipeline: PipelineClient;

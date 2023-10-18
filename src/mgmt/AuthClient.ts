@@ -15,15 +15,17 @@ import {
   AuthLoginActionResponse,
 } from "./types";
 import { getQueryString } from "../helper";
+import {
+  checkUserIdExist,
+  getApiTokenQuery,
+  getUserQuery,
+  listApiTokensQuery,
+} from "./queries";
 
 class AuthClient {
   private axiosInstance: AxiosInstance;
 
-  constructor(
-    baseUrl: string,
-    appVersion: string,
-    apiToken: string
-  ) {
+  constructor(baseUrl: string, appVersion: string, apiToken: string) {
     let URL: Nullable<string> = `${baseUrl}/base/${appVersion}`;
 
     this.axiosInstance = axios.create({
@@ -39,38 +41,18 @@ class AuthClient {
    * -----------------------------------------------------------------------*/
 
   async getUserQuery() {
-    try {
-      const { data } = await this.axiosInstance.get<GetUserResponse>(
-        "/users/me"
-      );
-
-      return Promise.resolve(data.user);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return getUserQuery(this.axiosInstance);
   }
 
   async checkUserIdExist({ id }: { id: string }) {
-    try {
-      const { data } = await this.axiosInstance.get<CheckUserIdExistResponse>(
-        `/users/${id}/exist`
-      );
-      return Promise.resolve(data.exists);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return checkUserIdExist({ axiosInstance: this.axiosInstance, id: id });
   }
 
   async getApiTokenQuery({ tokenName }: { tokenName: string }) {
-    try {
-      const { data } = await this.axiosInstance.get<GetApiTokenResponse>(
-        `/${tokenName}`
-      );
-
-      return Promise.resolve(data.token);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return getApiTokenQuery({
+      axiosInstance: this.axiosInstance,
+      tokenName: tokenName,
+    });
   }
 
   async listApiTokensQuery({
@@ -80,36 +62,11 @@ class AuthClient {
     pageSize: Nullable<number>;
     nextPageToken: Nullable<string>;
   }) {
-    try {
-      const tokens: ApiToken[] = [];
-
-      const queryString = getQueryString({
-        baseURL: "/tokens",
-        pageSize,
-        nextPageToken,
-        filter: null,
-      });
-
-      const { data } = await this.axiosInstance.get<ListApiTokensResponse>(
-        queryString
-      );
-
-      tokens.push(...data.tokens);
-
-      if (data.next_page_token) {
-        tokens.push(
-          ...(await this.listApiTokensQuery({
-            pageSize,
-
-            nextPageToken: data.next_page_token,
-          }))
-        );
-      }
-
-      return Promise.resolve(tokens);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return listApiTokensQuery({
+      axiosInstance: this.axiosInstance,
+      pageSize: pageSize,
+      nextPageToken: nextPageToken,
+    });
   }
 
   /* -------------------------------------------------------------------------
