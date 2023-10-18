@@ -1,26 +1,28 @@
 import axios, { AxiosInstance } from "axios";
 import { Nullable } from "../types";
 import {
-  ApiToken,
   User,
-  CheckUserIdExistResponse,
-  GetApiTokenResponse,
-  GetUserResponse,
-  ListApiTokensResponse,
   ChangePasswordPayload,
   CreateApiTokenPayload,
-  CreateApiTokenResponse,
-  UpdateUserResponse,
   AuthLoginActionPayload,
-  AuthLoginActionResponse,
 } from "./types";
-import { getQueryString } from "../helper";
 import {
   checkUserIdExist,
   getApiTokenQuery,
   getUserQuery,
   listApiTokensQuery,
 } from "./queries";
+import {
+  changePasswordMutation,
+  createApiTokenMutation,
+  deleteApiTokenMutation,
+  updateUserMutation,
+} from "./mutation";
+import {
+  authLoginAction,
+  authLogoutAction,
+  authValidateTokenAction,
+} from "./action";
 
 class AuthClient {
   private axiosInstance: AxiosInstance;
@@ -74,16 +76,10 @@ class AuthClient {
    * -----------------------------------------------------------------------*/
 
   async updateUserMutation({ payload }: { payload: Partial<User> }) {
-    try {
-      const { data } = await this.axiosInstance.patch<UpdateUserResponse>(
-        "/users/me",
-        payload
-      );
-
-      return Promise.resolve(data.user);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return updateUserMutation({
+      axiosInstance: this.axiosInstance,
+      payload: payload,
+    });
   }
 
   async createApiTokenMutation({
@@ -91,24 +87,17 @@ class AuthClient {
   }: {
     payload: CreateApiTokenPayload;
   }) {
-    try {
-      const { data } = await this.axiosInstance.post<CreateApiTokenResponse>(
-        "/tokens",
-        payload
-      );
-
-      return Promise.resolve(data.token);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return createApiTokenMutation({
+      axiosInstance: this.axiosInstance,
+      payload: payload,
+    });
   }
 
   async deleteApiTokenMutation({ tokenName }: { tokenName: string }) {
-    try {
-      await this.axiosInstance.delete(`/${tokenName}`);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return deleteApiTokenMutation({
+      axiosInstance: this.axiosInstance,
+      tokenName: tokenName,
+    });
   }
 
   /* -------------------------------------------------------------------------
@@ -120,11 +109,10 @@ class AuthClient {
   }: {
     payload: ChangePasswordPayload;
   }) {
-    try {
-      await this.axiosInstance.post("/auth/change_password", payload);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return changePasswordMutation({
+      axiosInstance: this.axiosInstance,
+      payload: payload,
+    });
   }
 
   /* -------------------------------------------------------------------------
@@ -132,32 +120,18 @@ class AuthClient {
    * -----------------------------------------------------------------------*/
 
   async authLogoutAction() {
-    try {
-      await this.axiosInstance.post("/auth/logout");
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return authLogoutAction(this.axiosInstance);
   }
 
   async authLoginAction({ payload }: { payload: AuthLoginActionPayload }) {
-    try {
-      const { data } = await this.axiosInstance.post<AuthLoginActionResponse>(
-        "/auth/login",
-        payload
-      );
-
-      return Promise.resolve(data.access_token);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return authLoginAction({
+      axiosInstance: this.axiosInstance,
+      payload: payload,
+    });
   }
 
-  async authValidateTokenAction({}: {}) {
-    try {
-      await this.axiosInstance.post("/auth/validate_access_token");
-    } catch (err) {
-      return Promise.reject(err);
-    }
+  async authValidateTokenAction() {
+    return authValidateTokenAction(this.axiosInstance);
   }
 }
 

@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@instill-ai/typescript-sdk": "0.0.8-rc.12",
+    "@instill-ai/typescript-sdk": "0.0.11-rc.0",
     "next": "latest",
     "react": "latest",
     "react-dom": "latest"
