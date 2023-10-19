@@ -1,31 +1,25 @@
 import axios, { AxiosInstance } from "axios";
 import { Nullable } from "../types";
+import { CreateUserModelPayload, UpdateUserModelPayload } from "./types";
 import {
-  Model,
-  ModelDefinition,
-  ModelWatchState,
-  GetModelDefinitionResponse,
-  GetUserModelReadmeQueryResponse,
-  GetUserModelResponse,
-  ListModelDefinitionsResponse,
-  ListModelsResponse,
-  ListUserModelsResponse,
-  CreateUserModelPayload,
-  CreateUserModelResponse,
-  UpdateUserModelPayload,
-  UpdateUserModelResponse,
-  DeployUserModelResponse,
-  UndeployUserModelResponse,
-} from "./types";
-import { getQueryString } from "../helper";
+  getModelDefinitionQuery,
+  getUserModelQuery,
+  getUserModelReadmeQuery,
+  listModelDefinitionsQuery,
+  listModelsQuery,
+  listUserModelsQuery,
+  watchUserModel,
+} from "./queries";
+import {
+  createUserModelMutation,
+  deleteUserModelMutation,
+  updateModelMutation,
+} from "./mutation";
+import { deployUserModelAction, undeployUserModelAction } from "./action";
 class ModelClient {
   private axiosInstance: AxiosInstance;
 
-  constructor(
-    baseUrl: string,
-    appVersion: string,
-    apiToken: string
-  ) {
+  constructor(baseUrl: string, appVersion: string, apiToken: string) {
     let URL: Nullable<string> = `${baseUrl}/model/${appVersion}`;
 
     this.axiosInstance = axios.create({
@@ -35,7 +29,6 @@ class ModelClient {
       },
     });
   }
-
   /* -------------------------------------------------------------------------
    * Model Queries
    * -----------------------------------------------------------------------*/
@@ -45,15 +38,10 @@ class ModelClient {
   }: {
     modelDefinitionName: string;
   }) {
-    try {
-      const { data } = await this.axiosInstance.get<GetModelDefinitionResponse>(
-        `/${modelDefinitionName}`
-      );
-
-      return Promise.resolve(data.model_definition);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return getModelDefinitionQuery({
+      axiosInstance: this.axiosInstance,
+      modelDefinitionName,
+    });
   }
 
   async listModelDefinitionsQuery({
@@ -63,35 +51,11 @@ class ModelClient {
     pageSize: Nullable<number>;
     nextPageToken: Nullable<string>;
   }) {
-    try {
-      const modelDefinitions: ModelDefinition[] = [];
-
-      const queryString = getQueryString({
-        baseURL: "/model-definitions",
-        pageSize,
-        nextPageToken,
-        filter: null,
-      });
-
-      const { data } =
-        await this.axiosInstance.get<ListModelDefinitionsResponse>(queryString);
-
-      modelDefinitions.push(...data.model_definitions);
-
-      if (data.next_page_token) {
-        modelDefinitions.push(
-          ...(await this.listModelDefinitionsQuery({
-            pageSize,
-
-            nextPageToken: data.next_page_token,
-          }))
-        );
-      }
-
-      return Promise.resolve(modelDefinitions);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return listModelDefinitionsQuery({
+      axiosInstance: this.axiosInstance,
+      pageSize,
+      nextPageToken,
+    });
   }
 
   /* -------------------------------------------------------------------------
@@ -99,14 +63,10 @@ class ModelClient {
    * -----------------------------------------------------------------------*/
 
   async getUserModelQuery({ modelName }: { modelName: string }) {
-    try {
-      const { data } = await this.axiosInstance.get<GetUserModelResponse>(
-        `/${modelName}?view=VIEW_FULL`
-      );
-      return Promise.resolve(data.model);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return getUserModelQuery({
+      axiosInstance: this.axiosInstance,
+      modelName,
+    });
   }
 
   async listModelsQuery({
@@ -116,36 +76,11 @@ class ModelClient {
     pageSize: Nullable<number>;
     nextPageToken: Nullable<string>;
   }) {
-    try {
-      const models: Model[] = [];
-
-      const queryString = getQueryString({
-        baseURL: "/models?view=VIEW_FULL",
-        pageSize,
-        nextPageToken,
-        filter: null,
-      });
-
-      const { data } = await this.axiosInstance.get<ListModelsResponse>(
-        queryString
-      );
-
-      models.push(...data.models);
-
-      if (data.next_page_token) {
-        models.push(
-          ...(await this.listModelsQuery({
-            pageSize,
-
-            nextPageToken: data.next_page_token,
-          }))
-        );
-      }
-
-      return Promise.resolve(models);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return listModelsQuery({
+      axiosInstance: this.axiosInstance,
+      pageSize,
+      nextPageToken,
+    });
   }
 
   async listUserModelsQuery({
@@ -157,49 +92,19 @@ class ModelClient {
     pageSize: Nullable<number>;
     nextPageToken: Nullable<string>;
   }) {
-    try {
-      const models: Model[] = [];
-
-      const queryString = getQueryString({
-        baseURL: `/${userName}/models?view=VIEW_FULL`,
-        pageSize,
-        nextPageToken,
-        filter: null,
-      });
-
-      const { data } = await this.axiosInstance.get<ListUserModelsResponse>(
-        queryString
-      );
-
-      models.push(...data.models);
-
-      if (data.next_page_token) {
-        models.push(
-          ...(await this.listUserModelsQuery({
-            userName,
-            pageSize,
-
-            nextPageToken: data.next_page_token,
-          }))
-        );
-      }
-
-      return Promise.resolve(models);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return listUserModelsQuery({
+      axiosInstance: this.axiosInstance,
+      userName,
+      pageSize,
+      nextPageToken,
+    });
   }
 
   async getUserModelReadmeQuery({ modelName }: { modelName: string }) {
-    try {
-      const { data } =
-        await this.axiosInstance.get<GetUserModelReadmeQueryResponse>(
-          `/${modelName}/readme`
-        );
-      return Promise.resolve(data.readme);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return getUserModelReadmeQuery({
+      axiosInstance: this.axiosInstance,
+      modelName,
+    });
   }
 
   /* -------------------------------------------------------------------------
@@ -207,14 +112,10 @@ class ModelClient {
    * -----------------------------------------------------------------------*/
 
   async watchUserModel({ modelName }: { modelName: string }) {
-    try {
-      const { data } = await this.axiosInstance.get<ModelWatchState>(
-        `/${modelName}/watch`
-      );
-      return Promise.resolve(data);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return watchUserModel({
+      axiosInstance: this.axiosInstance,
+      modelName,
+    });
   }
 
   /* -------------------------------------------------------------------------
@@ -228,98 +129,25 @@ class ModelClient {
     userName: string;
     payload: CreateUserModelPayload;
   }) {
-    if (payload.type === "Local") {
-      try {
-        const formData = new FormData();
-        formData.append("id", payload.id);
-        formData.append("model_definition", payload.model_definition);
-        formData.append("content", payload.configuration.content);
-
-        if (payload.description) {
-          formData.append("description", payload.description);
-        }
-
-        const { data } = await this.axiosInstance.post<CreateUserModelResponse>(
-          "/models/multipart",
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
-        return Promise.resolve(data.operation);
-      } catch (err) {
-        return Promise.reject(err);
-      }
-    } else {
-      let input: Record<string, any> = {};
-
-      if (payload.type === "GitHub") {
-        input = {
-          id: payload.id,
-          model_definition: payload.model_definition,
-          description: payload.description,
-          configuration: {
-            repository: payload.configuration.repository,
-            tag: payload.configuration.tag,
-          },
-        };
-      } else if (payload.type === "ArtiVC") {
-        input = {
-          id: payload.id,
-          model_definition: payload.model_definition,
-          description: payload.description,
-          configuration: {
-            url: payload.configuration.url,
-            credential: payload.configuration.credential
-              ? JSON.parse(payload.configuration.credential)
-              : undefined,
-            tag: payload.configuration.tag,
-          },
-        };
-      } else {
-        input = {
-          id: payload.id,
-          model_definition: payload.model_definition,
-          description: payload.description,
-          configuration: {
-            repo_id: payload.configuration.repo_id,
-          },
-        };
-      }
-
-      try {
-        const { data } = await this.axiosInstance.post<CreateUserModelResponse>(
-          `${userName}/models`,
-          input
-        );
-
-        return Promise.resolve(data.operation);
-      } catch (err) {
-        return Promise.reject(err);
-      }
-    }
+    return createUserModelMutation({
+      axiosInstance: this.axiosInstance,
+      userName,
+      payload,
+    });
   }
 
   async updateModelMutation({ payload }: { payload: UpdateUserModelPayload }) {
-    try {
-      const { data } = await this.axiosInstance.patch<UpdateUserModelResponse>(
-        `/${payload.name}`,
-        payload
-      );
-      return Promise.resolve(data.model);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return updateModelMutation({
+      axiosInstance: this.axiosInstance,
+      payload,
+    });
   }
 
   async deleteUserModelMutation({ modelName }: { modelName: string }) {
-    try {
-      await this.axiosInstance.delete(`/${modelName}`);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return deleteUserModelMutation({
+      axiosInstance: this.axiosInstance,
+      modelName,
+    });
   }
 
   /* -------------------------------------------------------------------------
@@ -327,25 +155,17 @@ class ModelClient {
    * -----------------------------------------------------------------------*/
 
   async deployUserModelAction({ modelName }: { modelName: string }) {
-    try {
-      const { data } = await this.axiosInstance.post<DeployUserModelResponse>(
-        `/${modelName}/deploy`
-      );
-      return Promise.resolve(data.model_id);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return deployUserModelAction({
+      axiosInstance: this.axiosInstance,
+      modelName,
+    });
   }
 
-  async undeployUserModeleAction({ modelName }: { modelName: string }) {
-    try {
-      const { data } = await this.axiosInstance.post<UndeployUserModelResponse>(
-        `/${modelName}/undeploy`
-      );
-      return Promise.resolve(data.model_id);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+  async undeployUserModelAction({ modelName }: { modelName: string }) {
+    return undeployUserModelAction({
+      axiosInstance: this.axiosInstance,
+      modelName,
+    });
   }
 }
 

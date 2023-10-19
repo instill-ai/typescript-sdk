@@ -1,33 +1,35 @@
 import axios, { AxiosInstance } from "axios";
 import { Nullable } from "../types";
 import {
-  ConnectorDefinition,
-  ConnectorResourceWatchState,
-  ConnectorResourceWithDefinition,
   CreateUserConnectorResourcePayload,
-  CreateUserConnectorResourceResponse,
   RenameUserConnectorResourcePayload,
-  RenameUserConnectorResourceResponse,
   UpdateUserConnectorResourcePayload,
-  UpdateUserConnectorResourceResponse,
-  GetConnectorDefinitionResponse,
-  GetUserConnectorResourceResponse,
-  ListConnectorDefinitionsResponse,
-  ListConnectorResourcesResponse,
-  ConnectUserConnectorResourceResponse,
-  DisconnectUserConnectorResourceResponse,
-  TestUserConnectorResourceConnectionResponse,
 } from "./types";
 import { getQueryString } from "../helper";
+import {
+  getConnectorDefinitionQuery,
+  getUserConnectorResourceQuery,
+  listConnectorDefinitionsQuery,
+  listConnectorResourcesQuery,
+  listUserConnectorResourcesQuery,
+  watchUserConnectorResource,
+} from "./queries";
+import {
+  createUserConnectorResourceMutation,
+  deleteUserConnectorResourceMutation,
+  renameUserConnectorResource,
+  updateUserConnectorResourceMutation,
+} from "./mutation";
+import {
+  connectUserConnectorResourceAction,
+  disconnectUserConnectorResourceAction,
+  testUserConnectorResourceConnectionAction,
+} from "./action";
 
 class ConnectorClient {
   private axiosInstance: AxiosInstance;
 
-  constructor(
-    baseUrl: string,
-    appVersion: string,
-    apiToken: string
-  ) {
+  constructor(baseUrl: string, appVersion: string, apiToken: string) {
     let URL: Nullable<string> = `${baseUrl}/vdp/${appVersion}`;
 
     this.axiosInstance = axios.create({
@@ -45,139 +47,55 @@ class ConnectorClient {
   async listConnectorResourcesQuery({
     pageSize,
     nextPageToken,
-
     filter,
   }: {
     pageSize: Nullable<number>;
     nextPageToken: Nullable<string>;
-
     filter: Nullable<string>;
   }) {
-    try {
-      const connectors: ConnectorResourceWithDefinition[] = [];
-
-      const queryString = getQueryString({
-        baseURL: `/connector-resources?view=VIEW_FULL`,
-        pageSize,
-        nextPageToken,
-        filter,
-      });
-
-      const { data } =
-        await this.axiosInstance.get<ListConnectorResourcesResponse>(
-          queryString
-        );
-
-      connectors.push(...data.connector_resources);
-
-      if (data.next_page_token) {
-        connectors.push(
-          ...(await this.listConnectorResourcesQuery({
-            pageSize,
-
-            nextPageToken: data.next_page_token,
-            filter,
-          }))
-        );
-      }
-
-      return Promise.resolve(connectors);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return listConnectorResourcesQuery({
+      axiosInstance: this.axiosInstance,
+      pageSize,
+      nextPageToken,
+      filter,
+    });
   }
 
   async listUserConnectorResourcesQuery({
     userName,
     pageSize,
     nextPageToken,
-
     filter,
   }: {
     userName: string;
     pageSize: Nullable<number>;
     nextPageToken: Nullable<string>;
-
     filter: Nullable<string>;
   }) {
-    try {
-      const connectors: ConnectorResourceWithDefinition[] = [];
-
-      const queryString = getQueryString({
-        baseURL: `${userName}/connector-resources?view=VIEW_FULL`,
-        pageSize,
-        nextPageToken,
-        filter,
-      });
-
-      const { data } =
-        await this.axiosInstance.get<ListConnectorResourcesResponse>(
-          queryString
-        );
-
-      connectors.push(...data.connector_resources);
-
-      if (data.next_page_token) {
-        connectors.push(
-          ...(await this.listUserConnectorResourcesQuery({
-            userName,
-            pageSize,
-
-            nextPageToken: data.next_page_token,
-            filter,
-          }))
-        );
-      }
-
-      return Promise.resolve(connectors);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return listUserConnectorResourcesQuery({
+      axiosInstance: this.axiosInstance,
+      userName,
+      pageSize,
+      nextPageToken,
+      filter,
+    });
   }
 
   async listConnectorDefinitionsQuery({
     pageSize,
     nextPageToken,
-
     filter,
   }: {
     pageSize: Nullable<number>;
     nextPageToken: Nullable<string>;
-
     filter: Nullable<string>;
   }) {
-    try {
-      const connectorDefinitions: ConnectorDefinition[] = [];
-
-      const queryString = getQueryString({
-        baseURL: `/connector-definitions?view=VIEW_FULL`,
-        pageSize,
-        nextPageToken,
-        filter,
-      });
-
-      const { data } =
-        await this.axiosInstance.get<ListConnectorDefinitionsResponse>(
-          queryString
-        );
-
-      connectorDefinitions.push(...data.connector_definitions);
-
-      if (data.next_page_token) {
-        connectorDefinitions.push(
-          ...(await this.listConnectorDefinitionsQuery({
-            pageSize,
-
-            nextPageToken: data.next_page_token,
-            filter,
-          }))
-        );
-      }
-
-      return Promise.resolve(connectorDefinitions);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return listConnectorDefinitionsQuery({
+      axiosInstance: this.axiosInstance,
+      pageSize,
+      nextPageToken,
+      filter,
+    });
   }
 
   async getConnectorDefinitionQuery({
@@ -185,16 +103,10 @@ class ConnectorClient {
   }: {
     connectorDefinitionName: string;
   }) {
-    try {
-      const { data } =
-        await this.axiosInstance.get<GetConnectorDefinitionResponse>(
-          `/${connectorDefinitionName}?view=VIEW_FULL`
-        );
-
-      return Promise.resolve(data.connector_definition);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return getConnectorDefinitionQuery({
+      axiosInstance: this.axiosInstance,
+      connectorDefinitionName,
+    });
   }
 
   async getUserConnectorResourceQuery({
@@ -202,16 +114,10 @@ class ConnectorClient {
   }: {
     connectorResourceName: string;
   }) {
-    try {
-      const { data } =
-        await this.axiosInstance.get<GetUserConnectorResourceResponse>(
-          `/${connectorResourceName}?view=VIEW_FULL`
-        );
-
-      return Promise.resolve(data.connector_resource);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return getUserConnectorResourceQuery({
+      axiosInstance: this.axiosInstance,
+      connectorResourceName,
+    });
   }
 
   async watchUserConnectorResource({
@@ -219,15 +125,10 @@ class ConnectorClient {
   }: {
     connectorResourceName: string;
   }) {
-    try {
-      const { data } =
-        await this.axiosInstance.get<ConnectorResourceWatchState>(
-          `/${connectorResourceName}/watch`
-        );
-      return Promise.resolve(data);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return watchUserConnectorResource({
+      axiosInstance: this.axiosInstance,
+      connectorResourceName,
+    });
   }
 
   /* -------------------------------------------------------------------------
@@ -241,16 +142,11 @@ class ConnectorClient {
     userName: string;
     payload: CreateUserConnectorResourcePayload;
   }) {
-    try {
-      const res =
-        await this.axiosInstance.post<CreateUserConnectorResourceResponse>(
-          `${userName}/connector-resources`,
-          payload
-        );
-      return Promise.resolve(res.data.connector_resource);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return createUserConnectorResourceMutation({
+      axiosInstance: this.axiosInstance,
+      userName,
+      payload,
+    });
   }
 
   async deleteUserConnectorResourceMutation({
@@ -258,11 +154,10 @@ class ConnectorClient {
   }: {
     connectorResourceName: string;
   }) {
-    try {
-      await this.axiosInstance.delete(`/${connectorResourceName}`);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return deleteUserConnectorResourceMutation({
+      axiosInstance: this.axiosInstance,
+      connectorResourceName,
+    });
   }
 
   async updateUserConnectorResourceMutation({
@@ -270,19 +165,10 @@ class ConnectorClient {
   }: {
     payload: UpdateUserConnectorResourcePayload;
   }) {
-    try {
-      const res =
-        await this.axiosInstance.patch<UpdateUserConnectorResourceResponse>(
-          `/${payload.connectorResourceName}`,
-          {
-            ...payload,
-            connectorResourceName: undefined,
-          }
-        );
-      return Promise.resolve(res.data.connector_resource);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return updateUserConnectorResourceMutation({
+      axiosInstance: this.axiosInstance,
+      payload,
+    });
   }
 
   async renameUserConnectorResource({
@@ -290,17 +176,10 @@ class ConnectorClient {
   }: {
     payload: RenameUserConnectorResourcePayload;
   }) {
-    try {
-      const { data } =
-        await this.axiosInstance.post<RenameUserConnectorResourceResponse>(
-          `/${payload.name}/rename`,
-          payload
-        );
-
-      return Promise.resolve(data.connector_resource);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return renameUserConnectorResource({
+      axiosInstance: this.axiosInstance,
+      payload,
+    });
   }
 
   /* -------------------------------------------------------------------------
@@ -312,15 +191,10 @@ class ConnectorClient {
   }: {
     connectorResourceName: string;
   }) {
-    try {
-      const { data } =
-        await this.axiosInstance.post<TestUserConnectorResourceConnectionResponse>(
-          `/${connectorResourceName}/testConnection`
-        );
-      return Promise.resolve(data.state);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return testUserConnectorResourceConnectionAction({
+      axiosInstance: this.axiosInstance,
+      connectorResourceName,
+    });
   }
 
   async connectUserConnectorResourceAction({
@@ -328,15 +202,10 @@ class ConnectorClient {
   }: {
     connectorResourceName: string;
   }) {
-    try {
-      const { data } =
-        await this.axiosInstance.post<ConnectUserConnectorResourceResponse>(
-          `/${connectorResourceName}/connect`
-        );
-      return Promise.resolve(data.connector_resource);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return connectUserConnectorResourceAction({
+      axiosInstance: this.axiosInstance,
+      connectorResourceName,
+    });
   }
 
   async disconnectUserConnectorResourceAction({
@@ -344,15 +213,10 @@ class ConnectorClient {
   }: {
     connectorResourceName: string;
   }) {
-    try {
-      const { data } =
-        await this.axiosInstance.post<DisconnectUserConnectorResourceResponse>(
-          `/${connectorResourceName}/disconnect`
-        );
-      return Promise.resolve(data.connector_resource);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return disconnectUserConnectorResourceAction({
+      axiosInstance: this.axiosInstance,
+      connectorResourceName,
+    });
   }
 }
 
