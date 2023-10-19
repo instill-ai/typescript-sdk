@@ -1,29 +1,33 @@
 import axios, { AxiosInstance } from "axios";
 import { Nullable } from "../types";
 import {
-  ApiToken,
   User,
-  CheckUserIdExistResponse,
-  GetApiTokenResponse,
-  GetUserResponse,
-  ListApiTokensResponse,
   ChangePasswordPayload,
   CreateApiTokenPayload,
-  CreateApiTokenResponse,
-  UpdateUserResponse,
   AuthLoginActionPayload,
-  AuthLoginActionResponse,
 } from "./types";
-import { getQueryString } from "../helper";
+import {
+  checkUserIdExist,
+  getApiTokenQuery,
+  getUserQuery,
+  listApiTokensQuery,
+} from "./queries";
+import {
+  changePasswordMutation,
+  createApiTokenMutation,
+  deleteApiTokenMutation,
+  updateUserMutation,
+} from "./mutation";
+import {
+  authLoginAction,
+  authLogoutAction,
+  authValidateTokenAction,
+} from "./action";
 
 class AuthClient {
   private axiosInstance: AxiosInstance;
 
-  constructor(
-    baseUrl: string,
-    appVersion: string,
-    apiToken: string
-  ) {
+  constructor(baseUrl: string, appVersion: string, apiToken: string) {
     let URL: Nullable<string> = `${baseUrl}/base/${appVersion}`;
 
     this.axiosInstance = axios.create({
@@ -39,38 +43,18 @@ class AuthClient {
    * -----------------------------------------------------------------------*/
 
   async getUserQuery() {
-    try {
-      const { data } = await this.axiosInstance.get<GetUserResponse>(
-        "/users/me"
-      );
-
-      return Promise.resolve(data.user);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return getUserQuery(this.axiosInstance);
   }
 
   async checkUserIdExist({ id }: { id: string }) {
-    try {
-      const { data } = await this.axiosInstance.get<CheckUserIdExistResponse>(
-        `/users/${id}/exist`
-      );
-      return Promise.resolve(data.exists);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return checkUserIdExist({ axiosInstance: this.axiosInstance, id: id });
   }
 
   async getApiTokenQuery({ tokenName }: { tokenName: string }) {
-    try {
-      const { data } = await this.axiosInstance.get<GetApiTokenResponse>(
-        `/${tokenName}`
-      );
-
-      return Promise.resolve(data.token);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return getApiTokenQuery({
+      axiosInstance: this.axiosInstance,
+      tokenName: tokenName,
+    });
   }
 
   async listApiTokensQuery({
@@ -80,36 +64,11 @@ class AuthClient {
     pageSize: Nullable<number>;
     nextPageToken: Nullable<string>;
   }) {
-    try {
-      const tokens: ApiToken[] = [];
-
-      const queryString = getQueryString({
-        baseURL: "/tokens",
-        pageSize,
-        nextPageToken,
-        filter: null,
-      });
-
-      const { data } = await this.axiosInstance.get<ListApiTokensResponse>(
-        queryString
-      );
-
-      tokens.push(...data.tokens);
-
-      if (data.next_page_token) {
-        tokens.push(
-          ...(await this.listApiTokensQuery({
-            pageSize,
-
-            nextPageToken: data.next_page_token,
-          }))
-        );
-      }
-
-      return Promise.resolve(tokens);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return listApiTokensQuery({
+      axiosInstance: this.axiosInstance,
+      pageSize: pageSize,
+      nextPageToken: nextPageToken,
+    });
   }
 
   /* -------------------------------------------------------------------------
@@ -117,16 +76,10 @@ class AuthClient {
    * -----------------------------------------------------------------------*/
 
   async updateUserMutation({ payload }: { payload: Partial<User> }) {
-    try {
-      const { data } = await this.axiosInstance.patch<UpdateUserResponse>(
-        "/users/me",
-        payload
-      );
-
-      return Promise.resolve(data.user);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return updateUserMutation({
+      axiosInstance: this.axiosInstance,
+      payload: payload,
+    });
   }
 
   async createApiTokenMutation({
@@ -134,24 +87,17 @@ class AuthClient {
   }: {
     payload: CreateApiTokenPayload;
   }) {
-    try {
-      const { data } = await this.axiosInstance.post<CreateApiTokenResponse>(
-        "/tokens",
-        payload
-      );
-
-      return Promise.resolve(data.token);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return createApiTokenMutation({
+      axiosInstance: this.axiosInstance,
+      payload: payload,
+    });
   }
 
   async deleteApiTokenMutation({ tokenName }: { tokenName: string }) {
-    try {
-      await this.axiosInstance.delete(`/${tokenName}`);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return deleteApiTokenMutation({
+      axiosInstance: this.axiosInstance,
+      tokenName: tokenName,
+    });
   }
 
   /* -------------------------------------------------------------------------
@@ -163,11 +109,10 @@ class AuthClient {
   }: {
     payload: ChangePasswordPayload;
   }) {
-    try {
-      await this.axiosInstance.post("/auth/change_password", payload);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return changePasswordMutation({
+      axiosInstance: this.axiosInstance,
+      payload: payload,
+    });
   }
 
   /* -------------------------------------------------------------------------
@@ -175,32 +120,18 @@ class AuthClient {
    * -----------------------------------------------------------------------*/
 
   async authLogoutAction() {
-    try {
-      await this.axiosInstance.post("/auth/logout");
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return authLogoutAction(this.axiosInstance);
   }
 
   async authLoginAction({ payload }: { payload: AuthLoginActionPayload }) {
-    try {
-      const { data } = await this.axiosInstance.post<AuthLoginActionResponse>(
-        "/auth/login",
-        payload
-      );
-
-      return Promise.resolve(data.access_token);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return authLoginAction({
+      axiosInstance: this.axiosInstance,
+      payload: payload,
+    });
   }
 
-  async authValidateTokenAction({}: {}) {
-    try {
-      await this.axiosInstance.post("/auth/validate_access_token");
-    } catch (err) {
-      return Promise.reject(err);
-    }
+  async authValidateTokenAction() {
+    return authValidateTokenAction(this.axiosInstance);
   }
 }
 

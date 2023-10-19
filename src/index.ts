@@ -4,7 +4,6 @@ import AuthClient from "./mgmt/AuthClient";
 import ModelClient from "./model/ModelClient";
 import OperationClient from "./operation/OperationClient";
 import PipelineClient from "./pipeline/PipelineClient";
-import { Nullable } from "./types";
 
 class InstillClient {
   public Pipeline: PipelineClient;
@@ -14,11 +13,7 @@ class InstillClient {
   public Model: ModelClient;
   public Operation: OperationClient;
 
-  constructor(
-    baseUrl: string,
-    appVersion: string,
-    apiToken: string
-  ) {
+  constructor(baseUrl: string, appVersion: string, apiToken: string) {
     this.Pipeline = new PipelineClient(baseUrl, appVersion, apiToken);
     this.Auth = new AuthClient(baseUrl, appVersion, apiToken);
     this.Connector = new ConnectorClient(baseUrl, appVersion, apiToken);

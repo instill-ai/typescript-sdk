@@ -1,44 +1,46 @@
 import axios, { AxiosInstance } from "axios";
-import { getQueryString } from "../helper";
 import { Nullable } from "../types";
 import {
-  Pipeline,
-  PipelineRelease,
-  RestoreUserPipelineReleaseResponse,
-  SetDefaultUserPipelineReleaseResponse,
   TriggerAsyncUserPipelinePayload,
-  TriggerAsyncUserPipelineReleaseResponse,
-  TriggerAsyncUserPipelineResponse,
   TriggerUserPipelinePayload,
-  TriggerUserPipelineResponse,
-  GetUserPipelineReleaseResponse,
-  GetUserPipelineResponse,
-  ListPipelineReleasesResponse,
-  ListPipelinesResponse,
-  ListUserPipelinesResponse,
-  WatchUserPipelineReleaseResponse,
-  CreatePipelineResponse,
-  CreateUserPipelinePayload,
   CreateUserPipelineReleasePayload,
-  CreateUserPipelineReleaseResponse,
   RenameUserPipelinePayload,
-  RenameUserPipelineResponse,
   UpdateUserPipelinePayload,
   UpdateUserPipelineReleasePayload,
-  UpdateUserPipelineReleaseResponse,
-  UpdateUserPipelineResponse,
+  CreateUserPipelinePayload,
 } from "./types";
+import {
+  getUserPipelineQuery,
+  getUserPipelineReleaseQuery,
+  listPipelinesQuery,
+  listUserPipelineReleasesQuery,
+  listUserPipelinesQuery,
+  watchUserPipelineReleaseQuery,
+} from "./queries";
+import {
+  createUserPipelineMutation,
+  createUserPipelineReleaseMutation,
+  deleteUserPipelineMutation,
+  deleteUserPipelineReleaseMutation,
+  renameUserPipelineMutation,
+  updateUserPipelineMutation,
+  updateUserPipelineReleaseMutation,
+} from "./mutation";
+import {
+  restoreUserPipelineReleaseMutation,
+  setDefaultUserPipelineReleaseMutation,
+  triggerAsyncUserPipelineAction,
+  triggerAsyncUserPipelineReleaseAction,
+  triggerUserPipelineAction,
+  triggerUserPipelineReleaseAction,
+} from "./action";
 
 class PipelineClient {
   // Define your specific API methods here
 
   private axiosInstance: AxiosInstance;
 
-  constructor(
-    baseUrl: string,
-    appVersion: string,
-    apiToken: string
-  ) {
+  constructor(baseUrl: string, appVersion: string, apiToken: string) {
     let URL: Nullable<string> = `${baseUrl}/vdp/${appVersion}`;
 
     this.axiosInstance = axios.create({
@@ -49,7 +51,9 @@ class PipelineClient {
     });
   }
 
-  //  Queries
+  /* -------------------------------------------------------------------------
+   * Pipeline Queries
+   * -----------------------------------------------------------------------*/
 
   async listPipelinesQuery({
     pageSize,
@@ -58,35 +62,11 @@ class PipelineClient {
     pageSize: Nullable<number>;
     nextPageToken: Nullable<string>;
   }) {
-    try {
-      const pipelines: Pipeline[] = [];
-
-      const queryString = getQueryString({
-        baseURL: "/pipelines?view=VIEW_FULL",
-        pageSize,
-        nextPageToken,
-        filter: null,
-      });
-
-      const { data } = await this.axiosInstance.get<ListPipelinesResponse>(
-        queryString
-      );
-
-      pipelines.push(...data.pipelines);
-
-      if (data.next_page_token) {
-        pipelines.push(
-          ...(await this.listPipelinesQuery({
-            pageSize,
-            nextPageToken: data.next_page_token,
-          }))
-        );
-      }
-
-      return Promise.resolve(pipelines);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return listPipelinesQuery({
+      axiosInstance: this.axiosInstance,
+      pageSize,
+      nextPageToken,
+    });
   }
 
   async listUserPipelinesQuery({
@@ -98,56 +78,26 @@ class PipelineClient {
     nextPageToken: Nullable<string>;
     userName: string;
   }) {
-    try {
-      const pipelines: Pipeline[] = [];
-
-      const queryString = getQueryString({
-        baseURL: `${userName}/pipelines?view=VIEW_FULL`,
-        pageSize,
-        nextPageToken,
-        filter: null,
-      });
-
-      const { data } = await this.axiosInstance.get<ListUserPipelinesResponse>(
-        queryString
-      );
-
-      pipelines.push(...data.pipelines);
-
-      if (data.next_page_token) {
-        pipelines.push(
-          ...(await this.listUserPipelinesQuery({
-            pageSize,
-            nextPageToken: data.next_page_token,
-
-            userName,
-          }))
-        );
-      }
-
-      return Promise.resolve(pipelines);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return listUserPipelinesQuery({
+      axiosInstance: this.axiosInstance,
+      pageSize,
+      nextPageToken,
+      userName,
+    });
   }
 
   async getUserPipelineQuery({ pipelineName }: { pipelineName: string }) {
-    try {
-      const { data } = await this.axiosInstance.get<GetUserPipelineResponse>(
-        `/${pipelineName}?view=VIEW_FULL`
-      );
-
-      return Promise.resolve(data.pipeline);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return getUserPipelineQuery({
+      axiosInstance: this.axiosInstance,
+      pipelineName,
+    });
   }
 
   /* -------------------------------------------------------------------------
    * Pipeline Release
    * -----------------------------------------------------------------------*/
 
-  async ListUserPipelineReleasesQuery({
+  async listUserPipelineReleasesQuery({
     pipelineName,
     pageSize,
     nextPageToken,
@@ -156,35 +106,12 @@ class PipelineClient {
     pageSize: Nullable<number>;
     nextPageToken: Nullable<string>;
   }) {
-    try {
-      const releases: PipelineRelease[] = [];
-
-      const queryString = getQueryString({
-        baseURL: `/${pipelineName}/releases?view=VIEW_FULL`,
-        pageSize,
-        nextPageToken,
-        filter: null,
-      });
-
-      const { data } =
-        await this.axiosInstance.get<ListPipelineReleasesResponse>(queryString);
-
-      releases.push(...data.releases);
-
-      if (data.next_page_token) {
-        releases.push(
-          ...(await this.ListUserPipelineReleasesQuery({
-            pipelineName,
-            pageSize,
-            nextPageToken: data.next_page_token,
-          }))
-        );
-      }
-
-      return Promise.resolve(releases);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return listUserPipelineReleasesQuery({
+      axiosInstance: this.axiosInstance,
+      pipelineName,
+      pageSize,
+      nextPageToken,
+    });
   }
 
   async getUserPipelineReleaseQuery({
@@ -192,16 +119,10 @@ class PipelineClient {
   }: {
     pipelineReleaseName: string;
   }) {
-    try {
-      const { data } =
-        await this.axiosInstance.get<GetUserPipelineReleaseResponse>(
-          `/${pipelineReleaseName}?view=VIEW_FULL`
-        );
-
-      return Promise.resolve(data.release);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return getUserPipelineReleaseQuery({
+      axiosInstance: this.axiosInstance,
+      pipelineReleaseName,
+    });
   }
 
   async watchUserPipelineReleaseQuery({
@@ -209,18 +130,15 @@ class PipelineClient {
   }: {
     pipelineReleaseName: string;
   }) {
-    try {
-      const { data } =
-        await this.axiosInstance.get<WatchUserPipelineReleaseResponse>(
-          `/${pipelineReleaseName}/watch`
-        );
-      return Promise.resolve(data.state);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return watchUserPipelineReleaseQuery({
+      axiosInstance: this.axiosInstance,
+      pipelineReleaseName,
+    });
   }
 
-  //  Mutation
+  /* -------------------------------------------------------------------------
+   * Pipeline Mutation
+   * -----------------------------------------------------------------------*/
 
   async createUserPipelineMutation({
     userName,
@@ -229,15 +147,11 @@ class PipelineClient {
     userName: string;
     payload: CreateUserPipelinePayload;
   }) {
-    try {
-      const { data } = await this.axiosInstance.post<CreatePipelineResponse>(
-        `${userName}/pipelines`,
-        payload
-      );
-      return Promise.resolve(data.pipeline);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return createUserPipelineMutation({
+      axiosInstance: this.axiosInstance,
+      userName,
+      payload,
+    });
   }
 
   async updateUserPipelineMutation({
@@ -245,24 +159,17 @@ class PipelineClient {
   }: {
     payload: UpdateUserPipelinePayload;
   }) {
-    try {
-      const { data } =
-        await this.axiosInstance.patch<UpdateUserPipelineResponse>(
-          `/${payload.name}`,
-          payload
-        );
-      return Promise.resolve(data.pipeline);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return updateUserPipelineMutation({
+      axiosInstance: this.axiosInstance,
+      payload,
+    });
   }
 
   async deleteUserPipelineMutation({ pipelineName }: { pipelineName: string }) {
-    try {
-      await this.axiosInstance.delete(`/${pipelineName}`);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return deleteUserPipelineMutation({
+      axiosInstance: this.axiosInstance,
+      pipelineName,
+    });
   }
 
   async renameUserPipelineMutation({
@@ -270,17 +177,10 @@ class PipelineClient {
   }: {
     payload: RenameUserPipelinePayload;
   }) {
-    try {
-      const { data } =
-        await this.axiosInstance.post<RenameUserPipelineResponse>(
-          `/${payload.name}/rename`,
-          payload
-        );
-
-      return Promise.resolve(data.pipeline);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return renameUserPipelineMutation({
+      axiosInstance: this.axiosInstance,
+      payload,
+    });
   }
 
   /* -------------------------------------------------------------------------
@@ -294,17 +194,11 @@ class PipelineClient {
     pipelineName: string;
     payload: CreateUserPipelineReleasePayload;
   }) {
-    try {
-      const { data } =
-        await this.axiosInstance.post<CreateUserPipelineReleaseResponse>(
-          `${pipelineName}/releases`,
-          payload
-        );
-
-      return Promise.resolve(data.release);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return createUserPipelineReleaseMutation({
+      axiosInstance: this.axiosInstance,
+      pipelineName,
+      payload,
+    });
   }
 
   async updateUserPipelineReleaseMutation({
@@ -314,16 +208,11 @@ class PipelineClient {
     payload: UpdateUserPipelineReleasePayload;
     pipelineReleaseName: string;
   }) {
-    try {
-      const { data } =
-        await this.axiosInstance.patch<UpdateUserPipelineReleaseResponse>(
-          `/${pipelineReleaseName}`,
-          payload
-        );
-      return Promise.resolve(data.release);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return updateUserPipelineReleaseMutation({
+      axiosInstance: this.axiosInstance,
+      payload,
+      pipelineReleaseName,
+    });
   }
 
   async deleteUserPipelineReleaseMutation({
@@ -331,73 +220,48 @@ class PipelineClient {
   }: {
     pipelineReleaseName: string;
   }) {
-    try {
-      await this.axiosInstance.delete(`/${pipelineReleaseName}`);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return deleteUserPipelineReleaseMutation({
+      axiosInstance: this.axiosInstance,
+      pipelineReleaseName,
+    });
   }
 
-  // Actions
+  /* -------------------------------------------------------------------------
+   * Pipeline Actions
+   * -----------------------------------------------------------------------*/
 
   async triggerUserPipelineAction({
     pipelineName,
     payload,
-
     returnTraces,
   }: {
     pipelineName: string;
     payload: TriggerUserPipelinePayload;
-
     returnTraces?: boolean;
   }) {
-    try {
-      const { data } =
-        await this.axiosInstance.post<TriggerUserPipelineResponse>(
-          `/${pipelineName}/trigger`,
-          payload,
-          {
-            headers: {
-              "instill-return-traces": returnTraces ? "true" : "false",
-              "Access-Control-Allow-Headers": "instill-return-traces",
-              "Content-Type": "application/json",
-            },
-          }
-        );
-      return Promise.resolve(data);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return triggerUserPipelineAction({
+      axiosInstance: this.axiosInstance,
+      pipelineName,
+      payload,
+      returnTraces,
+    });
   }
 
   async triggerAsyncUserPipelineAction({
     pipelineName,
     payload,
-
     returnTraces,
   }: {
     pipelineName: string;
     payload: TriggerAsyncUserPipelinePayload;
-
     returnTraces?: boolean;
   }) {
-    try {
-      const { data } =
-        await this.axiosInstance.post<TriggerAsyncUserPipelineResponse>(
-          `/${pipelineName}/triggerAsync`,
-          payload,
-          {
-            headers: {
-              "instill-return-traces": returnTraces ? "true" : "false",
-              "Access-Control-Allow-Headers": "instill-return-traces",
-              "Content-Type": "application/json",
-            },
-          }
-        );
-      return Promise.resolve(data.operation);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return triggerAsyncUserPipelineAction({
+      axiosInstance: this.axiosInstance,
+      pipelineName,
+      payload,
+      returnTraces,
+    });
   }
 
   /* -------------------------------------------------------------------------
@@ -409,15 +273,10 @@ class PipelineClient {
   }: {
     pipelineReleaseName: string;
   }) {
-    try {
-      const { data } =
-        await this.axiosInstance.post<SetDefaultUserPipelineReleaseResponse>(
-          `/${pipelineReleaseName}/setDefault`
-        );
-      return Promise.resolve(data.release);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return setDefaultUserPipelineReleaseMutation({
+      axiosInstance: this.axiosInstance,
+      pipelineReleaseName,
+    });
   }
 
   async restoreUserPipelineReleaseMutation({
@@ -425,75 +284,44 @@ class PipelineClient {
   }: {
     pipelineReleaseName: string;
   }) {
-    try {
-      const { data } =
-        await this.axiosInstance.post<RestoreUserPipelineReleaseResponse>(
-          `/${pipelineReleaseName}/restore`
-        );
-      return Promise.resolve(data.release);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return restoreUserPipelineReleaseMutation({
+      axiosInstance: this.axiosInstance,
+      pipelineReleaseName,
+    });
   }
 
   async triggerUserPipelineReleaseAction({
     pipelineReleaseName,
     payload,
-
     returnTraces,
   }: {
     pipelineReleaseName: string;
     payload: TriggerUserPipelinePayload;
-
     returnTraces?: boolean;
   }) {
-    try {
-      const { data } =
-        await this.axiosInstance.post<TriggerUserPipelineResponse>(
-          `/${pipelineReleaseName}/trigger`,
-          payload,
-          {
-            headers: {
-              "instill-return-traces": returnTraces ? "true" : "false",
-              "Access-Control-Allow-Headers": "instill-return-traces",
-              "Content-Type": "application/json",
-            },
-          }
-        );
-      return Promise.resolve(data);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return triggerUserPipelineReleaseAction({
+      axiosInstance: this.axiosInstance,
+      pipelineReleaseName,
+      payload,
+      returnTraces,
+    });
   }
 
   async triggerAsyncUserPipelineReleaseAction({
     pipelineReleaseName,
     payload,
-
     returnTraces,
   }: {
     pipelineReleaseName: string;
     payload: TriggerAsyncUserPipelinePayload;
-
     returnTraces?: boolean;
   }) {
-    try {
-      const { data } =
-        await this.axiosInstance.post<TriggerAsyncUserPipelineReleaseResponse>(
-          `/${pipelineReleaseName}/triggerAsync`,
-          payload,
-          {
-            headers: {
-              "instill-return-traces": returnTraces ? "true" : "false",
-              "Access-Control-Allow-Headers": "instill-return-traces",
-              "Content-Type": "application/json",
-            },
-          }
-        );
-      return Promise.resolve(data.operation);
-    } catch (err) {
-      return Promise.reject(err);
-    }
+    return triggerAsyncUserPipelineReleaseAction({
+      axiosInstance: this.axiosInstance,
+      pipelineReleaseName,
+      payload,
+      returnTraces,
+    });
   }
 }
 
