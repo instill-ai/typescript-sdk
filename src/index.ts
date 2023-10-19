@@ -13,11 +13,7 @@ class InstillClient {
   public Model: ModelClient;
   public Operation: OperationClient;
 
-  constructor(
-    baseUrl: string,
-    appVersion: string,
-    apiToken: string
-  ) {
+  constructor(baseUrl: string, appVersion: string, apiToken: string) {
     this.Pipeline = new PipelineClient(baseUrl, appVersion, apiToken);
     this.Auth = new AuthClient(baseUrl, appVersion, apiToken);
     this.Connector = new ConnectorClient(baseUrl, appVersion, apiToken);

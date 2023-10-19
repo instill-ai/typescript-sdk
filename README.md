@@ -68,7 +68,7 @@ export default function TypescriptSdkDemo() {
   const client = new InstillClient(
     "http://localhost:8080",
     "v1alpha",
-    "" // get console API token from `http://localhost:3000/settings`
+    "<your_api_token>" // get console API token from `http://localhost:3000/settings`
   );
 
   useEffect(() => {
@@ -110,7 +110,7 @@ export default function TypescriptSdkDemo() {
   const client = new InstillClient(
     "https://api.instill.tech",
     "v1alpha",
-    "" // console API token
+    "<your_api_token>" // console API token
   );
 
   useEffect(() => {
@@ -164,6 +164,70 @@ export default function TypescriptSdkDemo() {
 
 ### Pipelines
 
+### create Pipeline
+
+```
+
+userName : check your userName: https://console.instill.tech/settings
+
+client.PipelineClient.createUserPipelineMutation("<userName>",
+  {
+    "id": "overseas-blue-lobster",
+    "recipe": {
+      "version": "v1alpha",
+      "components": [
+        {
+          "id": "start",
+          "resource_name": "",
+          "configuration": {
+            "metadata": {
+              "text": {
+                "type": "text",
+                "title": "text"
+              }
+            }
+          },
+          "definition_name": "operator-definitions/op-start"
+        },
+        {
+          "id": "end",
+          "resource_name": "",
+          "configuration": {
+            "metadata": {
+              "output": {
+                "title": "output"
+              }
+            },
+            "input": {
+              "output": "{ai_1.output.texts}"
+            }
+          },
+          "definition_name": "operator-definitions/op-end"
+        },
+        {
+          "id": "ai_1",
+          "resource_name": "users/namananand-instill-ai/connector-resources/ai2",
+          "configuration": {
+            "task": "TASK_TEXT_GENERATION",
+            "input": {
+              "prompt": "{start.text}",
+              "model": "gpt-3.5-turbo"
+            }
+          },
+          "definition_name": "connector-definitions/ai-openai"
+        }
+      ]
+    }
+  }
+).then((response) => {
+  console.log(response.data)
+})
+.catch(error => {
+  console.log(error)
+})
+
+```
+
 | function                              |                     params                      |
 | :------------------------------------ | :---------------------------------------------: |
 | listPipelinesQuery                    |             pageSize, nextPageToken             |
@@ -188,6 +252,28 @@ export default function TypescriptSdkDemo() {
 
 ### Connector
 
+### Create new connector
+
+```
+userName : check your userName: https://console.instill.tech/settings
+
+query.ConnectorClient.createUserConnectorResourceMutation("<userName>",
+  {
+    "id": "open-ai-model-1",
+    "connector_definition_name": "connector-definitions/ai-openai",
+    "configuration": {
+      "organization": "my-org",
+      "api_key": "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"
+    }
+  }
+).then((response) => {
+  console.log(response.data)
+})
+.catch(error => {
+  console.log(error)
+})
+```
+
 | function                                  |                  params                   |
 | :---------------------------------------- | :---------------------------------------: |
 | listConnectorResourcesQuery               | userName, pageSize, nextPageToken, filter |
@@ -195,8 +281,8 @@ export default function TypescriptSdkDemo() {
 | listConnectorDefinitionsQuery             |          connectorDefinitionName          |
 | getConnectorDefinitionQuery               |          connectorDefinitionName          |
 | getUserConnectorResourceQuery             |          connectorDefinitionName          |
-| watchUserConnectorResource                |             userName, payload             |
-| createUserConnectorResourceMutation       |          connectorDefinitionName          |
+| watchUserConnectorResource                |           connectorResourceName           |
+| createUserConnectorResourceMutation       |             userName, payload             |
 | deleteUserConnectorResourceMutation       |                  payload                  |
 | updateUserConnectorResourceMutation       |                  payload                  |
 | renameUserConnectorResource               |                  payload                  |
@@ -211,8 +297,6 @@ export default function TypescriptSdkDemo() {
 | listPipelineTriggerRecordsQuery | pageSize, nextPageToken, filter |
 | listTriggeredPipelineQuery      | pageSize, nextPageToken, filter |
 | listTriggeredPipelineChartQuery | pageSize, nextPageToken, filter |
-
-modelDefinitionName,
 
 ### Model
 
@@ -239,6 +323,22 @@ modelDefinitionName,
 | checkUntilOperationIsDoen | operationName |
 
 ### Mgmt
+
+### create API token
+
+```
+
+client.AuthClient.createApiTokenMutation({
+  "id": "aa",
+  "ttl": -1
+}).then((response) => {
+  console.log(response.data)
+})
+.catch(error => {
+  console.log(error)
+})
+
+```
 
 | function               |         params          |
 | :--------------------- | :---------------------: |

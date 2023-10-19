@@ -115,7 +115,7 @@ export async function getUserPipelineQuery({
   }
 }
 
-export async function ListUserPipelineReleasesQuery({
+export async function listUserPipelineReleasesQuery({
   axiosInstance,
   pipelineName,
   pageSize,
@@ -144,7 +144,7 @@ export async function ListUserPipelineReleasesQuery({
 
     if (data.next_page_token) {
       releases.push(
-        ...(await ListUserPipelineReleasesQuery({
+        ...(await listUserPipelineReleasesQuery({
           axiosInstance,
           pipelineName,
           pageSize,

@@ -1,0 +1,8 @@
+{
+  "id": "open-ai-model-1",
+  "connector_definition_name": "connector-definitions/ai-openai",
+  "configuration": {
+    "organization": "my-org",
+    "api_key": "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"
+  }
+}

@@ -10,10 +10,10 @@ import {
   CreateUserPipelinePayload,
 } from "./types";
 import {
-  ListUserPipelineReleasesQuery,
   getUserPipelineQuery,
   getUserPipelineReleaseQuery,
   listPipelinesQuery,
+  listUserPipelineReleasesQuery,
   listUserPipelinesQuery,
   watchUserPipelineReleaseQuery,
 } from "./queries";
@@ -97,7 +97,7 @@ class PipelineClient {
    * Pipeline Release
    * -----------------------------------------------------------------------*/
 
-  async ListUserPipelineReleasesQuery({
+  async listUserPipelineReleasesQuery({
     pipelineName,
     pageSize,
     nextPageToken,
@@ -106,7 +106,7 @@ class PipelineClient {
     pageSize: Nullable<number>;
     nextPageToken: Nullable<string>;
   }) {
-    return ListUserPipelineReleasesQuery({
+    return listUserPipelineReleasesQuery({
       axiosInstance: this.axiosInstance,
       pipelineName,
       pageSize,
