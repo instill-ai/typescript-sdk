@@ -28,7 +28,7 @@ class AuthClient {
   private axiosInstance: AxiosInstance;
 
   constructor(baseUrl: string, appVersion: string, apiToken: string) {
-    let URL: Nullable<string> = `${baseUrl}/base/${appVersion}`;
+    let URL: Nullable<string> = `${baseUrl}/core/${appVersion}`;
 
     this.axiosInstance = axios.create({
       baseURL: URL,
