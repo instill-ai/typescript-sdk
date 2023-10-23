@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.11](https://github.com/instill-ai/typescript-sdk/compare/@instill-ai/typescript-sdk-v0.0.10...@instill-ai/typescript-sdk-v0.0.11) (2023-10-23)
+
+
+### Miscellaneous
+
+* adapt new core structure among instill-ai project ([#40](https://github.com/instill-ai/typescript-sdk/issues/40)) ([6fc14eb](https://github.com/instill-ai/typescript-sdk/commit/6fc14eba5a087f4008d41eca25899045d098d6a9))
+* Namananand/ins 2251 separate queries mutation and actions for SDK and example  ([#38](https://github.com/instill-ai/typescript-sdk/issues/38)) ([5ed98b1](https://github.com/instill-ai/typescript-sdk/commit/5ed98b1be71566d70ba90ac6d693b3a40253ac58))
+
 ## [0.0.10](https://github.com/instill-ai/typescript-sdk/compare/@instill-ai/typescript-sdk-v0.0.9...@instill-ai/typescript-sdk-v0.0.10) (2023-10-06)
 
 
