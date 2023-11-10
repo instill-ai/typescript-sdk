@@ -182,7 +182,8 @@ client.PipelineClient.createUserPipelineMutation("<userName>",
           "configuration": {
             "metadata": {
               "text": {
-                "type": "text",
+                "instillFormat": "string",
+                "type": "string",
                 "title": "text"
               }
             }
