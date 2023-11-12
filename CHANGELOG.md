@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.12](https://github.com/instill-ai/typescript-sdk/compare/@instill-ai/typescript-sdk-v0.0.11...@instill-ai/typescript-sdk-v0.0.12) (2023-11-10)
+
+
+### Miscellaneous
+
+* update config of start operator ([#42](https://github.com/instill-ai/typescript-sdk/issues/42)) ([c74ed31](https://github.com/instill-ai/typescript-sdk/commit/c74ed319e8a696e601223d622d744fdf59699614))
+
 ## [0.0.11](https://github.com/instill-ai/typescript-sdk/compare/@instill-ai/typescript-sdk-v0.0.10...@instill-ai/typescript-sdk-v0.0.11) (2023-10-23)
 
 
