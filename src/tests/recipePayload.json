@@ -1,7 +1,7 @@
 {
   "id": "overseas-blue-lobster",
   "recipe": {
-    "version": "v1alpha",
+    "version": "v1beta",
     "components": [
       {
         "id": "start",
