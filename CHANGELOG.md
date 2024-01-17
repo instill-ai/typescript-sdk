@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.13](https://github.com/instill-ai/typescript-sdk/compare/@instill-ai/typescript-sdk-v0.0.12...@instill-ai/typescript-sdk-v0.0.13) (2024-01-17)
+
+
+### Miscellaneous
+
+* upgrade from v1alpha --&gt; v1beta ([#52](https://github.com/instill-ai/typescript-sdk/issues/52)) ([5f5462c](https://github.com/instill-ai/typescript-sdk/commit/5f5462cdd82b22cbc367ffdc07909b989c5ee0bf))
+
 ## [0.0.12](https://github.com/instill-ai/typescript-sdk/compare/@instill-ai/typescript-sdk-v0.0.11...@instill-ai/typescript-sdk-v0.0.12) (2023-11-10)
 
 
