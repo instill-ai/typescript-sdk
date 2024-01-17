@@ -46,7 +46,7 @@ export default function TypescriptSdkDemo() {
 
   const client = new InstillClient(
     "https://api.instill.tech",
-    "v1alpha",
+    "v1beta",
     "" // console API token
   );
 

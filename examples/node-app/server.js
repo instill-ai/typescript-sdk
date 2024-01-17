@@ -6,7 +6,7 @@ const port = 5000;
 
 const client = new InstillClient(
   "https://api.instill.tech",
-  "v1alpha",
+  "v1beta",
   "instill_sk_8uAG5VaqLDqtXEk3mFEBmMJXQSnTxmkz" // console API token
 );
 
@@ -35,7 +35,7 @@ app.listen(port, () => {
 
 // const client = new InstillClient(
 //  "http://localhost:8080",
-//  "v1alpha",
+//  "v1beta",
 //  "instill_sk_pgybOAbZmtjB7S5DTDJcmryE7utibLAN" // console API token from http://localhost:3000/settings
 // );
 

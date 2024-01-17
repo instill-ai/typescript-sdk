@@ -7,7 +7,7 @@ export default function TypescriptSdkDemo() {
 
   const client = new InstillClient(
     "http://localhost:8080",
-    "v1alpha",
+    "v1beta",
     "instill_sk_pgybOAbZmtjB7S5DTDJcmryE7utibLAN" // console API token from http://localhost:3000/settings
   );
 
@@ -64,7 +64,7 @@ export default function TypescriptSdkDemo() {
 
 //   const client = new InstillClient(
 //     "https://api.instill.tech",
-//     "v1alpha",
+//     "v1beta",
 //     "instill_sk_OwuGQ8RGL6ObzYsneAG9Mib1k6zi9Gmj" // console API token
 //   );
 

@@ -67,7 +67,7 @@ export default function TypescriptSdkDemo() {
 
   const client = new InstillClient(
     "http://localhost:8080",
-    "v1alpha",
+    "v1beta",
     "<your_api_token>" // get console API token from `http://localhost:3000/settings`
   );
 
@@ -109,7 +109,7 @@ export default function TypescriptSdkDemo() {
 
   const client = new InstillClient(
     "https://api.instill.tech",
-    "v1alpha",
+    "v1beta",
     "<your_api_token>" // console API token
   );
 
@@ -174,7 +174,7 @@ client.PipelineClient.createUserPipelineMutation("<userName>",
   {
     "id": "overseas-blue-lobster",
     "recipe": {
-      "version": "v1alpha",
+      "version": "v1beta",
       "components": [
         {
           "id": "start",
