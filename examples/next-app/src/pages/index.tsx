@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import InstillClient, { Pipeline, User } from "@instill-ai/typescript-sdk";
+import InstillClient, { Pipeline, User } from "instill-sdk";
 
 export default function TypescriptSdkDemo() {
   const [pipelines, setPipelines] = useState<Pipeline[]>([]);
@@ -56,7 +56,7 @@ export default function TypescriptSdkDemo() {
 //   Nullable,
 //   Pipeline,
 //   User,
-// } from "@instill-ai/typescript-sdk";
+// } from "instill-sdk";
 
 // export default function TypescriptSdkDemo() {
 //   const [pipelines, setPipelines] = useState<Pipeline[]>([]);

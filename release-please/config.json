@@ -2,8 +2,8 @@
   "packages": {
     ".": {
       "release-type": "node",
-      "package-name": "@instill-ai/typescript-sdk",
-      "component": "@instill-ai/typescript-sdk",
+      "package-name": "instill-sdk",
+      "component": "instill-sdk",
       "draft": false,
       "prerelease": true,
       "bump-minor-pre-major": true,
