@@ -5,7 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
-  '@instill-ai/typescript-sdk':
+  'instill-sdk':
     specifier: 0.0.8-rc.12
     version: 0.0.8-rc.12(@instill-ai/design-system@0.49.1)(@instill-ai/design-tokens@0.3.2)(next@13.5.3)(react-dom@18.2.0)(react@18.2.0)
   express:
@@ -241,7 +241,7 @@ packages:
       - react-native
     dev: false
 
-  /@instill-ai/typescript-sdk@0.0.8-rc.12(@instill-ai/design-system@0.49.1)(@instill-ai/design-tokens@0.3.2)(next@13.5.3)(react-dom@18.2.0)(react@18.2.0):
+  /instill-sdk@0.0.1(@instill-ai/design-system@0.49.1)(@instill-ai/design-tokens@0.3.2)(next@13.5.3)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-IrvOa6sEce/hHLF+DZwKBEfy9GE5LAmfLjlp4i9Xujcli78N6UwxbhDSYY/gDqXzG0u57iPfkoCds3isTMD9Tw==}
     dependencies:
       '@instill-ai/toolkit': 0.68.0-rc.23(@instill-ai/design-system@0.49.1)(@instill-ai/design-tokens@0.3.2)(next@13.5.3)(react-dom@18.2.0)(react@18.2.0)

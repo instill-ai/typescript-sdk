@@ -38,7 +38,7 @@ import InstillClient, {
   Nullable,
   Pipeline,
   User,
-} from "@instill-ai/typescript-sdk";
+} from "instill-sdk";
 
 export default function TypescriptSdkDemo() {
   const [pipelines, setPipelines] = useState<Pipeline[]>([]);

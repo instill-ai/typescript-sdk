@@ -1,5 +1,5 @@
 const express = require("express");
-const InstillClient = require("@instill-ai/typescript-sdk").default; // If CommonJS style
+const InstillClient = require("instill-sdk").default; // If CommonJS style
 
 const app = express();
 const port = 5000;
@@ -28,7 +28,7 @@ app.listen(port, () => {
 // Local
 
 // const express = require("express");
-// const InstillClient = require("@instill-ai/typescript-sdk").default; // If CommonJS style
+// const InstillClient = require("instill-sdk").default; // If CommonJS style
 
 // const app = express();
 // const port = 5000;

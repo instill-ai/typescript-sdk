@@ -3,9 +3,9 @@
 Typescript SDK for Instill AI products
 
 [![Unix Build Status](https://img.shields.io/github/actions/workflow/status/instill-ai/typescript-sdk/test.yml?branch=main&label=linux)](https://github.com/instill-ai/typescript-sdk/actions)
-[![NPM License](https://img.shields.io/npm/l/@instill-ai/typescript-sdk.svg)](https://www.npmjs.com/package/@instill-ai/typescript-sdk)
-[![NPM Version](https://img.shields.io/npm/v/@instill-ai/typescript-sdk.svg)](https://www.npmjs.com/package/@instill-ai/typescript-sdk)
-[![NPM Downloads](https://img.shields.io/npm/dm/@instill-ai/typescript-sdk.svg?color=orange)](https://www.npmjs.com/package/@instill-ai/typescript-sdk)
+[![NPM License](https://img.shields.io/npm/l/instill-sdk.svg)](https://www.npmjs.com/package/instill-sdk)
+[![NPM Version](https://img.shields.io/npm/v/instill-sdk.svg)](https://www.npmjs.com/package/instill-sdk)
+[![NPM Downloads](https://img.shields.io/npm/dm/instill-sdk.svg?color=orange)](https://www.npmjs.com/package/instill-sdk)
 
 > [!IMPORTANT]  
 > **This SDK tool is under heavy development!!**  
@@ -21,25 +21,25 @@ Typescript SDK for Instill AI products
 ### installation
 
 ```
-npm i @instill-ai/typescript-sdk
+npm i instill-sdk
 ```
 
 ```
-yarn add @instill-ai/typescript-sdk
+yarn add instill-sdk
 ```
 
 ```
-pnpm add @instill-ai/typescript-sdk
+pnpm add instill-sdk
 ```
 
 ## Usage:
 
 ```
 // node.js
-const InstillClient = require("@instill-ai/typescript-sdk").default;
+const InstillClient = require("instill-sdk").default;
 
 // next.js
-import InstillClient from "@instill-ai/typescript-sdk";
+import InstillClient from "instill-sdk";
 
 ```
 
@@ -60,7 +60,7 @@ import { useEffect, useState } from "react";
 import InstillClient, {
   Nullable,
   User,
-} from "@instill-ai/typescript-sdk";
+} from "instill-sdk";
 
 export default function TypescriptSdkDemo() {
   const [user, setUser] = useState<User[]>([]);
@@ -101,7 +101,7 @@ import InstillClient, {
   Nullable,
   Pipeline,
   User,
-} from "@instill-ai/typescript-sdk";
+} from "instill-sdk";
 
 export default function TypescriptSdkDemo() {
   const [pipelines, setPipelines] = useState<Pipeline[]>([]);
