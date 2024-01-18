@@ -13,7 +13,7 @@ import {
   getUserPipelineQuery,
   getUserPipelineReleaseQuery,
   listPipelinesQuery,
-  listUserPipelineReleasesQuery,
+  ListUserPipelineReleasesQuery,
   listUserPipelinesQuery,
   watchUserPipelineReleaseQuery,
 } from "./queries";
@@ -58,14 +58,17 @@ class PipelineClient {
   async listPipelinesQuery({
     pageSize,
     nextPageToken,
+    enablePagination,
   }: {
     pageSize: Nullable<number>;
     nextPageToken: Nullable<string>;
+    enablePagination?: boolean;
   }) {
     return listPipelinesQuery({
       axiosInstance: this.axiosInstance,
       pageSize,
       nextPageToken,
+      enablePagination: true,
     });
   }
 
@@ -73,16 +76,19 @@ class PipelineClient {
     pageSize,
     nextPageToken,
     userName,
+    enablePagination,
   }: {
     pageSize: Nullable<number>;
     nextPageToken: Nullable<string>;
     userName: string;
+    enablePagination: boolean;
   }) {
     return listUserPipelinesQuery({
       axiosInstance: this.axiosInstance,
       pageSize,
       nextPageToken,
       userName,
+      enablePagination: true,
     });
   }
 
@@ -97,7 +103,7 @@ class PipelineClient {
    * Pipeline Release
    * -----------------------------------------------------------------------*/
 
-  async listUserPipelineReleasesQuery({
+  async ListUserPipelineReleasesQuery({
     pipelineName,
     pageSize,
     nextPageToken,
@@ -106,7 +112,7 @@ class PipelineClient {
     pageSize: Nullable<number>;
     nextPageToken: Nullable<string>;
   }) {
-    return listUserPipelineReleasesQuery({
+    return ListUserPipelineReleasesQuery({
       axiosInstance: this.axiosInstance,
       pipelineName,
       pageSize,

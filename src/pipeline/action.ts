@@ -10,15 +10,17 @@ import {
 } from "./types";
 
 export async function triggerUserPipelineAction({
-  axiosInstance,
   pipelineName,
   payload,
+  axiosInstance,
   returnTraces,
+  shareCode,
 }: {
-  axiosInstance: AxiosInstance;
   pipelineName: string;
   payload: TriggerUserPipelinePayload;
+  axiosInstance: AxiosInstance;
   returnTraces?: boolean;
+  shareCode?: string;
 }) {
   try {
     const { data } = await axiosInstance.post<TriggerUserPipelineResponse>(
@@ -27,7 +29,9 @@ export async function triggerUserPipelineAction({
       {
         headers: {
           "instill-return-traces": returnTraces ? "true" : "false",
-          "Access-Control-Allow-Headers": "instill-return-traces",
+          "instill-share-code": shareCode,
+          "Access-Control-Allow-Headers":
+            "instill-return-traces, instill-share-code",
           "Content-Type": "application/json",
         },
       }
@@ -39,14 +43,14 @@ export async function triggerUserPipelineAction({
 }
 
 export async function triggerAsyncUserPipelineAction({
-  axiosInstance,
   pipelineName,
   payload,
+  axiosInstance,
   returnTraces,
 }: {
-  axiosInstance: AxiosInstance;
   pipelineName: string;
   payload: TriggerAsyncUserPipelinePayload;
+  axiosInstance: AxiosInstance;
   returnTraces?: boolean;
 }) {
   try {
@@ -67,12 +71,16 @@ export async function triggerAsyncUserPipelineAction({
   }
 }
 
+/* -------------------------------------------------------------------------
+ * Pipeline Release
+ * -----------------------------------------------------------------------*/
+
 export async function setDefaultUserPipelineReleaseMutation({
-  axiosInstance,
   pipelineReleaseName,
+  axiosInstance,
 }: {
-  axiosInstance: AxiosInstance;
   pipelineReleaseName: string;
+  axiosInstance: AxiosInstance;
 }) {
   try {
     const { data } =
@@ -86,11 +94,11 @@ export async function setDefaultUserPipelineReleaseMutation({
 }
 
 export async function restoreUserPipelineReleaseMutation({
-  axiosInstance,
   pipelineReleaseName,
+  axiosInstance,
 }: {
-  axiosInstance: AxiosInstance;
   pipelineReleaseName: string;
+  axiosInstance: AxiosInstance;
 }) {
   try {
     const { data } =
@@ -104,14 +112,14 @@ export async function restoreUserPipelineReleaseMutation({
 }
 
 export async function triggerUserPipelineReleaseAction({
-  axiosInstance,
   pipelineReleaseName,
   payload,
+  axiosInstance,
   returnTraces,
 }: {
-  axiosInstance: AxiosInstance;
   pipelineReleaseName: string;
   payload: TriggerUserPipelinePayload;
+  axiosInstance: AxiosInstance;
   returnTraces?: boolean;
 }) {
   try {
@@ -133,14 +141,14 @@ export async function triggerUserPipelineReleaseAction({
 }
 
 export async function triggerAsyncUserPipelineReleaseAction({
-  axiosInstance,
   pipelineReleaseName,
   payload,
+  axiosInstance,
   returnTraces,
 }: {
-  axiosInstance: AxiosInstance;
   pipelineReleaseName: string;
   payload: TriggerAsyncUserPipelinePayload;
+  axiosInstance: AxiosInstance;
   returnTraces?: boolean;
 }) {
   try {
@@ -152,7 +160,7 @@ export async function triggerAsyncUserPipelineReleaseAction({
           headers: {
             "instill-return-traces": returnTraces ? "true" : "false",
             "Access-Control-Allow-Headers": "instill-return-traces",
-            "Content-Type": "application.json",
+            "Content-Type": "application/json",
           },
         }
       );
