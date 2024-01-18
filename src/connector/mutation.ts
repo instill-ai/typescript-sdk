@@ -1,83 +1,87 @@
 import { AxiosInstance } from "axios";
 import {
-  CreateUserConnectorResourcePayload,
-  CreateUserConnectorResourceResponse,
-  RenameUserConnectorResourcePayload,
-  RenameUserConnectorResourceResponse,
-  UpdateUserConnectorResourcePayload,
-  UpdateUserConnectorResourceResponse,
+  CreateUserConnectorPayload,
+  CreateUserConnectorResponse,
+  RenameUserConnectorPayload,
+  RenameUserConnectorResponse,
+  UpdateUserConnectorPayload,
+  UpdateUserConnectorResponse,
 } from "./types";
 
-export async function createUserConnectorResourceMutation({
-  axiosInstance,
-  userName,
+export async function createUserConnectorMutation({
+  entityName,
   payload,
+  axiosInstance,
 }: {
+  entityName: string;
+  payload: CreateUserConnectorPayload;
   axiosInstance: AxiosInstance;
-  userName: string;
-  payload: CreateUserConnectorResourcePayload;
 }) {
   try {
-    const res = await axiosInstance.post<CreateUserConnectorResourceResponse>(
-      `${userName}/connector-resources`,
+    const res = await axiosInstance.post<CreateUserConnectorResponse>(
+      `${entityName}/connectors`,
       payload
     );
-    return Promise.resolve(res.data.connector_resource);
+    return Promise.resolve(res.data.connector);
   } catch (err) {
     return Promise.reject(err);
   }
 }
 
-export async function deleteUserConnectorResourceMutation({
+export async function deleteUserConnectorMutation({
+  connectorName,
   axiosInstance,
-  connectorResourceName,
 }: {
+  connectorName: string;
   axiosInstance: AxiosInstance;
-  connectorResourceName: string;
 }) {
   try {
-    await axiosInstance.delete(`/${connectorResourceName}`);
+    await axiosInstance.delete(`/${connectorName}`);
   } catch (err) {
     return Promise.reject(err);
   }
 }
 
-export async function updateUserConnectorResourceMutation({
-  axiosInstance,
+export async function updateUserConnectorMutation({
   payload,
+  axiosInstance,
 }: {
+  payload: UpdateUserConnectorPayload;
   axiosInstance: AxiosInstance;
-  payload: UpdateUserConnectorResourcePayload;
 }) {
   try {
-    const res = await axiosInstance.patch<UpdateUserConnectorResourceResponse>(
-      `/${payload.connectorResourceName}`,
+    const res = await axiosInstance.patch<UpdateUserConnectorResponse>(
+      `/${payload.connectorName}`,
       {
         ...payload,
-        connectorResourceName: undefined,
+        // connector name don't need to be sent to the server
+        connectorName: undefined,
       }
     );
-    return Promise.resolve(res.data.connector_resource);
+    return Promise.resolve(res.data.connector);
   } catch (err) {
     return Promise.reject(err);
   }
 }
 
-export async function renameUserConnectorResource({
-  axiosInstance,
+export async function renameUserConnector({
   payload,
+  axiosInstance,
 }: {
+  payload: RenameUserConnectorPayload;
   axiosInstance: AxiosInstance;
-  payload: RenameUserConnectorResourcePayload;
 }) {
   try {
-    const { data } =
-      await axiosInstance.post<RenameUserConnectorResourceResponse>(
-        `/${payload.name}/rename`,
-        payload
-      );
+    const { data } = await axiosInstance.post<RenameUserConnectorResponse>(
+      `/${payload.connectorName}/rename`,
+      {
+        ...payload,
+        // connector name don't need to be sent to the server
+        connectorName: undefined,
+      }
+    );
 
-    return Promise.resolve(data.connector_resource);
+    return Promise.resolve(data.connector);
   } catch (err) {
     return Promise.reject(err);
   }

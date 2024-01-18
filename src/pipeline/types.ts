@@ -1,5 +1,5 @@
 import { OpenAPIV3 } from "openapi-types";
-import { ConnectorDefinition, ConnectorResource } from "../connector";
+import { ConnectorDefinition, Connector } from "../connector";
 import { Spec, Visibility } from "../types";
 import { Nullable } from "../types";
 import { Operation } from "../operation";
@@ -101,7 +101,7 @@ export type PipelineTriggerMetadata = {
 export type PipelineStartComponent = {
   id: "start";
   resource_name: string;
-  resource: Nullable<ConnectorResource>;
+  resource: Nullable<Connector>;
   type: PipelineComponentType;
   definition_name: string;
   operator_definition: Nullable<OperatorDefinition>;
@@ -111,7 +111,7 @@ export type PipelineStartComponent = {
 export type PipelineEndComponent = {
   id: "end";
   resource_name: string;
-  resource: Nullable<ConnectorResource>;
+  resource: Nullable<Connector>;
   type: PipelineComponentType;
   definition_name: string;
   operator_definition: Nullable<OperatorDefinition>;
@@ -121,7 +121,7 @@ export type PipelineEndComponent = {
 export type PipelineConnectorComponent = {
   id: string;
   resource_name: string;
-  resource: Nullable<ConnectorResource>;
+  resource: Nullable<Connector>;
   type: PipelineComponentType;
   definition_name: string;
   connector_definition: Nullable<ConnectorDefinition>;

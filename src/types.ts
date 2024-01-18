@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { JSONSchema7 } from "json-schema";
-import { ConnectorResourceState } from "./connector";
+import { ConnectorState } from "./connector";
 import { ModelState } from "./model";
 import { OpenAPIV3 } from "openapi-types";
 import { PipelineReleaseState } from "./pipeline";
@@ -21,7 +21,7 @@ export type Violation = {
 export type ResourceState =
   | ModelState
   | PipelineReleaseState
-  | ConnectorResourceState;
+  | ConnectorState;
 
 export type Spec = {
   resource_specification: JSONSchema7;

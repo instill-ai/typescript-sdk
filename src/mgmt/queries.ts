@@ -5,13 +5,31 @@ import {
   GetApiTokenResponse,
   GetUserResponse,
   ListApiTokensResponse,
+  ListUsersResponse,
+  User,
 } from "./types";
 import { getQueryString } from "../helper";
 import { Nullable } from "../types";
 
-export async function getUserQuery(axiosInstance: AxiosInstance) {
+export async function getUserMeQuery(axiosInstance: AxiosInstance) {
   try {
     const { data } = await axiosInstance.get<GetUserResponse>("/users/me");
+
+    return Promise.resolve(data.user);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+}
+
+export async function getUserQuery({
+  userName,
+  axiosInstance,
+}: {
+  userName: string;
+  axiosInstance: AxiosInstance;
+}) {
+  try {
+    const { data } = await axiosInstance.get<GetUserResponse>(`/${userName}`);
 
     return Promise.resolve(data.user);
   } catch (err) {
@@ -90,6 +108,45 @@ export async function listApiTokensQuery({
     }
 
     return Promise.resolve(tokens);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+}
+
+export async function listUsersQuery({
+  pageSize,
+  nextPageToken,
+  axiosInstance,
+}: {
+  pageSize: Nullable<number>;
+  nextPageToken: Nullable<string>;
+  axiosInstance: AxiosInstance;
+}) {
+  try {
+    const users: User[] = [];
+
+    const queryString = getQueryString({
+      baseURL: "/users",
+      pageSize,
+      nextPageToken,
+      filter: null,
+    });
+
+    const { data } = await axiosInstance.get<ListUsersResponse>(queryString);
+
+    users.push(...data.users);
+
+    if (data.next_page_token) {
+      users.push(
+        ...(await listUsersQuery({
+          pageSize,
+          axiosInstance,
+          nextPageToken: data.next_page_token,
+        }))
+      );
+    }
+
+    return Promise.resolve(users);
   } catch (err) {
     return Promise.reject(err);
   }
