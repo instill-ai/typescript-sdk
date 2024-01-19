@@ -41,7 +41,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@instill-ai/toolkit": "0.68.0-rc.23",
+    "@instill-ai/toolkit": "0.78.1",
     "@types/json-schema": "^7.0.11",
     "axios": "^1.3.4",
     "json-schema": "^0.4.0",

@@ -4,6 +4,7 @@ import AuthClient from "./mgmt/AuthClient";
 import ModelClient from "./model/ModelClient";
 import OperationClient from "./operation/OperationClient";
 import PipelineClient from "./pipeline/PipelineClient";
+import OrganizationClient from "./organization/OrganizationClient";
 
 class InstillClient {
   public Pipeline: PipelineClient;
@@ -12,6 +13,7 @@ class InstillClient {
   public Metric: MetricClient;
   public Model: ModelClient;
   public Operation: OperationClient;
+  public Organization: OrganizationClient;
 
   constructor(baseUrl: string, appVersion: string, apiToken: string) {
     this.Pipeline = new PipelineClient(baseUrl, appVersion, apiToken);
@@ -20,6 +22,7 @@ class InstillClient {
     this.Metric = new MetricClient(baseUrl, appVersion, apiToken);
     this.Model = new ModelClient(baseUrl, appVersion, apiToken);
     this.Operation = new OperationClient(baseUrl, appVersion, apiToken);
+    this.Organization = new OrganizationClient(baseUrl, appVersion, apiToken);
   }
 }
 
@@ -31,4 +34,5 @@ export * from "./mgmt";
 export * from "./model";
 export * from "./operation";
 export * from "./pipeline";
+export * from "./organization";
 export default InstillClient;

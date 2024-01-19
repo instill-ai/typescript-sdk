@@ -1,30 +1,29 @@
 import axios, { AxiosInstance } from "axios";
 import { Nullable } from "../types";
 import {
-  CreateUserConnectorResourcePayload,
-  RenameUserConnectorResourcePayload,
-  UpdateUserConnectorResourcePayload,
-} from "./types";
-import { getQueryString } from "../helper";
-import {
   getConnectorDefinitionQuery,
-  getUserConnectorResourceQuery,
+  getUserConnectorQuery,
   listConnectorDefinitionsQuery,
-  listConnectorResourcesQuery,
-  listUserConnectorResourcesQuery,
-  watchUserConnectorResource,
+  listConnectorsQuery,
+  listUserConnectorsQuery,
+  watchUserConnector,
 } from "./queries";
 import {
-  createUserConnectorResourceMutation,
-  deleteUserConnectorResourceMutation,
-  renameUserConnectorResource,
-  updateUserConnectorResourceMutation,
+  createUserConnectorMutation,
+  deleteUserConnectorMutation,
+  renameUserConnector,
+  updateUserConnectorMutation,
 } from "./mutation";
 import {
-  connectUserConnectorResourceAction,
-  disconnectUserConnectorResourceAction,
-  testUserConnectorResourceConnectionAction,
+  testUserConnectorConnectionAction,
+  connectUserConnectorAction,
+  disconnectUserConnectorAction,
 } from "./action";
+import {
+  CreateUserConnectorPayload,
+  RenameUserConnectorPayload,
+  UpdateUserConnectorPayload,
+} from "./types";
 
 class ConnectorClient {
   private axiosInstance: AxiosInstance;
@@ -44,7 +43,7 @@ class ConnectorClient {
    * Connector Queries
    * -----------------------------------------------------------------------*/
 
-  async listConnectorResourcesQuery({
+  async listConnectorsQuery({
     pageSize,
     nextPageToken,
     filter,
@@ -53,7 +52,7 @@ class ConnectorClient {
     nextPageToken: Nullable<string>;
     filter: Nullable<string>;
   }) {
-    return listConnectorResourcesQuery({
+    return listConnectorsQuery({
       axiosInstance: this.axiosInstance,
       pageSize,
       nextPageToken,
@@ -61,7 +60,7 @@ class ConnectorClient {
     });
   }
 
-  async listUserConnectorResourcesQuery({
+  async listUserConnectorsQuery({
     userName,
     pageSize,
     nextPageToken,
@@ -72,7 +71,7 @@ class ConnectorClient {
     nextPageToken: Nullable<string>;
     filter: Nullable<string>;
   }) {
-    return listUserConnectorResourcesQuery({
+    return listUserConnectorsQuery({
       axiosInstance: this.axiosInstance,
       userName,
       pageSize,
@@ -109,25 +108,17 @@ class ConnectorClient {
     });
   }
 
-  async getUserConnectorResourceQuery({
-    connectorResourceName,
-  }: {
-    connectorResourceName: string;
-  }) {
-    return getUserConnectorResourceQuery({
+  async getUserConnectorQuery({ connectorName }: { connectorName: string }) {
+    return getUserConnectorQuery({
       axiosInstance: this.axiosInstance,
-      connectorResourceName,
+      connectorName,
     });
   }
 
-  async watchUserConnectorResource({
-    connectorResourceName,
-  }: {
-    connectorResourceName: string;
-  }) {
-    return watchUserConnectorResource({
+  async watchUserConnector({ connectorName }: { connectorName: string }) {
+    return watchUserConnector({
       axiosInstance: this.axiosInstance,
-      connectorResourceName,
+      connectorName,
     });
   }
 
@@ -135,48 +126,48 @@ class ConnectorClient {
    * Connector Mutation
    * -----------------------------------------------------------------------*/
 
-  async createUserConnectorResourceMutation({
-    userName,
+  async createUserConnectorMutation({
+    entityName,
     payload,
   }: {
-    userName: string;
-    payload: CreateUserConnectorResourcePayload;
+    entityName: string;
+    payload: CreateUserConnectorPayload;
   }) {
-    return createUserConnectorResourceMutation({
+    return createUserConnectorMutation({
       axiosInstance: this.axiosInstance,
-      userName,
+      entityName,
       payload,
     });
   }
 
-  async deleteUserConnectorResourceMutation({
-    connectorResourceName,
+  async deleteUserConnectorMutation({
+    connectorName,
   }: {
-    connectorResourceName: string;
+    connectorName: string;
   }) {
-    return deleteUserConnectorResourceMutation({
+    return deleteUserConnectorMutation({
       axiosInstance: this.axiosInstance,
-      connectorResourceName,
+      connectorName,
     });
   }
 
-  async updateUserConnectorResourceMutation({
+  async updateUserConnectorMutation({
     payload,
   }: {
-    payload: UpdateUserConnectorResourcePayload;
+    payload: UpdateUserConnectorPayload;
   }) {
-    return updateUserConnectorResourceMutation({
+    return updateUserConnectorMutation({
       axiosInstance: this.axiosInstance,
       payload,
     });
   }
 
-  async renameUserConnectorResource({
+  async renameUserConnector({
     payload,
   }: {
-    payload: RenameUserConnectorResourcePayload;
+    payload: RenameUserConnectorPayload;
   }) {
-    return renameUserConnectorResource({
+    return renameUserConnector({
       axiosInstance: this.axiosInstance,
       payload,
     });
@@ -186,36 +177,36 @@ class ConnectorClient {
    * Connector Action
    * -----------------------------------------------------------------------*/
 
-  async testUserConnectorResourceConnectionAction({
-    connectorResourceName,
+  async testUserConnectorConnectionAction({
+    connectorName,
   }: {
-    connectorResourceName: string;
+    connectorName: string;
   }) {
-    return testUserConnectorResourceConnectionAction({
+    return testUserConnectorConnectionAction({
       axiosInstance: this.axiosInstance,
-      connectorResourceName,
+      connectorName,
     });
   }
 
-  async connectUserConnectorResourceAction({
-    connectorResourceName,
+  async connectUserConnectorAction({
+    connectorName,
   }: {
-    connectorResourceName: string;
+    connectorName: string;
   }) {
-    return connectUserConnectorResourceAction({
+    return connectUserConnectorAction({
       axiosInstance: this.axiosInstance,
-      connectorResourceName,
+      connectorName,
     });
   }
 
-  async disconnectUserConnectorResourceAction({
-    connectorResourceName,
+  async disconnectUserConnectorAction({
+    connectorName,
   }: {
-    connectorResourceName: string;
+    connectorName: string;
   }) {
-    return disconnectUserConnectorResourceAction({
+    return disconnectUserConnectorAction({
       axiosInstance: this.axiosInstance,
-      connectorResourceName,
+      connectorName,
     });
   }
 }

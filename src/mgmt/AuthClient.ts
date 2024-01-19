@@ -9,6 +9,7 @@ import {
 import {
   checkUserIdExist,
   getApiTokenQuery,
+  getUserMeQuery,
   getUserQuery,
   listApiTokensQuery,
 } from "./queries";
@@ -22,6 +23,7 @@ import {
   authLoginAction,
   authLogoutAction,
   authValidateTokenAction,
+  checkNamespace,
 } from "./action";
 
 class AuthClient {
@@ -42,8 +44,15 @@ class AuthClient {
    * MGMT Queries
    * -----------------------------------------------------------------------*/
 
-  async getUserQuery() {
-    return getUserQuery(this.axiosInstance);
+  async getUserMeQuery() {
+    return getUserMeQuery(this.axiosInstance);
+  }
+
+  async getUserQuery({ userName }: { userName: string }) {
+    return getUserQuery({
+      axiosInstance: this.axiosInstance,
+      userName: userName,
+    });
   }
 
   async checkUserIdExist({ id }: { id: string }) {
@@ -132,6 +141,10 @@ class AuthClient {
 
   async authValidateTokenAction() {
     return authValidateTokenAction(this.axiosInstance);
+  }
+
+  async checkNamespace({ id }: { id: string }) {
+    return checkNamespace({ axiosInstance: this.axiosInstance, id: id });
   }
 }
 

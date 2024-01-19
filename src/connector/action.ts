@@ -1,21 +1,21 @@
 import { AxiosInstance } from "axios";
-import {
-  ConnectUserConnectorResourceResponse,
-  DisconnectUserConnectorResourceResponse,
-  TestUserConnectorResourceConnectionResponse,
-} from "./types";
+import { ConnectorState, ConnectorWithDefinition } from "./types";
 
-export async function testUserConnectorResourceConnectionAction({
+export type TestUserConnectorConnectionResponse = {
+  state: ConnectorState;
+};
+
+export async function testUserConnectorConnectionAction({
   axiosInstance,
-  connectorResourceName,
+  connectorName,
 }: {
   axiosInstance: AxiosInstance;
-  connectorResourceName: string;
+  connectorName: string;
 }) {
   try {
     const { data } =
-      await axiosInstance.post<TestUserConnectorResourceConnectionResponse>(
-        `/${connectorResourceName}/testConnection`
+      await axiosInstance.post<TestUserConnectorConnectionResponse>(
+        `/${connectorName}/testConnection`
       );
     return Promise.resolve(data.state);
   } catch (err) {
@@ -23,37 +23,43 @@ export async function testUserConnectorResourceConnectionAction({
   }
 }
 
-export async function connectUserConnectorResourceAction({
+export type ConnectUserConnectorResponse = {
+  connector: ConnectorWithDefinition;
+};
+
+export async function connectUserConnectorAction({
   axiosInstance,
-  connectorResourceName,
+  connectorName,
 }: {
   axiosInstance: AxiosInstance;
-  connectorResourceName: string;
+  connectorName: string;
 }) {
   try {
-    const { data } =
-      await axiosInstance.post<ConnectUserConnectorResourceResponse>(
-        `/${connectorResourceName}/connect`
-      );
-    return Promise.resolve(data.connector_resource);
+    const { data } = await axiosInstance.post<ConnectUserConnectorResponse>(
+      `/${connectorName}/connect`
+    );
+    return Promise.resolve(data.connector);
   } catch (err) {
     return Promise.reject(err);
   }
 }
 
-export async function disconnectUserConnectorResourceAction({
+export type DisconnectUserConnectorResponse = {
+  connector: ConnectorWithDefinition;
+};
+
+export async function disconnectUserConnectorAction({
   axiosInstance,
-  connectorResourceName,
+  connectorName,
 }: {
   axiosInstance: AxiosInstance;
-  connectorResourceName: string;
+  connectorName: string;
 }) {
   try {
-    const { data } =
-      await axiosInstance.post<DisconnectUserConnectorResourceResponse>(
-        `/${connectorResourceName}/disconnect`
-      );
-    return Promise.resolve(data.connector_resource);
+    const { data } = await axiosInstance.post<DisconnectUserConnectorResponse>(
+      `/${connectorName}/disconnect`
+    );
+    return Promise.resolve(data.connector);
   } catch (err) {
     return Promise.reject(err);
   }

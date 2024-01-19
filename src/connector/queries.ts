@@ -3,15 +3,15 @@ import { getQueryString } from "../helper";
 import { Nullable } from "../types";
 import {
   ConnectorDefinition,
-  ConnectorResourceWatchState,
-  ConnectorResourceWithDefinition,
+  ConnectorWatchState,
+  ConnectorWithDefinition,
   GetConnectorDefinitionResponse,
-  GetUserConnectorResourceResponse,
+  GetUserConnectorResponse,
   ListConnectorDefinitionsResponse,
-  ListConnectorResourcesResponse,
+  ListConnectorsResponse,
 } from "./types";
 
-export async function listConnectorResourcesQuery({
+export async function listConnectorsQuery({
   axiosInstance,
   pageSize,
   nextPageToken,
@@ -24,7 +24,7 @@ export async function listConnectorResourcesQuery({
   filter: Nullable<string>;
 }) {
   try {
-    const connectors: ConnectorResourceWithDefinition[] = [];
+    const connectors: ConnectorWithDefinition[] = [];
 
     const queryString = getQueryString({
       baseURL: `/connector-resources?view=VIEW_FULL`,
@@ -33,15 +33,15 @@ export async function listConnectorResourcesQuery({
       filter,
     });
 
-    const { data } = await axiosInstance.get<ListConnectorResourcesResponse>(
+    const { data } = await axiosInstance.get<ListConnectorsResponse>(
       queryString
     );
 
-    connectors.push(...data.connector_resources);
+    connectors.push(...data.connectors);
 
     if (data.next_page_token) {
       connectors.push(
-        ...(await listConnectorResourcesQuery({
+        ...(await listConnectorsQuery({
           axiosInstance,
           pageSize,
           nextPageToken: data.next_page_token,
@@ -56,7 +56,7 @@ export async function listConnectorResourcesQuery({
   }
 }
 
-export async function listUserConnectorResourcesQuery({
+export async function listUserConnectorsQuery({
   axiosInstance,
   userName,
   pageSize,
@@ -72,7 +72,7 @@ export async function listUserConnectorResourcesQuery({
   filter: Nullable<string>;
 }) {
   try {
-    const connectors: ConnectorResourceWithDefinition[] = [];
+    const connectors: ConnectorWithDefinition[] = [];
 
     const queryString = getQueryString({
       baseURL: `${userName}/connector-resources?view=VIEW_FULL`,
@@ -81,15 +81,15 @@ export async function listUserConnectorResourcesQuery({
       filter,
     });
 
-    const { data } = await axiosInstance.get<ListConnectorResourcesResponse>(
+    const { data } = await axiosInstance.get<ListConnectorsResponse>(
       queryString
     );
 
-    connectors.push(...data.connector_resources);
+    connectors.push(...data.connectors);
 
     if (data.next_page_token) {
       connectors.push(
-        ...(await listUserConnectorResourcesQuery({
+        ...(await listUserConnectorsQuery({
           axiosInstance,
           userName,
           pageSize,
@@ -168,34 +168,34 @@ export async function getConnectorDefinitionQuery({
   }
 }
 
-export async function getUserConnectorResourceQuery({
+export async function getUserConnectorQuery({
   axiosInstance,
-  connectorResourceName,
+  connectorName,
 }: {
   axiosInstance: AxiosInstance;
-  connectorResourceName: string;
+  connectorName: string;
 }) {
   try {
-    const { data } = await axiosInstance.get<GetUserConnectorResourceResponse>(
-      `/${connectorResourceName}?view=VIEW_FULL`
+    const { data } = await axiosInstance.get<GetUserConnectorResponse>(
+      `/${connectorName}?view=VIEW_FULL`
     );
 
-    return Promise.resolve(data.connector_resource);
+    return Promise.resolve(data.connector);
   } catch (err) {
     return Promise.reject(err);
   }
 }
 
-export async function watchUserConnectorResource({
+export async function watchUserConnector({
   axiosInstance,
-  connectorResourceName,
+  connectorName,
 }: {
   axiosInstance: AxiosInstance;
-  connectorResourceName: string;
+  connectorName: string;
 }) {
   try {
-    const { data } = await axiosInstance.get<ConnectorResourceWatchState>(
-      `/${connectorResourceName}/watch`
+    const { data } = await axiosInstance.get<ConnectorWatchState>(
+      `/${connectorName}/watch`
     );
     return Promise.resolve(data);
   } catch (err) {

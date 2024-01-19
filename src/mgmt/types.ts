@@ -1,3 +1,5 @@
+import { GeneralRecord } from "@instill-ai/toolkit";
+
 export type User = {
   name: string;
   uid: string;
@@ -13,8 +15,9 @@ export type User = {
   create_time: string;
   update_time: string;
   cookie_token?: string;
+  profile_avatar?: string;
+  profile_data?: GeneralRecord;
 };
-
 export type ApiToken = {
   name: string;
   uid: string;
@@ -31,6 +34,13 @@ export type ApiTokenState =
   | "STATE_INACTIVE"
   | "STATE_ACTIVE"
   | "STATE_EXPIRED";
+
+export type NamespaceType =
+  | "NAMESPACE_UNSPECIFIED"
+  | "NAMESPACE_AVAILABLE"
+  | "NAMESPACE_USER"
+  | "NAMESPACE_ORGANIZATION"
+  | "NAMESPACE_RESERVED";
 
 export type AuthLoginActionPayload = {
   username: string;
@@ -75,4 +85,14 @@ export type ListApiTokensResponse = {
   tokens: ApiToken[];
   next_page_token: string;
   total_size: string;
+};
+
+export type ListUsersResponse = {
+  users: User[];
+  next_page_token: string;
+  total_size: string;
+};
+
+export type CheckNamespaceResponse = {
+  type: NamespaceType;
 };
