@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.3](https://github.com/instill-ai/typescript-sdk/compare/instill-sdk-v0.0.2...instill-sdk-v0.0.3) (2024-01-19)
+
+
+### Miscellaneous
+
+* namananand/ins-3307-add-new-api-end-points-which-where-added-on-the-console ([#57](https://github.com/instill-ai/typescript-sdk/issues/57)) ([9ac18eb](https://github.com/instill-ai/typescript-sdk/commit/9ac18eb8a538f6578f66d33b9322d84acf1c60a3))
+* update sdk new API reference ([#59](https://github.com/instill-ai/typescript-sdk/issues/59)) ([898e1a9](https://github.com/instill-ai/typescript-sdk/commit/898e1a9ee25d3421eaa8cb78b74e42be3a226944))
+
 ## [0.0.2](https://github.com/instill-ai/typescript-sdk/compare/instill-sdk-v0.0.1...instill-sdk-v0.0.2) (2024-01-17)
 
 
