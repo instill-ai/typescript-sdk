@@ -3,6 +3,8 @@ import {
   ApiToken,
   CheckUserIdExistResponse,
   GetApiTokenResponse,
+  GetAuthenticatedResponse,
+  GetAuthenticatedUserSubscriptionsResponse,
   GetUserResponse,
   ListApiTokensResponse,
   ListUsersResponse,
@@ -11,11 +13,28 @@ import {
 import { getQueryString } from "../helper";
 import { Nullable } from "../types";
 
-export async function getUserMeQuery(axiosInstance: AxiosInstance) {
+export async function getAuthenticatedUserQuery(axiosInstance: AxiosInstance) {
   try {
-    const { data } = await axiosInstance.get<GetUserResponse>("/users/me");
+    const { data } = await axiosInstance.get<GetAuthenticatedResponse>("/user");
 
     return Promise.resolve(data.user);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+}
+
+export async function getAuthenticatedUserSubscriptionsQuery({
+  axiosInstance,
+}: {
+  axiosInstance: AxiosInstance;
+}) {
+  try {
+    const { data } =
+      await axiosInstance.get<GetAuthenticatedUserSubscriptionsResponse>(
+        "/user/subscription"
+      );
+
+    return Promise.resolve(data.subscription);
   } catch (err) {
     return Promise.reject(err);
   }

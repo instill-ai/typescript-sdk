@@ -1,4 +1,5 @@
 import { GeneralRecord } from "@instill-ai/toolkit";
+import { Nullable } from "../types";
 
 export type User = {
   name: string;
@@ -52,7 +53,7 @@ export type AuthLoginActionResponse = {
 };
 
 export type UpdateUserResponse = {
-  user: User;
+  user: AuthenticatedUser;
 };
 
 export type CreateApiTokenPayload = {
@@ -69,6 +70,9 @@ export type ChangePasswordPayload = {
   new_password: string;
 };
 
+export type GetAuthenticatedResponse = {
+  user: AuthenticatedUser;
+};
 export type GetUserResponse = {
   user: User;
 };
@@ -95,4 +99,73 @@ export type ListUsersResponse = {
 
 export type CheckNamespaceResponse = {
   type: NamespaceType;
+};
+
+export type UserProfile = {
+  display_name?: string;
+  bio?: string;
+  public_email?: string;
+  company_name?: string;
+  avatar?: string;
+  social_profiles_links?: {
+    webiste?: string;
+    x?: string;
+    github?: string;
+  };
+};
+
+export type OnboardingStatus =
+  | "ONBOARDING_STATUS_UNSPECIFIED"
+  | "ONBOARDING_STATUS_IN_PROGRESS"
+  | "ONBOARDING_STATUS_COMPLETED";
+
+export type AuthenticatedUser = {
+  name: string;
+  uid: string;
+  id: string;
+  create_time: string;
+  update_time: string;
+  customer_id: string;
+  email: string;
+  newsletter_subscription: boolean;
+  role: string;
+  onboarding_status: OnboardingStatus;
+  cookie_token?: string;
+  profile?: UserProfile;
+};
+
+export type StripeSubscriptionStatus =
+  | "STATUS_UNSPECIFIED"
+  | "STATUS_INCOMPLETE"
+  | "STATUS_INCOMPLETE_EXPIRED"
+  | "STATUS_TRIALING"
+  | "STATUS_ACTIVE"
+  | "STATUS_PAST_DUE"
+  | "STATUS_CANCELED"
+  | "STATUS_UNPAID"
+  | "STATUS_PAUSED";
+
+export type StripeSubscriptionDetail = {
+  product_name: string;
+  id: string;
+  item_id: string;
+  price: number;
+  canceled_at?: number;
+  trial_end?: number;
+  status: StripeSubscriptionStatus;
+  description: string;
+};
+
+export type UserSubscriptionPlan =
+  | "PLAN_UNSPECIFIED"
+  | "PLAN_FREEMIUM"
+  | "PLAN_PRO";
+
+export type UserSubscription = {
+  plan: UserSubscriptionPlan;
+  detail: Nullable<StripeSubscriptionDetail>;
+};
+
+export type GetAuthenticatedUserSubscriptionsResponse = {
+  subscription: UserSubscription;
 };
