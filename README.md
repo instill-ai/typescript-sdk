@@ -359,17 +359,17 @@ client.AuthClient.createApiTokenMutation({
 
 ```
 
-| function               |         params          |
-| :--------------------- | :---------------------: |
-| getUserQuery           |        userName         |
-| getUserMeQuery         |                         |  
-| checkUserIdExist       |           id            |
-| getApiTokenQuery       |        tokenName        |
-| listApiTokensQuery     | pageSize, nextPageToken |
-| updateUserMutation     |         payload         |
-| createApiTokenMutation |         payload         |
-| deleteApiTokenMutation |        tokenName        |
-| checkNamespace         |            id           |
+| function                        |         params          |
+| :---------------------          | :---------------------: |
+| getUserQuery                    |        userName         |
+| getAuthenticatedUserQuery       |                         |  
+| checkUserIdExist                |           id            |
+| getApiTokenQuery                |        tokenName        |
+| listApiTokensQuery              | pageSize, nextPageToken |
+| updateAuthenticatedUserMutation |         payload         |
+| createApiTokenMutation          |         payload         |
+| deleteApiTokenMutation          |        tokenName        |
+| checkNamespace                  |            id           |
 
 ## Contribution Guidelines:
 

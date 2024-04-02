@@ -9,7 +9,7 @@ import {
 import {
   checkUserIdExist,
   getApiTokenQuery,
-  getUserMeQuery,
+  getAuthenticatedUserQuery,
   getUserQuery,
   listApiTokensQuery,
 } from "./queries";
@@ -17,7 +17,7 @@ import {
   changePasswordMutation,
   createApiTokenMutation,
   deleteApiTokenMutation,
-  updateUserMutation,
+  updateAuthenticatedUserMutation,
 } from "./mutation";
 import {
   authLoginAction,
@@ -44,8 +44,8 @@ class AuthClient {
    * MGMT Queries
    * -----------------------------------------------------------------------*/
 
-  async getUserMeQuery() {
-    return getUserMeQuery(this.axiosInstance);
+  async getAuthenticatedUserQuery() {
+    return getAuthenticatedUserQuery(this.axiosInstance);
   }
 
   async getUserQuery({ userName }: { userName: string }) {
@@ -84,8 +84,8 @@ class AuthClient {
    * MGMT Mutation
    * -----------------------------------------------------------------------*/
 
-  async updateUserMutation({ payload }: { payload: Partial<User> }) {
-    return updateUserMutation({
+  async updateAuthenticatedUserMutation({ payload }: { payload: Partial<User> }) {
+    return updateAuthenticatedUserMutation({
       axiosInstance: this.axiosInstance,
       payload: payload,
     });
