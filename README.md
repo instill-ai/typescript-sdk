@@ -231,8 +231,8 @@ client.PipelineClient.createUserPipelineMutation("<userName>",
 
 | function                              |                     params                          |
 | :------------------------------------ | :---------------------------------------------:     |
-| listPipelinesQuery                    |     pageSize, nextPageToken,enablePagination        |
-| listUserPipelinesQuery                | pageSize, nextPageToken, userName,enablePagination  |
+| listPipelinesQuery                    |     pageSize, nextPageToken, enablePagination       |
+| listUserPipelinesQuery                | pageSize, nextPageToken, userName, enablePagination |
 | getUserPipelineQuery                  |                  pipelineName                       |
 | ListUserPipelineReleasesQuery         |  userName, pipelineName, pageSize, nextPageToken    |
 | getUserPipelineReleaseQuery           |               pipelineReleaseName                   |
@@ -244,7 +244,7 @@ client.PipelineClient.createUserPipelineMutation("<userName>",
 | createUserPipelineReleaseMutation     |              pipelineName, payload                  |
 | updateUserPipelineReleaseMutation     |          pipelineReleaseName, payload               |
 | deleteUserPipelineReleaseMutation     |               pipelineReleaseName                   |
-| triggerUserPipelineAction             |   pipelineName, payload, returnTraces,shareCode     |
+| triggerUserPipelineAction             |   pipelineName, payload, returnTraces, shareCode    |
 | triggerAsyncUserPipelineAction        |       pipelineName, payload, returnTraces           |
 | setDefaultUserPipelineReleaseMutation |               pipelineReleaseName                   |
 | restoreUserPipelineReleaseMutation    |               pipelineReleaseName                   |
@@ -335,7 +335,7 @@ query.ConnectorClient.createUserConnectorMutation("<userName>",
 | listOrganizationsQuery                | pageSize, nextPageToken, filter |
 | createOrganizationMutation            |           payload               |
 | deleteOrganizationMutation            |     organizationName            |
-| deleteUserMembershipMutation          |     organizationID,userID       |
+| deleteUserMembershipMutation          |     organizationID, userID       |
 | updateOrganizationMembershipMutation  |           payload               |
 | updateOrganizationMutation            |           payload               |
 | updateUserMembershipMutation          |           payload               |
