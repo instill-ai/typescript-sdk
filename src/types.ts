@@ -18,10 +18,7 @@ export type Violation = {
   subject: string;
 };
 
-export type ResourceState =
-  | ModelState
-  | PipelineReleaseState
-  | ConnectorState;
+export type ResourceState = ModelState | PipelineReleaseState | ConnectorState;
 
 export type Spec = {
   resource_specification: JSONSchema7;
@@ -35,3 +32,57 @@ export type Visibility =
   | "VISIBILITY_PUBLIC";
 
 export type Nullable<T> = T | null;
+
+export type OrganizationProfile = {
+  display_name?: string;
+  bio?: string;
+  public_email?: string;
+  avatar?: string;
+  social_profiles_links?: {
+    webiste?: string;
+    x?: string;
+    github?: string;
+  };
+};
+
+export type Organization = {
+  name: string;
+  uid: string;
+  id: string;
+  create_time: string;
+  update_time: string;
+  owner: User;
+  profile?: OrganizationProfile;
+};
+
+export type UserProfile = {
+  display_name?: string;
+  bio?: string;
+  public_email?: string;
+  company_name?: string;
+  avatar?: string;
+  social_profiles_links?: {
+    webiste?: string;
+    x?: string;
+    github?: string;
+  };
+};
+
+export type User = {
+  name: string;
+  uid: string;
+  id: string;
+  create_time: string;
+  update_time: string;
+  profile?: UserProfile;
+};
+
+export type UserOwner = {
+  user: User;
+};
+
+export type OrganizationOwner = {
+  organization: Organization;
+};
+
+export type Owner = UserOwner | OrganizationOwner;

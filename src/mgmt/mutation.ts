@@ -1,5 +1,6 @@
 import { AxiosInstance } from "axios";
 import {
+  AuthenticatedUser,
   ChangePasswordPayload,
   CreateApiTokenPayload,
   CreateApiTokenResponse,
@@ -7,16 +8,16 @@ import {
   User,
 } from "./types";
 
-export async function updateUserMutation({
-  axiosInstance,
+export async function updateAuthenticatedUserMutation({
   payload,
+  axiosInstance,
 }: {
+  payload: Partial<AuthenticatedUser>;
   axiosInstance: AxiosInstance;
-  payload: Partial<User>;
 }) {
   try {
     const { data } = await axiosInstance.patch<UpdateUserResponse>(
-      "/users/me",
+      "/user",
       payload
     );
 
