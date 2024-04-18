@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.0.4](https://github.com/instill-ai/typescript-sdk/compare/instill-sdk-v0.0.3...instill-sdk-v0.0.4) (2024-04-18)
+
+
+### Miscellaneous
+
+* Namananand/ins 3646 update documentation for the latest version ([#70](https://github.com/instill-ai/typescript-sdk/issues/70)) ([3845c99](https://github.com/instill-ai/typescript-sdk/commit/3845c99295b678168ac93b91b9bf192108e70b65))
+* Namananand/ins 3646 update documentation for the latest version ([#72](https://github.com/instill-ai/typescript-sdk/issues/72)) ([7aff630](https://github.com/instill-ai/typescript-sdk/commit/7aff630e65a413e7cea79381883fd55521b8bfc2))
+* remove toolkit dependency ([#74](https://github.com/instill-ai/typescript-sdk/issues/74)) ([c9827da](https://github.com/instill-ai/typescript-sdk/commit/c9827da545620a22a4087edcacb8bc386a94ec89))
+
 ## [0.0.3](https://github.com/instill-ai/typescript-sdk/compare/instill-sdk-v0.0.2...instill-sdk-v0.0.3) (2024-01-19)
 
 
