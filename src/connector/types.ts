@@ -1,7 +1,6 @@
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 
-import { AirbyteFieldValues } from "@instill-ai/toolkit";
-import { Owner, Spec } from "../types";
+import { AirbyteFieldValues, Owner, Spec } from "../types";
 
 export type ConnectorState =
   | "STATE_CONNECTED"

@@ -33,6 +33,12 @@ export type Visibility =
 
 export type Nullable<T> = T | null;
 
+export type GeneralRecord = Record<string, any>;
+
+export type AirbyteFieldValues = {
+  [k: string]: string | number | boolean | null | AirbyteFieldValues;
+};
+
 export type OrganizationProfile = {
   display_name?: string;
   bio?: string;
