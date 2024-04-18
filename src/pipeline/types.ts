@@ -2,9 +2,9 @@
 
 import { OpenAPIV3 } from "openapi-types";
 import { ConnectorDefinition, Connector } from "../connector";
-import { Spec, Visibility } from "../types";
+import { GeneralRecord, Nullable, Spec, Visibility } from "../types";
 import { JSONSchema7TypeName } from "json-schema";
-import { GeneralRecord, Nullable } from "@instill-ai/toolkit";
+
 import { Operation } from "../operation";
 import { AxiosInstance } from "axios";
 

@@ -1,5 +1,5 @@
-import { GeneralRecord, Nullable } from "@instill-ai/toolkit";
-import { User } from "../mgmt";
+import { User } from "../mgmt/types";
+import { GeneralRecord, Nullable } from "../types";
 
 export type Organization = {
   name: string;

@@ -1,10 +1,5 @@
 import { AxiosInstance } from "axios";
 import {
-  Organization,
-  MembershipRole,
-  OrganizationMembership,
-  MembershipState,
-  UserMembership,
   CreateOrganizationPayload,
   CreateOrganizationResponse,
   UpdateOrganizationPayload,
@@ -14,7 +9,6 @@ import {
   UpdateUserMembershipPayload,
   UpdateUserMembershipResponse,
 } from "./types";
-import { GeneralRecord, Nullable } from "@instill-ai/toolkit";
 
 export async function createOrganizationMutation({
   payload,

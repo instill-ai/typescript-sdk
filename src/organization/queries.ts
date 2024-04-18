@@ -5,12 +5,12 @@ import {
   GetOrganizationMembershipsResponse,
   ListOrganizationsResponse,
   Organization,
-  OrganizationMembership,
   OrganizationResponse,
   UserMembership,
 } from "./types";
-import { Nullable } from "@instill-ai/toolkit";
+
 import { getQueryString } from "../helper";
+import { Nullable } from "../types";
 
 export async function listOrganizationsQuery({
   axiosInstance,

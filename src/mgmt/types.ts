@@ -1,5 +1,4 @@
-import { GeneralRecord } from "@instill-ai/toolkit";
-import { Nullable } from "../types";
+import { GeneralRecord, Nullable } from "../types";
 
 export type User = {
   name: string;
