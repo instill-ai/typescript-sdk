@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.0.5](https://github.com/instill-ai/typescript-sdk/compare/instill-sdk-v0.0.4...instill-sdk-v0.0.5) (2024-05-07)
+
+
+### Bug Fixes
+
+* **deps:** further fix deps error ([#77](https://github.com/instill-ai/typescript-sdk/issues/77)) ([fb670b7](https://github.com/instill-ai/typescript-sdk/commit/fb670b7a82597be51862492501c784b170dbde80))
+
+
+### Miscellaneous
+
+* update examples deps version to clean up the tree ([#75](https://github.com/instill-ai/typescript-sdk/issues/75)) ([74e40ed](https://github.com/instill-ai/typescript-sdk/commit/74e40ed91a552ae4b50629d202fc491e74919ca9))
+
 ## [0.0.4](https://github.com/instill-ai/typescript-sdk/compare/instill-sdk-v0.0.3...instill-sdk-v0.0.4) (2024-04-18)
 
 
