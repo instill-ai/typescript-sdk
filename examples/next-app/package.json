@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "instill-sdk": "0.0.4",
-    "next": "latest",
+    "next": "^14.2.3",
     "react": "latest",
     "react-dom": "latest"
   },
