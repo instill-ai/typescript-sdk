@@ -35,13 +35,13 @@ import {
   triggerUserPipelineReleaseAction,
 } from "./action";
 
-class PipelineClient {
+export class PipelineClient {
   // Define your specific API methods here
 
   private axiosInstance: AxiosInstance;
 
   constructor(baseUrl: string, appVersion: string, apiToken: string) {
-    let URL: Nullable<string> = `${baseUrl}/vdp/${appVersion}`;
+    const URL: Nullable<string> = `${baseUrl}/vdp/${appVersion}`;
 
     this.axiosInstance = axios.create({
       baseURL: URL,
@@ -58,7 +58,6 @@ class PipelineClient {
   async listPipelinesQuery({
     pageSize,
     nextPageToken,
-    enablePagination,
   }: {
     pageSize: Nullable<number>;
     nextPageToken: Nullable<string>;
@@ -76,7 +75,6 @@ class PipelineClient {
     pageSize,
     nextPageToken,
     userName,
-    enablePagination,
   }: {
     pageSize: Nullable<number>;
     nextPageToken: Nullable<string>;
