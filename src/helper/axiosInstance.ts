@@ -7,7 +7,7 @@ const createAxiosInstance = (
   appVersion: string,
   product: string
 ): AxiosInstance => {
-  let URL: Nullable<string> = `${baseUrl}/${product}/${appVersion}`;
+  const URL: Nullable<string> = `${baseUrl}/${product}/${appVersion}`;
 
   return axios.create({
     baseURL: URL,

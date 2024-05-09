@@ -1,10 +1,10 @@
-import ConnectorClient from "./connector/ConnectorClient";
-import MetricClient from "./metric/MetricClient";
-import AuthClient from "./mgmt/AuthClient";
-import ModelClient from "./model/ModelClient";
-import OperationClient from "./operation/OperationClient";
-import PipelineClient from "./pipeline/PipelineClient";
-import OrganizationClient from "./organization/OrganizationClient";
+import ConnectorClient from "./connector";
+import MetricClient from "./metric";
+import AuthClient from "./mgmt";
+import ModelClient from "./model";
+import OperationClient from "./operation";
+import OrganizationClient from "./organization";
+import PipelineClient from "./pipeline";
 
 class InstillClient {
   public Pipeline: PipelineClient;
@@ -30,7 +30,6 @@ export * from "./types";
 export * from "./connector";
 export * from "./helper";
 export * from "./metric";
-export * from "./mgmt";
 export * from "./model";
 export * from "./operation";
 export * from "./pipeline";

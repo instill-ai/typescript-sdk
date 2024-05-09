@@ -6,7 +6,7 @@ class OperationClient {
   private axiosInstance: AxiosInstance;
 
   constructor(baseUrl: string, appVersion: string, apiToken: string) {
-    let URL: Nullable<string> = `${baseUrl}/model/${appVersion}`;
+    const URL: Nullable<string> = `${baseUrl}/model/${appVersion}`;
 
     this.axiosInstance = axios.create({
       baseURL: URL,

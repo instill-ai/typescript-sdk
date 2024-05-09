@@ -6,5 +6,8 @@ module.exports = {
     "tsup.config.ts",
     "vitest.config.ts",
     "dist/",
+    "examples/",
+    "setupTests.ts",
+    "turbo.json",
   ],
 };

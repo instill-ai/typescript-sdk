@@ -1,1 +1,1 @@
-export * from "./AuthClient";
+export { default } from "./AuthClient";
