@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.6](https://github.com/instill-ai/typescript-sdk/compare/instill-sdk-v0.0.5...instill-sdk-v0.0.6) (2024-05-09)
+
+
+### Bug Fixes
+
+* fix eslint config ([#79](https://github.com/instill-ai/typescript-sdk/issues/79)) ([d627aad](https://github.com/instill-ai/typescript-sdk/commit/d627aadf8fc21140f5f3978b01a3f980735c1e1b))
+
 ## [0.0.5](https://github.com/instill-ai/typescript-sdk/compare/instill-sdk-v0.0.4...instill-sdk-v0.0.5) (2024-05-07)
 
 
