@@ -5,7 +5,6 @@ import {
   CreateApiTokenPayload,
   CreateApiTokenResponse,
   UpdateUserResponse,
-  User,
 } from "./types";
 
 export async function updateAuthenticatedUserMutation({

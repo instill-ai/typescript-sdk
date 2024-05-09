@@ -1,2 +1,2 @@
 export * from "./types";
-export * from "./ModelClient";
+export { default } from "./ModelClient";

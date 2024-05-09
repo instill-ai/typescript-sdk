@@ -30,7 +30,7 @@ class AuthClient {
   private axiosInstance: AxiosInstance;
 
   constructor(baseUrl: string, appVersion: string, apiToken: string) {
-    let URL: Nullable<string> = `${baseUrl}/core/${appVersion}`;
+    const URL: Nullable<string> = `${baseUrl}/core/${appVersion}`;
 
     this.axiosInstance = axios.create({
       baseURL: URL,
@@ -84,7 +84,11 @@ class AuthClient {
    * MGMT Mutation
    * -----------------------------------------------------------------------*/
 
-  async updateAuthenticatedUserMutation({ payload }: { payload: Partial<User> }) {
+  async updateAuthenticatedUserMutation({
+    payload,
+  }: {
+    payload: Partial<User>;
+  }) {
     return updateAuthenticatedUserMutation({
       axiosInstance: this.axiosInstance,
       payload: payload,

@@ -1,2 +1,2 @@
 export * from "./types";
-export * from "./PipelineClient";
+export { default } from "./PipelineClient";

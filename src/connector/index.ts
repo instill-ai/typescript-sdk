@@ -1,3 +1,2 @@
 export * from "./types";
-export * from "./ConnectorClient";
-
+export { default } from "./ConnectorClient";

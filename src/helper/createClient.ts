@@ -25,13 +25,13 @@ export function createClient(
     }
   }
 
-  if (!process.env.API_GATEWAY_URL && !env("API_GATEWAY_URL")) {
+  if (!env("API_GATEWAY_URL")) {
     throw new Error("API_GATEWAY_URL or API_GATEWAY_URL is not defined");
   }
 
-  let baseURL: Nullable<string> = `${
-    process.env.API_GATEWAY_URL ?? env("API_GATEWAY_URL")
-  }/${product}/${env("API_VERSION")}`;
+  const baseURL: Nullable<string> = `${env("API_GATEWAY_URL")}/${product}/${env(
+    "API_VERSION"
+  )}`;
 
   return axios.create({
     baseURL,
