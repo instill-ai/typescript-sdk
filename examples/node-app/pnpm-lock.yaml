@@ -9,8 +9,8 @@ dependencies:
     specifier: ^4.19.2
     version: 4.19.2
   instill-sdk:
-    specifier: 0.0.5
-    version: 0.0.5
+    specifier: 0.0.6
+    version: 0.0.6
 
 packages:
 
@@ -283,8 +283,8 @@ packages:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
     dev: false
 
-  /instill-sdk@0.0.5:
-    resolution: {integrity: sha512-b+2yGUb19Iv0Yl8OcR0b4ldIlca7xqXKEGzyT1o/Tk0c1z9fclfQDJZoLyv1zU8CL+Ith2uTJMW7ip/KrFLpYg==}
+  /instill-sdk@0.0.6:
+    resolution: {integrity: sha512-GBl0yR3iBp3DH5WBeHmBv8YqHieEWzz0qqjE07k8LsNFCe1n4AbkkBI7nUg0/WtTDUT+mZIYNWD1n4Oi2C4NJw==}
     dependencies:
       '@types/json-schema': 7.0.13
       axios: 1.6.8
