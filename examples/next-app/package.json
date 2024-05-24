@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "instill-sdk": "0.0.6",
+    "instill-sdk": "0.0.7",
     "next": "^14.2.3",
     "react": "latest",
     "react-dom": "latest"

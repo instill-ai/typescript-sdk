@@ -12,7 +12,7 @@ export default function TypescriptSdkDemo() {
   );
 
   useEffect(() => {
-    client.Auth.getUserQuery()
+    client.Auth.getUserQuery({ userName: "users/admin" })
       .then((data: any) => {
         console.log("data", data);
         setUser(data);

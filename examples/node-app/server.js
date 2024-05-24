@@ -13,7 +13,7 @@ const client = new InstillClient(
 // Define a route for listing pipelines using the SDK
 app.get("/", async (req, res) => {
   try {
-    const data = await client.Auth.getUserQuery();
+    const data = await client.Auth.getUserQuery({ userName: "users/admin" });
     res.json(data);
   } catch (error) {
     console.error("Error:", error);
