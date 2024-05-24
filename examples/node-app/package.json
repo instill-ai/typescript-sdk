@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "instill-sdk": "0.0.6",
+    "instill-sdk": "0.0.7",
     "express": "^4.19.2"
   },
   "scripts": {

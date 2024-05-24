@@ -114,7 +114,7 @@ export default function TypescriptSdkDemo() {
   );
 
   useEffect(() => {
-    client.Auth.getUserQuery()
+    client.Auth.getUserQuery({ userName: "users/admin" })
       .then((data: any) => {
         console.log("data", data);
         setUser(data);
@@ -229,27 +229,27 @@ client.PipelineClient.createUserPipelineMutation("<userName>",
 
 ```
 
-| function                              |                     params                          |
-| :------------------------------------ | :---------------------------------------------:     |
-| listPipelinesQuery                    |     pageSize, nextPageToken, enablePagination       |
+| function                              |                       params                        |
+| :------------------------------------ | :-------------------------------------------------: |
+| listPipelinesQuery                    |      pageSize, nextPageToken, enablePagination      |
 | listUserPipelinesQuery                | pageSize, nextPageToken, userName, enablePagination |
-| getUserPipelineQuery                  |                  pipelineName                       |
-| ListUserPipelineReleasesQuery         |  userName, pipelineName, pageSize, nextPageToken    |
-| getUserPipelineReleaseQuery           |               pipelineReleaseName                   |
-| watchUserPipelineReleaseQuery         |               pipelineReleaseName                   |
-| createUserPipelineMutation            |                userName, payload                    |
-| updateUserPipelineMutation            |                     payload                         |
-| deleteUserPipelineMutation            |                  pipelineName                       |
-| renameUserPipelineMutation            |                     payload                         |
-| createUserPipelineReleaseMutation     |              pipelineName, payload                  |
-| updateUserPipelineReleaseMutation     |          pipelineReleaseName, payload               |
-| deleteUserPipelineReleaseMutation     |               pipelineReleaseName                   |
+| getUserPipelineQuery                  |                    pipelineName                     |
+| ListUserPipelineReleasesQuery         |   userName, pipelineName, pageSize, nextPageToken   |
+| getUserPipelineReleaseQuery           |                 pipelineReleaseName                 |
+| watchUserPipelineReleaseQuery         |                 pipelineReleaseName                 |
+| createUserPipelineMutation            |                  userName, payload                  |
+| updateUserPipelineMutation            |                       payload                       |
+| deleteUserPipelineMutation            |                    pipelineName                     |
+| renameUserPipelineMutation            |                       payload                       |
+| createUserPipelineReleaseMutation     |                pipelineName, payload                |
+| updateUserPipelineReleaseMutation     |            pipelineReleaseName, payload             |
+| deleteUserPipelineReleaseMutation     |                 pipelineReleaseName                 |
 | triggerUserPipelineAction             |   pipelineName, payload, returnTraces, shareCode    |
-| triggerAsyncUserPipelineAction        |       pipelineName, payload, returnTraces           |
-| setDefaultUserPipelineReleaseMutation |               pipelineReleaseName                   |
-| restoreUserPipelineReleaseMutation    |               pipelineReleaseName                   |
-| triggerUserPipelineReleaseAction      |   pipelineReleaseName, payload, returnTraces        |
-| triggerAsyncUserPipelineReleaseAction |   pipelineReleaseName, payload, returnTraces        |
+| triggerAsyncUserPipelineAction        |         pipelineName, payload, returnTraces         |
+| setDefaultUserPipelineReleaseMutation |                 pipelineReleaseName                 |
+| restoreUserPipelineReleaseMutation    |                 pipelineReleaseName                 |
+| triggerUserPipelineReleaseAction      |     pipelineReleaseName, payload, returnTraces      |
+| triggerAsyncUserPipelineReleaseAction |     pipelineReleaseName, payload, returnTraces      |
 
 ### Connector
 
@@ -275,21 +275,21 @@ query.ConnectorClient.createUserConnectorMutation("<userName>",
 })
 ```
 
-| function                                  |                  params                   |
-| :---------------------------------------- | :---------------------------------------: |
-| listConnectorsQuery                       |      pageSize, nextPageToken, filter      |
-| listUserConnectorsQuery                   | userName, pageSize, nextPageToken, filter |
-| listConnectorDefinitionsQuery             |          connectorDefinitionName          |
-| getConnectorDefinitionQuery               |          connectorDefinitionName          |
-| getUserConnectorQuery                     |               connectorName               |
-| watchUserConnector                        |               connectorName               |
-| createUserConnectorMutation               |             entityName, payload           |
-| deleteUserConnectorMutation               |                  connectorName            |
-| updateUserConnectorMutation               |                  payload                  |
-| renameUserConnector                       |                  payload                  |
-| testUserConnectorConnectionAction         |                connectorName              |
-| connectUserConnectorAction                |                connectorName              |
-| disconnectUserConnectorAction             |                connectorName              |
+| function                          |                  params                   |
+| :-------------------------------- | :---------------------------------------: |
+| listConnectorsQuery               |      pageSize, nextPageToken, filter      |
+| listUserConnectorsQuery           | userName, pageSize, nextPageToken, filter |
+| listConnectorDefinitionsQuery     |          connectorDefinitionName          |
+| getConnectorDefinitionQuery       |          connectorDefinitionName          |
+| getUserConnectorQuery             |               connectorName               |
+| watchUserConnector                |               connectorName               |
+| createUserConnectorMutation       |            entityName, payload            |
+| deleteUserConnectorMutation       |               connectorName               |
+| updateUserConnectorMutation       |                  payload                  |
+| renameUserConnector               |                  payload                  |
+| testUserConnectorConnectionAction |               connectorName               |
+| connectUserConnectorAction        |               connectorName               |
+| disconnectUserConnectorAction     |               connectorName               |
 
 ### Metric
 
@@ -323,23 +323,21 @@ query.ConnectorClient.createUserConnectorMutation("<userName>",
 | getOperationQuery         | operationName |
 | checkUntilOperationIsDoen | operationName |
 
-
 ### Oraganization
 
-| function                              |          params                 |
-| :---------------------------------    | :-----------------------------: |
-| getOrganizationMembershipQuery        |   organizationID, userID        |
-| getOrganizationQuery                  |     organizationID              |
-| getUserMembershipQuery                |    organizationID, userID       |
-| getUserMembershipsQuery               |           userID                |
-| listOrganizationsQuery                | pageSize, nextPageToken, filter |
-| createOrganizationMutation            |           payload               |
-| deleteOrganizationMutation            |     organizationName            |
-| deleteUserMembershipMutation          |     organizationID, userID       |
-| updateOrganizationMembershipMutation  |           payload               |
-| updateOrganizationMutation            |           payload               |
-| updateUserMembershipMutation          |           payload               |
-
+| function                             |             params              |
+| :----------------------------------- | :-----------------------------: |
+| getOrganizationMembershipQuery       |     organizationID, userID      |
+| getOrganizationQuery                 |         organizationID          |
+| getUserMembershipQuery               |     organizationID, userID      |
+| getUserMembershipsQuery              |             userID              |
+| listOrganizationsQuery               | pageSize, nextPageToken, filter |
+| createOrganizationMutation           |             payload             |
+| deleteOrganizationMutation           |        organizationName         |
+| deleteUserMembershipMutation         |     organizationID, userID      |
+| updateOrganizationMembershipMutation |             payload             |
+| updateOrganizationMutation           |             payload             |
+| updateUserMembershipMutation         |             payload             |
 
 ### Mgmt
 
@@ -360,16 +358,16 @@ client.AuthClient.createApiTokenMutation({
 ```
 
 | function                        |         params          |
-| :---------------------          | :---------------------: |
+| :------------------------------ | :---------------------: |
 | getUserQuery                    |        userName         |
-| getAuthenticatedUserQuery       |                         |  
+| getAuthenticatedUserQuery       |                         |
 | checkUserIdExist                |           id            |
 | getApiTokenQuery                |        tokenName        |
 | listApiTokensQuery              | pageSize, nextPageToken |
 | updateAuthenticatedUserMutation |         payload         |
 | createApiTokenMutation          |         payload         |
 | deleteApiTokenMutation          |        tokenName        |
-| checkNamespace                  |            id           |
+| checkNamespace                  |           id            |
 
 ## Contribution Guidelines:
 
