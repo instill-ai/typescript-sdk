@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.0.8](https://github.com/instill-ai/typescript-sdk/compare/instill-sdk-v0.0.7...instill-sdk-v0.0.8) (2024-05-24)
+
+
+### Miscellaneous
+
+* update example ([#84](https://github.com/instill-ai/typescript-sdk/issues/84)) ([564b030](https://github.com/instill-ai/typescript-sdk/commit/564b030cf457437082981edd1fcee5d311ecac84))
+* update example ([#85](https://github.com/instill-ai/typescript-sdk/issues/85)) ([2485dad](https://github.com/instill-ai/typescript-sdk/commit/2485dad136535c47eaadd3d0ce6c601be1fd7e49))
+
 ## [0.0.7](https://github.com/instill-ai/typescript-sdk/compare/instill-sdk-v0.0.6...instill-sdk-v0.0.7) (2024-05-24)
 
 
