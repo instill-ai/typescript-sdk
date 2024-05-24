@@ -29,7 +29,7 @@ class ConnectorClient {
   private axiosInstance: AxiosInstance;
 
   constructor(baseUrl: string, appVersion: string, apiToken: string) {
-    const URL: Nullable<string> = `${baseUrl}/vdp/${appVersion}`;
+    const URL: Nullable<string> = `${baseUrl}/${appVersion}`;
 
     this.axiosInstance = axios.create({
       baseURL: URL,
