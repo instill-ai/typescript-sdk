@@ -2,23 +2,17 @@
 
 Typescript SDK for Instill AI products
 
-[![Unix Build Status](https://img.shields.io/github/actions/workflow/status/instill-ai/typescript-sdk/test.yml?branch=main&label=linux)](https://github.com/instill-ai/typescript-sdk/actions)
-[![NPM License](https://img.shields.io/npm/l/instill-sdk.svg)](https://www.npmjs.com/package/instill-sdk)
-[![NPM Version](https://img.shields.io/npm/v/instill-sdk.svg)](https://www.npmjs.com/package/instill-sdk)
-[![NPM Downloads](https://img.shields.io/npm/dm/instill-sdk.svg?color=orange)](https://www.npmjs.com/package/instill-sdk)
+The code now lives in https://github.com/instill-ai/console/tree/main/packages/sdk
 
 > [!IMPORTANT]  
 > **This SDK tool is under heavy development!!**  
 > Currently there has yet to be a stable version release, please feel free to open any issue regarding this SDK in our [community](https://github.com/instill-ai/community/issues) repo
 
-## Setup
+## Requirements
 
-### Requirements
+- Node 18+
 
-- Node 16+
-- npm 7+ | pnpm 6+ | yarn 1+
-
-### installation
+## Installation
 
 ```
 npm i instill-sdk
@@ -32,356 +26,85 @@ yarn add instill-sdk
 pnpm add instill-sdk
 ```
 
-## Usage:
+## Usage
 
-```
-// node.js
-const InstillClient = require("instill-sdk").default;
+### Import
 
-// next.js
-import InstillClient from "instill-sdk";
+```typescript
+import { InstillAPIClient } from "instill-sdk";
 
-```
-
-### config
-
-```
-baseUrl: string
-appVersion: string
-apiToken: string
+const client = new InstillAPIClient({
+  // Note: Model related endpoint is still in v1alpha version
+  baseURL: "https://api.instill.tech/v1beta",
+  apiKey: "<YOUR_API_KEY>"
+})
 ```
 
-## Example app templetes
+### Useful helper for you to reuse the client instance
 
-### local
+```typescript
+import { InstillAPIClient } from "instill-sdk";
 
-```
-import { useEffect, useState } from "react";
-import InstillClient, {
-  Nullable,
-  User,
-} from "instill-sdk";
+let instillAPIClient: InstillAPIClient | null = null;
 
-export default function TypescriptSdkDemo() {
-  const [user, setUser] = useState<User[]>([]);
+export function getInstillAPIClient() {
+  if (!instillAPIClient) {
+    const baseURL = `${
+      process.env.NEXT_SERVER_API_GATEWAY_URL ??
+      env("NEXT_PUBLIC_API_GATEWAY_URL")
+    }/${env("NEXT_PUBLIC_GENERAL_API_VERSION")}`;
 
-  const client = new InstillClient(
-    "http://localhost:8080",
-    "v1beta",
-    "<your_api_token>" // get console API token from `http://localhost:3000/settings`
-  );
+    instillAPIClient = new InstillAPIClient({
+      // Note: Model related endpoint is still in v1alpha version
+      baseURL: "https://api.instill.tech/v1beta", 
+      apiToken: "<YOUR_API_KEY>"
+    });
+  }
 
-  useEffect(() => {
-    client.Auth.getUserQuery(({ userName: "users/admin" }))
-      .then((data: any) => {
-        console.log("data", data);
-        setUser(data);
-      })
-      .catch((error: any) => {
-        console.log("error", error);
-      });
-  }, []);
-
-  return (
-    <>
-      <h1>User Data</h1>
-      <pre style={{ backgroundColor: "white" }}>
-        {JSON.stringify(user, null, 4)}
-      </pre>
-    </>
-  );
+  return instillAPIClient;
 }
 ```
 
-### With Token
+### Example: Get all accessible pipelines
 
-```
-import { useEffect, useState } from "react";
-import InstillClient, {
-  Nullable,
-  Pipeline,
-  User,
-} from "instill-sdk";
+```typescript
 
-export default function TypescriptSdkDemo() {
-  const [pipelines, setPipelines] = useState<Pipeline[]>([]);
-  const [user, setUser] = useState<User[]>([]);
+export async function getAccessiblePipelines(){
+  try {
+    const pipelines = await client.vdp.pipeline.listAccessiblePipelines({
 
-  const client = new InstillClient(
-    "https://api.instill.tech",
-    "v1beta",
-    "<your_api_token>" // console API token
-  );
+      // This means you don't want to get the paginated response, instead,
+      // you will get all the pipelines in one go
+      enablePagination: false,
 
-  useEffect(() => {
-    client.Auth.getUserQuery({ userName: "users/admin" })
-      .then((data: any) => {
-        console.log("data", data);
-        setUser(data);
-      })
-      .catch((error: any) => {
-        console.log("error", error);
-      });
+      // This means you want to have the full pipeline data object
+      view: "VIEW_FULL",
+    });
 
-    client.Pipeline.listPipelinesQuery({
-      pageSize: null,
-      nextPageToken: null,
-    })
-      .then((data: any) => {
-        console.log("data", data);
-        setPipelines(data);
-      })
-      .catch((error: any) => {
-        console.log("error", error);
-      });
-  }, []);
-
-  return (
-    <>
-      <h1>User Data</h1>
-      <pre style={{ backgroundColor: "white" }}>
-        {JSON.stringify(user, null, 4)}
-      </pre>
-
-      <h1>Pipelines List</h1>
-      <pre style={{ backgroundColor: "white" }}>
-        {JSON.stringify(pipelines, null, 4)}
-      </pre>
-    </>
-  );
+    return Promise.resolve(pipelines)
+  } catch(error){
+    return Promise.reject(error)
+  }
 }
 ```
 
-### Next APP
+### Example: Get all models under your namespace
 
-- [next-app](./examples/next-app/)
+Let's say your namespace is `users/instill-ai`
 
-### Node APP
+```typescript
 
-- [node-app](./examples/node-app/)
+export async function getNamespaceModels(){
+  try {
+    const models = await client.model.listNamespaceModels({
+      namespaceName: "users/instill-ai",
+      enablePagination: false,
+      view: "VIEW_FULL"
+    });
 
-## API Reference
-
-### Pipelines
-
-### create Pipeline
-
-```
-
-userName : check your userName: https://console.instill.tech/settings
-
-client.PipelineClient.createUserPipelineMutation("<userName>",
-  {
-    "id": "overseas-blue-lobster",
-    "recipe": {
-      "version": "v1beta",
-      "components": [
-        {
-          "id": "start",
-          "resource_name": "",
-          "configuration": {
-            "metadata": {
-              "text": {
-                "instillFormat": "string",
-                "type": "string",
-                "title": "text"
-              }
-            }
-          },
-          "definition_name": "operator-definitions/op-start"
-        },
-        {
-          "id": "end",
-          "resource_name": "",
-          "configuration": {
-            "metadata": {
-              "output": {
-                "title": "output"
-              }
-            },
-            "input": {
-              "output": "{ai_1.output.texts}"
-            }
-          },
-          "definition_name": "operator-definitions/op-end"
-        },
-        {
-          "id": "ai_1",
-          "resource_name": "users/namananand-instill-ai/connector-resources/ai2",
-          "configuration": {
-            "task": "TASK_TEXT_GENERATION",
-            "input": {
-              "prompt": "{start.text}",
-              "model": "gpt-3.5-turbo"
-            }
-          },
-          "definition_name": "connector-definitions/ai-openai"
-        }
-      ]
-    }
+    return Promise.resolve(models)
+  } catch(error){
+    return Promise.reject(error)
   }
-).then((response) => {
-  console.log(response.data)
-})
-.catch(error => {
-  console.log(error)
-})
-
+}
 ```
-
-| function                              |                       params                        |
-| :------------------------------------ | :-------------------------------------------------: |
-| listPipelinesQuery                    |      pageSize, nextPageToken, enablePagination      |
-| listUserPipelinesQuery                | pageSize, nextPageToken, userName, enablePagination |
-| getUserPipelineQuery                  |                    pipelineName                     |
-| ListUserPipelineReleasesQuery         |   userName, pipelineName, pageSize, nextPageToken   |
-| getUserPipelineReleaseQuery           |                 pipelineReleaseName                 |
-| watchUserPipelineReleaseQuery         |                 pipelineReleaseName                 |
-| createUserPipelineMutation            |                  userName, payload                  |
-| updateUserPipelineMutation            |                       payload                       |
-| deleteUserPipelineMutation            |                    pipelineName                     |
-| renameUserPipelineMutation            |                       payload                       |
-| createUserPipelineReleaseMutation     |                pipelineName, payload                |
-| updateUserPipelineReleaseMutation     |            pipelineReleaseName, payload             |
-| deleteUserPipelineReleaseMutation     |                 pipelineReleaseName                 |
-| triggerUserPipelineAction             |   pipelineName, payload, returnTraces, shareCode    |
-| triggerAsyncUserPipelineAction        |         pipelineName, payload, returnTraces         |
-| setDefaultUserPipelineReleaseMutation |                 pipelineReleaseName                 |
-| restoreUserPipelineReleaseMutation    |                 pipelineReleaseName                 |
-| triggerUserPipelineReleaseAction      |     pipelineReleaseName, payload, returnTraces      |
-| triggerAsyncUserPipelineReleaseAction |     pipelineReleaseName, payload, returnTraces      |
-
-### Connector
-
-### Create new connector
-
-```
-userName : check your userName: https://console.instill.tech/settings
-
-query.ConnectorClient.createUserConnectorMutation("<userName>",
-  {
-    "id": "open-ai-model-1",
-    "connector_definition_name": "connector-definitions/ai-openai",
-    "configuration": {
-      "organization": "my-org",
-      "api_key": "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"
-    }
-  }
-).then((response) => {
-  console.log(response.data)
-})
-.catch(error => {
-  console.log(error)
-})
-```
-
-| function                          |                  params                   |
-| :-------------------------------- | :---------------------------------------: |
-| listConnectorsQuery               |      pageSize, nextPageToken, filter      |
-| listUserConnectorsQuery           | userName, pageSize, nextPageToken, filter |
-| listConnectorDefinitionsQuery     |          connectorDefinitionName          |
-| getConnectorDefinitionQuery       |          connectorDefinitionName          |
-| getUserConnectorQuery             |               connectorName               |
-| watchUserConnector                |               connectorName               |
-| createUserConnectorMutation       |            entityName, payload            |
-| deleteUserConnectorMutation       |               connectorName               |
-| updateUserConnectorMutation       |                  payload                  |
-| renameUserConnector               |                  payload                  |
-| testUserConnectorConnectionAction |               connectorName               |
-| connectUserConnectorAction        |               connectorName               |
-| disconnectUserConnectorAction     |               connectorName               |
-
-### Metric
-
-| function                        |             params              |
-| :------------------------------ | :-----------------------------: |
-| listPipelineTriggerRecordsQuery | pageSize, nextPageToken, filter |
-| listTriggeredPipelineQuery      | pageSize, nextPageToken, filter |
-| listTriggeredPipelineChartQuery | pageSize, nextPageToken, filter |
-
-### Model
-
-| function                  |              params               |
-| :------------------------ | :-------------------------------: |
-| getModelDefinitionQuery   |        modelDefinitionName        |
-| listModelDefinitionsQuery |      pageSize, nextPageToken      |
-| getUserModelQuery         |             modelName             |
-| listModelsQuery           |      pageSize, nextPageToken      |
-| listUserModelsQuery       | userName, pageSize, nextPageToken |
-| getUserModelReadmeQuery   |             modelName             |
-| watchUserModel            |             modelName             |
-| createUserModelMutation   |         userName, payload         |
-| updateModelMutation       |              payload              |
-| deleteUserModelMutation   |             modelName             |
-| deployUserModelAction     |             modelName             |
-| undeployUserModeleAction  |             modelName             |
-
-### Operation
-
-| function                  |    params     |
-| :------------------------ | :-----------: |
-| getOperationQuery         | operationName |
-| checkUntilOperationIsDoen | operationName |
-
-### Oraganization
-
-| function                             |             params              |
-| :----------------------------------- | :-----------------------------: |
-| getOrganizationMembershipQuery       |     organizationID, userID      |
-| getOrganizationQuery                 |         organizationID          |
-| getUserMembershipQuery               |     organizationID, userID      |
-| getUserMembershipsQuery              |             userID              |
-| listOrganizationsQuery               | pageSize, nextPageToken, filter |
-| createOrganizationMutation           |             payload             |
-| deleteOrganizationMutation           |        organizationName         |
-| deleteUserMembershipMutation         |     organizationID, userID      |
-| updateOrganizationMembershipMutation |             payload             |
-| updateOrganizationMutation           |             payload             |
-| updateUserMembershipMutation         |             payload             |
-
-### Mgmt
-
-### create API token
-
-```
-
-client.AuthClient.createApiTokenMutation({
-  "id": "aa",
-  "ttl": -1
-}).then((response) => {
-  console.log(response.data)
-})
-.catch(error => {
-  console.log(error)
-})
-
-```
-
-| function                        |         params          |
-| :------------------------------ | :---------------------: |
-| getUserQuery                    |        userName         |
-| getAuthenticatedUserQuery       |                         |
-| checkUserIdExist                |           id            |
-| getApiTokenQuery                |        tokenName        |
-| listApiTokensQuery              | pageSize, nextPageToken |
-| updateAuthenticatedUserMutation |         payload         |
-| createApiTokenMutation          |         payload         |
-| deleteApiTokenMutation          |        tokenName        |
-| checkNamespace                  |           id            |
-
-## Contribution Guidelines:
-
-Please refer to the [Contributing Guidelines](./.github/CONTRIBUTING.md) for more details.
-
-## Release Notes:
-
-[Release](./CHANGELOG.md)
-
-## Genrate proto-ts
-
-- run `./generate_proto.sh`
-- it will genrate protobuf into `dist/protogen-ts`
-
-## Support:
-
-Contact details for help and support resources. This list isn't exhaustive but covers major aspects usually included in most SDK design documents.
